@@ -45,41 +45,16 @@
       main{max-width:1060px;margin:0 auto;padding:0 20px 96px}
       @media (min-width:1200px){
         main{max-width:1400px;padding:0 32px 110px}
-        .spikes{grid-template-columns:repeat(6,1fr)}
         .buffs{grid-template-columns:repeat(4,1fr)}
       }
       a{color:var(--accent-ink)}
       button,[role="button"],select,summary{min-height:2.25rem}
 
-      /* ---------- header ---------- */
-      header.top{padding:32px 0 8px}
-      h1{font-size:clamp(26px,4.4vw,36px);line-height:1.3;margin:0 0 10px;font-weight:900}
-      .lead{margin:0;color:var(--ink2);font-size:15.5px;max-width:44em}
-      .memo{background:var(--surface);border:2px solid var(--line);border-radius:var(--radius);padding:18px 22px;margin:22px 0 0}
-      .memo h2{font-size:15px;margin:0 0 8px}
-      .memo ul{margin:0;padding-left:1.25em}
-      .memo li{margin:4px 0}
-      .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink2);margin:20px 2px 0}
-      .legend span{display:inline-flex;gap:6px;align-items:center}
-      .meta-line{font-size:12.5px;color:var(--ink2);margin:8px 2px 0}
-
-      /* ---------- sticky nav ---------- */
-      nav.toc{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);
-        backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-        margin:30px -20px 0;padding:10px 20px;border-bottom:2px solid var(--line)}
-      @media (min-width:1200px){nav.toc{margin:30px -32px 0;padding:10px 32px}}
-      nav.toc ul{display:flex;gap:10px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
-      nav.toc a{display:inline-flex;align-items:center;min-height:38px;padding:4px 16px;border:2px solid var(--edge);
-        border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;font-size:13.5px;font-weight:900}
-      nav.toc a:active{background:var(--accent-soft)}
-
-      /* ---------- sections & two-layer headings ---------- */
-      section{margin-top:88px;scroll-margin-top:76px}
-      .sec-head{margin-bottom:28px}
-      h2{font-size:clamp(23px,3.8vw,30px);font-weight:900;margin:0;line-height:1.3}
-      .sec-lede{color:var(--ink2);margin:12px 0 0;max-width:40em;font-size:15.5px}
-      .sec-lede strong{color:var(--ink)}
-      h3{font-size:17px;font-weight:900;margin:34px 0 14px}
+      /* ---------- header (compact: tool, not LP) ---------- */
+      header.top{padding:20px 0 2px;display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+      h1{font-size:clamp(24px,3.4vw,30px);line-height:1.25;margin:0;font-weight:900}
+      .lead{margin:0;color:var(--ink2);font-size:14px}
+      .meta-line{font-size:12px;color:var(--ink2);margin:0 2px 0 auto}
 
       /* ---------- badges ---------- */
       .badge{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.04em;padding:1px 8px;border-radius:999px;vertical-align:1px;white-space:nowrap}
@@ -90,13 +65,141 @@
       /* ---------- cards (shared) ---------- */
       .card{background:var(--surface);border:2.5px solid var(--edge);border-radius:var(--radius);box-shadow:var(--hard)}
 
+      /* ---------- dashboard (first view) ---------- */
+      #dash{margin-top:14px}
+      .dash-top{display:grid;grid-template-columns:minmax(400px,5fr) 7fr;gap:16px;align-items:stretch}
+      @media (max-width:1020px){.dash-top{grid-template-columns:1fr}}
+      .timerbox{padding:18px 22px}
+      .timer-label{font-size:11.5px;font-weight:900;letter-spacing:.16em;color:var(--ink2)}
+      .timer-time{font-family:"Barlow Condensed",sans-serif;font-size:84px;font-weight:700;line-height:.95;color:var(--accent-ink);margin:2px 0 4px}
+      .tbtns{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+      .tbtns button{border:2px solid var(--edge);background:var(--surface);color:var(--ink);border-radius:12px;
+        padding:5px 14px;font:inherit;font-size:13px;font-weight:900;cursor:pointer;min-height:38px}
+      .tbtns button.primary{background:var(--accent);border-color:var(--edge);color:#fff;font-size:16px;padding:5px 26px}
+      .tbtns button[aria-pressed="false"]{opacity:.55}
+      .tbtns select{font:inherit;font-size:13px;font-weight:700;border:2px solid var(--edge);border-radius:12px;background:var(--surface);color:var(--ink);padding:5px 8px;min-height:38px}
+      .tbtns .adjlab{font-size:12.5px;font-weight:700;color:var(--ink2)}
+      .tbtns button.adj{padding:5px 9px;font-family:"Barlow Condensed",sans-serif;font-size:15px}
+      .tbtns input[type="text"]{font-family:"Barlow Condensed",sans-serif;font-size:16px;font-weight:600;width:80px;text-align:center;
+        border:2px solid var(--edge);border-radius:12px;background:var(--surface);color:var(--ink);padding:5px 8px;min-height:38px}
+      .tbtns .speedlab{font-size:12.5px;font-weight:700;color:var(--ink2);display:inline-flex;gap:6px;align-items:center}
+      .ltlog{list-style:none;margin:12px 0 0;padding:10px 0 0;border-top:2px dashed var(--line);font-size:12.5px;color:var(--ink2)}
+      .ltlog li{margin:2px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .ltlog .num{color:var(--accent-ink);font-size:13.5px}
+      .ltlog:empty{display:none}
+
+      .nextbox{padding:18px 26px;display:flex;flex-direction:column;justify-content:center;border-color:var(--key)}
+      .nx-label{font-size:12px;font-weight:900;letter-spacing:.16em;color:var(--key)}
+      .nx-row{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap}
+      .nx-count{font-family:"Barlow Condensed",sans-serif;font-size:92px;font-weight:700;line-height:.95;color:var(--key)}
+      .nx-count small{font-size:26px;font-weight:600;color:var(--ink2);letter-spacing:.04em}
+      .nx-what{min-width:220px;flex:1}
+      .nx-name{font-size:clamp(24px,3vw,34px);font-weight:900;line-height:1.3}
+      .nx-name .num{color:var(--accent-ink);font-size:1.15em;margin-right:10px}
+      .nx-note{margin:4px 0 0;color:var(--ink2);font-size:14.5px;font-weight:700}
+      .track{position:relative;height:12px;background:var(--surface2);border:2px solid var(--line);border-radius:99px;margin:16px 2px 6px}
+      .track-fill{position:absolute;left:0;top:0;bottom:0;width:0%;background:var(--accent);border-radius:99px}
+      .track .dot{position:absolute;top:50%;width:7px;height:7px;border-radius:50%;background:var(--ink2);transform:translate(-50%,-50%)}
+      .track .dot.key{background:var(--key);width:9px;height:9px}
+      .track .dot.done{background:var(--accent-ink)}
+      .ticks{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink2);font-family:"Barlow Condensed",sans-serif}
+
+      /* ---------- integrated timeline ---------- */
+      .tl-head{display:flex;align-items:baseline;gap:14px;margin:20px 2px 10px}
+      .tl-head h2{font-size:19px;margin:0}
+      .tl-head p{margin:0;font-size:12.5px;color:var(--ink2)}
+      .tlgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(208px,1fr));gap:12px}
+      .tlb{background:var(--surface);border:2.5px solid var(--line);border-radius:14px;padding:12px 16px 10px;position:relative}
+      .tlb-t{font-family:"Barlow Condensed",sans-serif;font-size:31px;font-weight:700;line-height:1;color:var(--accent-ink)}
+      .tlb-t small{font-size:17px;color:var(--ink2)}
+      .tlb-n{font-weight:900;font-size:16.5px;line-height:1.4;margin-top:5px}
+      .tlb-s{font-size:12.5px;color:var(--ink2);line-height:1.5;margin-top:2px;font-weight:700}
+      .tlb-state{font-size:11.5px;font-weight:900;min-height:1.5em;margin-top:4px;color:var(--ink2)}
+      .tlb.done{opacity:.45}
+      .tlb.done .tlb-state::before{content:"済"}
+      .tlb.next{border-color:var(--key);background:var(--key-soft);box-shadow:var(--hard);opacity:1}
+      .tlb.next .tlb-t{color:var(--key)}
+      .tlb.next .tlb-state{color:var(--key)}
+      .tlb.next .tlb-state::before{content:"▶ 次はこれ"}
+      .tlb.keymark .tlb-n::after{content:"重要";font-size:10.5px;font-weight:900;color:var(--key);background:var(--surface);
+        border:1.5px solid var(--key);border-radius:999px;padding:0 7px;margin-left:8px;vertical-align:2px;white-space:nowrap}
+
+      /* ---------- soul band ---------- */
+      .soulband{margin-top:14px;padding:12px 20px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+      .soulband .sb-label{font-size:12px;font-weight:900;letter-spacing:.1em;color:var(--ink2);margin-right:8px;white-space:nowrap}
+      .sb{flex:1;min-width:104px;text-align:center;padding:4px 6px;border-radius:10px}
+      .sb .v{font-family:"Barlow Condensed",sans-serif;font-size:29px;font-weight:700;line-height:1;color:var(--accent-ink)}
+      .sb .l{font-size:11.5px;font-weight:900;line-height:1.4}
+      .sb.ult{background:var(--key-soft)}
+      .sb.ult .v{color:var(--key)}
+      .sb.ult .l{color:var(--key)}
+      .dash-note{font-size:12.5px;color:var(--ink2);margin:10px 2px 0}
+
+      /* ---------- desktop compact: dashboard must fit 100vh (1440x900) ---------- */
+      @media (min-width:1021px){
+        header.top{padding:10px 0 0}
+        h1{font-size:26px}
+        .lead{font-size:13px}
+        #dash{margin-top:10px}
+        .dash-top{grid-template-columns:1fr 1fr;gap:12px}
+        .timerbox{padding:10px 16px 12px}
+        .timer-time{font-size:56px;margin:0}
+        .tbtns{gap:6px;margin-top:6px}
+        .tbtns button{min-height:31px;padding:3px 10px;font-size:12.5px;border-radius:10px}
+        .tbtns button.primary{font-size:14px;padding:3px 20px}
+        .tbtns button.adj{padding:3px 7px;font-size:14px}
+        .tbtns select{min-height:31px;padding:3px 6px;font-size:12.5px}
+        .tbtns input[type="text"]{min-height:31px;width:64px;font-size:15px;padding:3px 6px}
+        .ltlog{margin-top:8px;padding-top:6px;max-height:42px;overflow:hidden}
+        .nextbox{padding:10px 20px 12px}
+        .nx-count{font-size:62px}
+        .nx-count small{font-size:19px}
+        .nx-name{font-size:25px}
+        .nx-note{font-size:13px;line-height:1.5}
+        .track{height:10px;margin:10px 2px 4px}
+        .tl-head{margin:12px 2px 8px}
+        .tl-head h2{font-size:16px}
+        .tl-head p{font-size:12px}
+        .tlgrid{gap:8px}
+        .tlb{padding:8px 12px 7px;border-radius:12px}
+        .tlb-t{font-size:23px}
+        .tlb-t small{font-size:14px}
+        .tlb-n{font-size:14px;line-height:1.35;margin-top:3px}
+        .tlb-s{font-size:11px;line-height:1.4;margin-top:1px}
+        .tlb-state{font-size:11px;min-height:1.3em;margin-top:2px}
+        .soulband{margin-top:10px;padding:7px 14px}
+        .sb .v{font-size:22px}
+        .sb .l{font-size:11px}
+        .dash-note{font-size:12px;margin-top:6px}
+      }
+      @media (min-width:1200px){
+        .tlgrid{grid-template-columns:repeat(7,1fr)}
+      }
+
+      /* ---------- sticky nav (below dashboard) ---------- */
+      nav.toc{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);
+        backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+        margin:34px -20px 0;padding:10px 20px;border-bottom:2px solid var(--line)}
+      @media (min-width:1200px){nav.toc{margin:34px -32px 0;padding:10px 32px}}
+      nav.toc ul{display:flex;gap:10px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+      nav.toc a{display:inline-flex;align-items:center;min-height:38px;padding:4px 16px;border:2px solid var(--edge);
+        border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;font-size:13.5px;font-weight:900}
+      nav.toc a:active{background:var(--accent-soft)}
+
+      /* ---------- lower sections ---------- */
+      section.detail{margin-top:80px;scroll-margin-top:76px}
+      .sec-head{margin-bottom:26px}
+      section.detail h2{font-size:clamp(22px,3.6vw,28px);font-weight:900;margin:0;line-height:1.3}
+      .sec-lede{color:var(--ink2);margin:10px 0 0;max-width:44em;font-size:15px}
+      .sec-lede strong{color:var(--ink)}
+      section.detail h3{font-size:17px;font-weight:900;margin:32px 0 14px}
+
       /* ---------- clock simulator ---------- */
-      .clockbox{padding:28px}
+      .clockbox{padding:26px}
       .clock-head{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
       .clock-time{font-family:"Barlow Condensed",sans-serif;font-size:56px;font-weight:700;line-height:1;color:var(--accent-ink)}
       .clock-head p{margin:0;color:var(--ink2);font-size:14.5px;flex:1;min-width:200px;font-weight:700}
       input[type=range]{width:100%;height:40px;accent-color:var(--accent);margin:10px 0 2px}
-      .ticks{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink2);font-family:"Barlow Condensed",sans-serif}
       .clock-now{margin-top:18px;border-top:2px dashed var(--line);padding-top:18px}
       .clock-now h4{margin:0 0 10px;font-size:13px;letter-spacing:.1em;color:var(--ink2)}
       .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -111,47 +214,16 @@
       table{border-collapse:collapse;width:100%;font-size:14.5px}
       th{background:var(--navy);color:#fff;text-align:left;font-size:12.5px;letter-spacing:.06em;padding:12px 16px;white-space:nowrap}
       @media (prefers-color-scheme: dark){th{background:#0a1226}}
-      td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+      td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
       tr:last-child td{border-bottom:none}
-      td.time{font-family:"Barlow Condensed",sans-serif;font-size:24px;font-weight:700;white-space:nowrap;color:var(--accent-ink);line-height:1.2}
-      td.time small{display:block;font-family:"Zen Kaku Gothic New",sans-serif;font-size:11px;font-weight:900;color:var(--key)}
       tr.keyrow td{background:var(--accent-soft)}
-      tr.keyrow td.time{color:var(--key)}
-      .ev{font-weight:900}
-      .rep{white-space:nowrap;font-weight:700}
-      .act{color:var(--ink2);font-size:14px;font-weight:700}
-      .act strong{color:var(--ink)}
-      .src{font-size:11.5px;white-space:nowrap}
       @media (max-width:720px){
         table,thead,tbody,tr,td{display:block}
         thead{display:none}
-        tr{padding:14px 16px;border-bottom:1px solid var(--line)}
+        tr{padding:12px 16px;border-bottom:1px solid var(--line)}
         tr:last-child{border-bottom:none}
         td{border:none;padding:3px 0}
-        td.time{font-size:26px}
-        td.time small{display:inline;margin-left:8px}
-        .rep{white-space:normal}
-        td::before{content:attr(data-l);display:inline-block;font-size:11px;font-weight:900;color:var(--ink2);letter-spacing:.06em;margin-right:8px}
-        td.time::before,td.evcell::before{content:none}
       }
-
-      /* ---------- filter ---------- */
-      .filters{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px}
-      .filters button{border:2px solid var(--edge);background:var(--surface);color:var(--ink);border-radius:999px;
-        padding:6px 18px;font:inherit;font-size:13.5px;font-weight:900;cursor:pointer;min-height:38px}
-      .filters button[aria-pressed="true"]{background:var(--navy);color:#fff}
-      @media (prefers-color-scheme: dark){.filters button[aria-pressed="true"]{background:var(--accent);color:#231303}}
-      tr.hidden-row{display:none}
-
-      /* ---------- spike cards ---------- */
-      .spikes{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;margin:0 0 8px}
-      .spike{background:var(--surface);border:2.5px solid var(--edge);border-radius:var(--radius);padding:22px;box-shadow:var(--hard)}
-      .spike .s{font-family:"Barlow Condensed",sans-serif;font-size:40px;font-weight:700;line-height:1;color:var(--accent-ink)}
-      .spike .t{font-weight:900;margin:8px 0 4px;font-size:16px}
-      .spike p{margin:0;font-size:13.5px;color:var(--ink2)}
-      .spike.hero-card{border-color:var(--key);background:var(--key-soft)}
-      .spike.hero-card .s{color:var(--key)}
-      .spike.hero-card p{color:var(--ink)}
 
       /* ---------- buff cards ---------- */
       .buffs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
@@ -183,71 +255,6 @@
       .kbd{display:inline-block;border:2px solid var(--edge);border-bottom-width:3px;border-radius:6px;background:var(--surface);
         padding:0 7px;font-size:12.5px;font-weight:900;font-family:inherit}
 
-      /* ---------- live timer & overview map ---------- */
-      .livegrid{display:grid;grid-template-columns:410px 1fr;gap:20px;align-items:stretch}
-      @media (max-width:1020px){.livegrid{grid-template-columns:1fr}}
-      .timerbox,.mapbox{padding:28px}
-      .timer-label{font-size:11.5px;font-weight:900;letter-spacing:.16em;color:var(--ink2)}
-      .timer-time{font-family:"Barlow Condensed",sans-serif;font-size:80px;font-weight:700;line-height:1;color:var(--accent-ink);margin:4px 0 6px}
-      .timer-next{margin:0 0 6px;font-size:14.5px;min-height:3.2em}
-      .timer-next strong{color:var(--key)}
-      .timer-next .cd{font-family:"Barlow Condensed",sans-serif;font-size:21px;font-weight:700;color:var(--accent-ink)}
-      .track{position:relative;height:12px;background:var(--surface2);border:2px solid var(--line);border-radius:99px;margin:16px 2px 6px}
-      .track-fill{position:absolute;left:0;top:0;bottom:0;width:0%;background:var(--accent);border-radius:99px}
-      .track .dot{position:absolute;top:50%;width:7px;height:7px;border-radius:50%;background:var(--ink2);transform:translate(-50%,-50%)}
-      .track .dot.key{background:var(--key);width:9px;height:9px}
-      .track .dot.done{background:var(--accent-ink)}
-      .tbtns{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
-      .tbtns button{border:2px solid var(--edge);background:var(--surface);color:var(--ink);border-radius:12px;
-        padding:6px 16px;font:inherit;font-size:13.5px;font-weight:900;cursor:pointer;min-height:40px}
-      .tbtns button.primary{background:var(--accent);border-color:var(--edge);color:#fff;font-size:16px;padding:6px 26px}
-      .tbtns button[aria-pressed="false"]{opacity:.55}
-      .tbtns select{font:inherit;font-size:13.5px;font-weight:700;border:2px solid var(--edge);border-radius:12px;background:var(--surface);color:var(--ink);padding:6px 8px;min-height:40px}
-      .tbtns .adjlab{font-size:13px;font-weight:700;color:var(--ink2)}
-      .tbtns button.adj{padding:6px 10px;font-family:"Barlow Condensed",sans-serif;font-size:15px}
-      .tbtns input[type="text"]{font-family:"Barlow Condensed",sans-serif;font-size:16px;font-weight:600;width:84px;text-align:center;
-        border:2px solid var(--edge);border-radius:12px;background:var(--surface);color:var(--ink);padding:6px 8px;min-height:40px}
-      .tbtns .speedlab{font-size:13px;font-weight:700;color:var(--ink2);display:inline-flex;gap:6px;align-items:center}
-      .ltlog{list-style:none;margin:16px 0 0;padding:12px 0 0;border-top:2px dashed var(--line);font-size:13px;color:var(--ink2)}
-      .ltlog li{margin:3px 0}
-      .ltlog .num{color:var(--accent-ink);font-size:14px}
-      .ltlog:empty{display:none}
-      .mapbox h3{margin:0 0 4px;font-size:17px}
-      .mapaxis{position:relative;height:118px;margin:8px 10px 0}
-      .mapline{position:absolute;left:0;right:0;top:50%;height:4px;background:var(--line);border-radius:2px}
-      .mapnow{position:absolute;top:8px;bottom:8px;width:3px;background:var(--key);transform:translateX(-50%);display:none}
-      .mapnow::before{content:"いま";position:absolute;top:-4px;left:6px;font-size:10.5px;font-weight:900;color:var(--key);white-space:nowrap}
-      .mk{position:absolute;top:50%;transform:translate(-50%,-50%)}
-      .mk-dot{display:block;width:11px;height:11px;border-radius:50%;background:var(--surface);border:3px solid var(--ink2)}
-      .mk.key .mk-dot{border-color:var(--key);width:13px;height:13px}
-      .mk.done .mk-dot{background:var(--accent);border-color:var(--accent)}
-      .mk-lab{position:absolute;left:50%;transform:translateX(-50%);width:96px;text-align:center;font-size:11px;font-weight:700;line-height:1.35;color:var(--ink2)}
-      .mk-lab .num{display:block;font-size:13.5px;color:var(--ink)}
-      .mk.up .mk-lab{bottom:16px}
-      .mk.dn .mk-lab{top:16px}
-      .mk.edge-l .mk-lab{left:0;transform:none;text-align:left}
-      .mk.edge-r .mk-lab{left:auto;right:0;transform:none;text-align:right}
-      .mapticks{position:relative;height:16px;margin:0 10px;font-size:11px;color:var(--ink2);font-family:"Barlow Condensed",sans-serif}
-      .mapticks span{position:absolute;transform:translateX(-50%)}
-      .mapticks span:first-child{transform:none}
-      .mapticks span:last-child{transform:translateX(-100%)}
-      .mapbands{display:flex;gap:6px;margin:14px 2px 0}
-      .mapbands div{border-radius:10px;padding:6px 8px;font-size:12px;font-weight:900;text-align:center;background:var(--surface2);border:2px solid var(--line);white-space:nowrap;overflow:hidden}
-      .mapbands .b1{flex:5}.mapbands .b2{flex:5}.mapbands .b3{flex:10}.mapbands .b4{flex:20}
-      .mapnote{font-size:12.5px;color:var(--ink2);margin:12px 0 0}
-      @media (max-width:900px){
-        .mk-lab{display:none}
-        .mk.key .mk-lab{display:block;width:70px;font-size:10px}
-        .mapaxis{height:86px}
-        .mapbands div{font-size:10.5px;padding:4px 3px}
-      }
-      .phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:18px;margin-top:20px}
-      .phase{background:var(--surface);border:2.5px solid var(--edge);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--hard)}
-      .phase .pt{font-family:"Barlow Condensed",sans-serif;font-size:23px;font-weight:700;color:var(--accent-ink);line-height:1.15}
-      .phase .pn{font-weight:900;margin:3px 0 6px;font-size:16px}
-      .phase p{margin:0;font-size:13.5px;color:var(--ink2)}
-      .phase p strong{color:var(--ink)}
-
       /* ---------- toasts ---------- */
       #toasts{position:fixed;top:14px;right:14px;z-index:80;display:flex;flex-direction:column;gap:10px;max-width:min(370px,calc(100vw - 28px))}
       .toast{background:var(--surface);border:2.5px solid var(--edge);border-left:8px solid var(--accent);border-radius:14px;
@@ -265,49 +272,16 @@
     <main>
       <header class="top">
         <h1>Deadlock 試合タイミング早見表</h1>
-        <p class="lead">キャンプ・バフ・壺の出現時刻と、累計ソウルの節目をまとめた早見表です。</p>
-        <div class="memo">
-          <h2>使い方メモ</h2>
-          <ul>
-            <li>イベントは<strong>出る30秒前</strong>から動き出すと間に合います。</li>
-            <li>ソウルの節目に先に届いたら、その間に仕掛けると有利です。</li>
-            <li>まず覚える時刻は <strong>2:00 / 5:00 / 10:00</strong> の3つです。</li>
-          </ul>
-        </div>
-        <div class="legend">
-          <span><span class="badge b-wiki">Wiki</span> 数値の正本で確認</span>
-          <span><span class="badge b-times">TimesJP</span> 立ち回り解説</span>
-          <span><span class="badge b-key">重要</span> まず覚える行</span>
-        </div>
-        <p class="meta-line">数値は 2026-11-20 に各出典で取得・照合。パッチで時刻が変わることがあります。</p>
+        <p class="lead">タイマーを回せば、見るのはこの1画面だけ。</p>
+        <p class="meta-line">数値は 2026-11-20 に各出典で取得・照合。パッチで変わることがあります。</p>
       </header>
 
-      <nav class="toc" aria-label="目次">
-        <ul>
-          <li><a href="#live">ライブタイマー</a></li>
-          <li><a href="#clock">いま何分？</a></li>
-          <li><a href="#timeline">タイムライン</a></li>
-          <li><a href="#souls">ソウルの節目</a></li>
-          <li><a href="#items">アイテムの節目</a></li>
-          <li><a href="#bridge">ブリッジバフ</a></li>
-          <li><a href="#objectives">オブジェ詳細</a></li>
-          <li><a href="#howto">試合中の見方</a></li>
-        </ul>
-      </nav>
-
-      <!-- ============ live timer & overview ============ -->
-      <section id="live">
-        <div class="sec-head">
-          <h2>ライブタイマーと全体図</h2>
-          <p class="sec-lede">試合開始と同時にスタート。<strong>30秒前と開始の瞬間</strong>に、通知と音で知らせます。</p>
-        </div>
-        <div class="livegrid">
+      <!-- ============ dashboard: timer + next + integrated timeline + soul band ============ -->
+      <section id="dash">
+        <div class="dash-top">
           <div class="timerbox card">
             <div class="timer-label">MATCH TIMER ― 経過時間</div>
             <div class="timer-time"><span id="ltTime">0:00</span></div>
-            <p class="timer-next" id="ltNext">スタートを押すと、経過時間に合わせて通知と音で知らせます。速度は予習・確認用です。</p>
-            <div class="track" id="ltTrack"><div class="track-fill" id="ltFill"></div></div>
-            <div class="ticks"><span>0:00</span><span>5:00</span><span>10:00</span><span>15:00</span><span>20:00</span><span>25:00</span><span>30:00</span><span>35:00</span><span>40:00</span></div>
             <div class="tbtns">
               <button type="button" id="ltToggle" class="primary">スタート</button>
               <button type="button" id="ltReset">リセット</button>
@@ -321,224 +295,118 @@
               </label>
             </div>
             <div class="tbtns" role="group" aria-label="時間調整">
-              <span class="adjlab">時間調整</span>
-              <button type="button" class="adj" data-adj="-30">−30秒</button>
-              <button type="button" class="adj" data-adj="-15">−15秒</button>
-              <button type="button" class="adj" data-adj="-10">−10秒</button>
-              <button type="button" class="adj" data-adj="-5">−5秒</button>
-              <button type="button" class="adj" data-adj="5">＋5秒</button>
-              <button type="button" class="adj" data-adj="10">＋10秒</button>
-              <button type="button" class="adj" data-adj="15">＋15秒</button>
-              <button type="button" class="adj" data-adj="30">＋30秒</button>
-            </div>
-            <div class="tbtns">
-              <label class="adjlab" for="ltJump">時刻指定</label>
+              <span class="adjlab">調整</span>
+              <button type="button" class="adj" data-adj="-30">−30</button>
+              <button type="button" class="adj" data-adj="-15">−15</button>
+              <button type="button" class="adj" data-adj="-10">−10</button>
+              <button type="button" class="adj" data-adj="-5">−5</button>
+              <button type="button" class="adj" data-adj="5">＋5</button>
+              <button type="button" class="adj" data-adj="10">＋10</button>
+              <button type="button" class="adj" data-adj="15">＋15</button>
+              <button type="button" class="adj" data-adj="30">＋30</button>
               <input type="text" id="ltJump" placeholder="12:30" autocomplete="off" inputmode="numeric" aria-label="ジャンプ先の時刻（分:秒）" />
               <button type="button" id="ltJumpBtn">セット</button>
             </div>
             <div class="tbtns">
-              <button type="button" id="ltSound" aria-pressed="true">音：ON</button>
+              <button type="button" id="ltSound" aria-pressed="true">ビープ音：ON</button>
+              <button type="button" id="ltVoice" aria-pressed="true">音声読み上げ：ON</button>
+              <button type="button" id="ltVoiceTest">音声テスト</button>
               <button type="button" id="ltWarn" aria-pressed="true">30秒前警告：ON</button>
               <button type="button" id="ltNotify">ブラウザ通知を許可</button>
             </div>
             <ul class="ltlog" id="ltLog" aria-label="通知ログ"></ul>
           </div>
-          <div class="mapbox card">
-            <h3>全体マップ（0:00〜40:00）</h3>
-            <div class="mapaxis" id="mapAxis"><div class="mapline"></div><div class="mapnow" id="mapNow"></div></div>
-            <div class="mapticks" aria-hidden="true">
-              <span style="left:0%">0:00</span><span style="left:12.5%">5:00</span><span style="left:25%">10:00</span><span style="left:37.5%">15:00</span><span style="left:50%">20:00</span><span style="left:62.5%">25:00</span><span style="left:75%">30:00</span><span style="left:87.5%">35:00</span><span style="left:100%">40:00</span>
+          <div class="nextbox card">
+            <div class="nx-label">NEXT ― 次のイベントまで</div>
+            <div class="nx-row">
+              <div class="nx-count"><small>あと </small><span id="nxCount">2:00</span></div>
+              <div class="nx-what">
+                <div class="nx-name"><span class="num" id="nxAt">2:00</span><span id="nxName">小キャンプ</span></div>
+                <p class="nx-note" id="nxNote">スタートを押すと実時間で進みます。全イベントを30秒前と開始の瞬間に、通知・音・音声で知らせます。</p>
+              </div>
             </div>
-            <div class="mapbands">
-              <div class="b1">0–5 レーン戦</div>
-              <div class="b2">5–10 立ち上がり</div>
-              <div class="b3">10–20 中盤</div>
-              <div class="b4">20–40 終盤</div>
-            </div>
-            <p class="mapnote">赤い丸が重要イベント。壺＋ブリッジバフの5分周期は40分まで続きます。</p>
+            <div class="track" id="ltTrack"><div class="track-fill" id="ltFill"></div></div>
+            <div class="ticks"><span>0:00</span><span>5:00</span><span>10:00</span><span>15:00</span><span>20:00</span><span>25:00</span><span>30:00</span><span>35:00</span><span>40:00</span></div>
           </div>
         </div>
-        <div class="phases">
-          <div class="phase"><div class="pt">0:00 – 2:00</div><div class="pn">レーニング開始</div><p>トルーパーは<strong>30秒ごと</strong>。<strong>800</strong>で最初の節目＆買い物</p></div>
-          <div class="phase"><div class="pt">2:00 – 5:00</div><div class="pn">最初の追加収入</div><p><strong>小キャンプ 2:00</strong>／<strong>箱・黄金像 3:00</strong>。直前のウェーブを押してから</p></div>
-          <div class="phase"><div class="pt">5:00 – 8:00</div><div class="pn">最初の山場</div><p><strong>ブリッジバフ＋中キャンプ 5:00</strong>。6:00に耐性0%＋ジップ加速</p></div>
-          <div class="phase"><div class="pt">8:00 – 12:00</div><div class="pn">オブジェ開放</div><p><strong>大キャンプ＋供物 8:00</strong>／<strong>壺 10:00</strong>／耐性 −50%（12:00）</p></div>
-          <div class="phase"><div class="pt">12:00 – 20:00</div><div class="pn">中盤</div><p>壺＋バフの<strong>5分周期</strong>。ミッドボス復活は 7分→6分→5分</p></div>
-          <div class="phase"><div class="pt">20:00 – 40:00</div><div class="pn">終盤</div><p>トルーパー<strong>25秒</strong>（20:00）→ <strong>20秒＋HP+50%</strong>（35:00）</p></div>
+
+        <div class="tl-head">
+          <h2>統合タイムライン</h2>
+          <p>時間で出るものは全部ここ。過ぎたものは薄く、次は赤く光ります。</p>
         </div>
+        <div class="tlgrid" id="tlGrid">
+          <div class="tlb" data-t="0"><div class="tlb-t">0:00</div><div class="tlb-n">試合開始</div><div class="tlb-s">所持600／ウェーブ30秒ごと</div><div class="tlb-state"></div></div>
+          <div class="tlb" data-t="2"><div class="tlb-t">2:00</div><div class="tlb-n">小キャンプ</div><div class="tlb-s">全滅から 1:25 で復活</div><div class="tlb-state"></div></div>
+          <div class="tlb" data-t="2.5"><div class="tlb-t">2:30</div><div class="tlb-n">Healing Snack</div><div class="tlb-s">取ってから 3:00 で復活</div><div class="tlb-state"></div></div>
+          <div class="tlb" data-t="3"><div class="tlb-t">3:00</div><div class="tlb-n">箱・黄金像</div><div class="tlb-s">壊してから 3:00 で復活</div><div class="tlb-state"></div></div>
+          <div class="tlb keymark" data-t="5"><div class="tlb-t">5:00</div><div class="tlb-n">ブリッジバフ＋中キャンプ</div><div class="tlb-s">バフ5分ごと・中 復活4:50</div><div class="tlb-state"></div></div>
+          <div class="tlb" data-t="6"><div class="tlb-t">6:00</div><div class="tlb-n">ジップライン加速＋耐性0%</div><div class="tlb-s">ガーディアンが柔らかくなる</div><div class="tlb-state"></div></div>
+          <div class="tlb keymark" data-t="8"><div class="tlb-t">8:00</div><div class="tlb-n">罪人の供物＋大キャンプ</div><div class="tlb-s">供物 復活5:00・大 復活5:35</div><div class="tlb-state"></div></div>
+          <div class="tlb keymark" data-t="10"><div class="tlb-t">10:00</div><div class="tlb-n">魂の壺</div><div class="tlb-s">以後 5分ごと（黄⇔緑で交互）</div><div class="tlb-state"></div></div>
+          <div class="tlb" data-t="10"><div class="tlb-t">10–12<small>:00</small></div><div class="tlb-n">不安定な裂け目 初回</div><div class="tlb-s">11:00±1分・以後 約7分ごと</div><div class="tlb-state"></div></div>
+          <div class="tlb" data-t="12"><div class="tlb-t">12:00</div><div class="tlb-n">耐性 −50%</div><div class="tlb-s">序盤終了の目安</div><div class="tlb-state"></div></div>
+          <div class="tlb" data-t="15"><div class="tlb-t">15:00<small>〜</small></div><div class="tlb-n">ウォーカー目安</div><div class="tlb-s">壺＋バフも同時湧き（5分ごと）</div><div class="tlb-state"></div></div>
+          <div class="tlb" data-t="20"><div class="tlb-t">20:00</div><div class="tlb-n">ミッドボス目安＋トルーパー25秒</div><div class="tlb-s">ウェーブ間隔 30秒 → 25秒</div><div class="tlb-state"></div></div>
+          <div class="tlb" data-t="30"><div class="tlb-t">30:00</div><div class="tlb-n">永続バフ 最上区分</div><div class="tlb-s">箱・供物の価値が最大に</div><div class="tlb-state"></div></div>
+          <div class="tlb" data-t="35"><div class="tlb-t">35:00</div><div class="tlb-n">トルーパー 20秒＋HP+50%</div><div class="tlb-s">1回の集団戦が決着級に</div><div class="tlb-state"></div></div>
+        </div>
+
+        <div class="soulband card" aria-label="ソウルの節目">
+          <span class="sb-label">ソウルの節目<br />（累計）</span>
+          <div class="sb"><div class="v">800</div><div class="l">最初の節目</div></div>
+          <div class="sb"><div class="v">1,100</div><div class="l">アビリティ2つ目</div></div>
+          <div class="sb"><div class="v">2,000</div><div class="l">アビリティ3つ目</div></div>
+          <div class="sb"><div class="v">2,600</div><div class="l">Lv2強化が可能</div></div>
+          <div class="sb ult"><div class="v">3,800</div><div class="l">ULT 解禁 ★最大</div></div>
+          <div class="sb"><div class="v">4,800</div><div class="l">系統投資ボーナス</div></div>
+        </div>
+        <p class="dash-note">節目に先に届いたら、その間に仕掛ける。相手の累計ソウルは <span class="kbd">Tab</span> で確認、3,800 超えは「ULTあり前提」。詳細は下のセクション（試合前後の確認用）。</p>
       </section>
 
-      <!-- ============ clock ============ -->
-      <section id="clock">
+      <nav class="toc" aria-label="目次">
+        <ul>
+          <li><a href="#dash">ダッシュボード</a></li>
+          <li><a href="#bridge">ブリッジバフ</a></li>
+          <li><a href="#items">アイテムの節目</a></li>
+          <li><a href="#objectives">オブジェ詳細</a></li>
+          <li><a href="#howto">試合中の見方</a></li>
+          <li><a href="#boons">全Boon表</a></li>
+          <li><a href="#clock">時計シミュレーター</a></li>
+        </ul>
+      </nav>
+
+      <!-- ============ bridge buffs (detail) ============ -->
+      <section class="detail" id="bridge">
         <div class="sec-head">
-          <h2>いま試合は何分？</h2>
-          <p class="sec-lede">スライダーを動かすだけ。解禁済みと次の一手が出ます。</p>
+          <h2>ブリッジバフ 4種</h2>
+          <p class="sec-lede"><strong>5:00から5分ごと</strong>、2つの橋に同時出現。取得は<strong>強近接</strong>、効果<strong>160秒</strong>、<strong>死ぬと消える</strong>。数値は時間とともに伸びる。 <span class="badge b-wiki">Wiki</span></p>
         </div>
-        <div class="clockbox card">
-          <div class="clock-head">
-            <div class="clock-time" id="clockTime">0:00</div>
-            <p id="clockPhase">レーニング開始。まずはウェーブのソウルを確実に取る時間です。</p>
+        <div class="buffs">
+          <div class="buff">
+            <div class="sub">GUN</div><h4>銃バフ</h4>
+            <dl><dt>5分時点</dt><dd>連射 +12% / 弾数 +35%</dd><dt>40分時点</dt><dd>連射 +35% / 弾数 +70%</dd><dt>取得時</dt><dd>その場でリロード</dd></dl>
+            <p class="who"><strong>取りたい人：</strong>銃火力中心。直後の撃ち合いが露骨に強い</p>
           </div>
-          <input type="range" id="clockRange" min="0" max="40" step="0.5" value="0" aria-label="試合経過時間（分）" />
-          <div class="ticks"><span>0:00</span><span>5:00</span><span>10:00</span><span>15:00</span><span>20:00</span><span>25:00</span><span>30:00</span><span>35:00</span><span>40:00</span></div>
-          <div class="clock-now">
-            <h4>解禁済み</h4>
-            <div class="chips" id="clockChips"></div>
-            <p class="clock-next" id="clockNext"></p>
+          <div class="buff">
+            <div class="sub">CASTING</div><h4>スピリットバフ</h4>
+            <dl><dt>5分時点</dt><dd>スピリット +15 / CD短縮 +12%</dd><dt>40分時点</dt><dd>スピリット +65 / CD短縮 +20%</dd></dl>
+            <p class="who"><strong>取りたい人：</strong>アビリティ火力中心。ULTの回転も速くなる</p>
+          </div>
+          <div class="buff">
+            <div class="sub">SURVIVAL</div><h4>耐久バフ</h4>
+            <dl><dt>5分時点</dt><dd>HP +200 / 回復 +4/秒</dd><dt>40分時点</dt><dd>HP +750 / 回復 +40/秒</dd></dl>
+            <p class="who"><strong>取りたい人：</strong>前に出る役。序盤の +200 は T1体力アイテム級</p>
+          </div>
+          <div class="buff">
+            <div class="sub">MOVEMENT</div><h4>移動バフ</h4>
+            <dl><dt>5分時点</dt><dd>スタミナ +2 / 疾走 +1.5m/s / ジップ +40%</dd><dt>40分時点</dt><dd>スタミナ +4 / 疾走 +4m/s / ジップ +80%</dd></dl>
+            <p class="who"><strong>取りたい人：</strong>ローム・壺運び役。逃げ性能も上がる</p>
           </div>
         </div>
       </section>
 
-      <!-- ============ timeline ============ -->
-      <section id="timeline">
-        <div class="sec-head">
-          <h2>試合タイムライン</h2>
-          <p class="sec-lede">数え方は2種類だけ。<strong>キャンプ系は「全滅させてから」</strong>、<strong>壺とバフは「時計の5分ごと」</strong>。</p>
-        </div>
-        <div class="filters" role="group" aria-label="タイムラインの絞り込み">
-          <button type="button" data-f="all" aria-pressed="true">すべて</button>
-          <button type="button" data-f="spawn" aria-pressed="false">出現するもの</button>
-          <button type="button" data-f="cycle" aria-pressed="false">5分周期</button>
-          <button type="button" data-f="unlock" aria-pressed="false">仕様の変化・解禁</button>
-        </div>
-        <div class="tblwrap">
-          <table id="tlTable">
-            <thead><tr><th>時刻</th><th>出るもの・起きること</th><th>復活・周期</th><th>初心者の動き</th><th>出典</th></tr></thead>
-            <tbody>
-              <tr data-cat="unlock">
-                <td class="time">0:00<small>試合開始</small></td>
-                <td class="evcell"><span class="ev">試合開始</span> ― ソウル600・枠9。ミッドボスは最初から地下に</td>
-                <td class="rep" data-l="周期">トルーパー 30秒ごと</td>
-                <td class="act"><strong>800</strong>まではウェーブ処理に集中</td>
-                <td class="src"><span class="badge b-wiki">Wiki</span></td>
-              </tr>
-              <tr data-cat="spawn">
-                <td class="time">2:00</td>
-                <td class="evcell"><span class="ev">小キャンプ</span> ― 三角マーク・緑目。最初の追加収入</td>
-                <td class="rep" data-l="復活">全滅から 1:25</td>
-                <td class="act"><strong>1:30ウェーブを押して</strong>から行く</td>
-                <td class="src"><span class="badge b-wiki">Wiki</span> <span class="badge b-times">TimesJP</span></td>
-              </tr>
-              <tr data-cat="spawn">
-                <td class="time">2:30</td>
-                <td class="evcell"><span class="ev">Healing Snack</span> ― 最大HPの14%を4秒で回復</td>
-                <td class="rep" data-l="復活">取ってから 3:00</td>
-                <td class="act">近場を1〜2か所だけ覚える</td>
-                <td class="src"><span class="badge b-times">TimesJP</span></td>
-              </tr>
-              <tr data-cat="spawn">
-                <td class="time">3:00</td>
-                <td class="evcell"><span class="ev">箱・黄金像</span> ― 像は約50%で永続バフ。頑丈な箱は強近接のみ・ソウル2倍</td>
-                <td class="rep" data-l="復活">壊してから 3:00</td>
-                <td class="act"><strong>2:30ウェーブを押して</strong>近場だけ30秒</td>
-                <td class="src"><span class="badge b-wiki">Wiki</span> <span class="badge b-times">TimesJP</span></td>
-              </tr>
-              <tr class="keyrow" data-cat="spawn cycle">
-                <td class="time">5:00<small>最初の山場</small></td>
-                <td class="evcell"><span class="ev">ブリッジバフ初出現</span> ＋ <span class="ev">中キャンプ</span>（三角＋線1本・黄）</td>
-                <td class="rep" data-l="周期">バフ 5:00ごと ／ 中 全滅から 4:50</td>
-                <td class="act"><strong>4:30ウェーブ → 4:45に橋へ</strong> <span class="badge b-key">重要</span></td>
-                <td class="src"><span class="badge b-wiki">Wiki</span> <span class="badge b-times">TimesJP</span></td>
-              </tr>
-              <tr data-cat="unlock">
-                <td class="time">6:00</td>
-                <td class="evcell"><span class="ev">ガーディアン耐性 0%</span> ＋ <span class="ev">ジップライン加速</span></td>
-                <td class="rep" data-l="周期">―</td>
-                <td class="act">タワーを削る価値UP。ガンクに注意</td>
-                <td class="src"><span class="badge b-wiki">Wiki</span> <span class="badge b-times">TimesJP</span></td>
-              </tr>
-              <tr class="keyrow" data-cat="spawn">
-                <td class="time">8:00</td>
-                <td class="evcell"><span class="ev">大キャンプ</span>（三角＋線2本・赤）＋ <span class="ev">罪人の供物</span></td>
-                <td class="rep" data-l="復活">大 全滅から 5:35 ／ 供物 5:00</td>
-                <td class="act"><strong>7:30ウェーブを押して</strong>から。供物はHP余裕時に <span class="badge b-key">重要</span></td>
-                <td class="src"><span class="badge b-wiki">Wiki</span> <span class="badge b-times">TimesJP</span></td>
-              </tr>
-              <tr class="keyrow" data-cat="spawn cycle">
-                <td class="time">10:00</td>
-                <td class="evcell"><span class="ev">魂の壺 初出現</span> ― 初回は York（黄）側、以後は黄⇔緑で交互</td>
-                <td class="rep" data-l="周期">5:00ごと</td>
-                <td class="act">壺とバフ、味方と分担を <span class="badge b-key">重要</span></td>
-                <td class="src"><span class="badge b-wiki">Wiki</span></td>
-              </tr>
-              <tr data-cat="spawn cycle">
-                <td class="time">10–12:00</td>
-                <td class="evcell"><span class="ev">不安定な裂け目 初回</span> ― 11:00±1分。サイドレーンの橋に陣取り</td>
-                <td class="rep" data-l="周期">終了後 7分±1分ごと</td>
-                <td class="act">全体告知を聞いたら寄る準備</td>
-                <td class="src"><span class="badge b-wiki">Wiki</span></td>
-              </tr>
-              <tr data-cat="unlock">
-                <td class="time">12:00</td>
-                <td class="evcell"><span class="ev">ガーディアン耐性 −50%</span> ― 序盤の終わりの目安</td>
-                <td class="rep" data-l="周期">―</td>
-                <td class="act">折られても慌てない（約7割のレーンで1本目が落ちる頃）</td>
-                <td class="src"><span class="badge b-wiki">Wiki</span> <span class="badge b-times">TimesJP</span></td>
-              </tr>
-              <tr data-cat="cycle">
-                <td class="time">15:00〜</td>
-                <td class="evcell"><span class="ev">壺＋ブリッジバフの同時湧き</span>（20:00、25:00…も同じ）</td>
-                <td class="rep" data-l="周期">5:00ごと同時</td>
-                <td class="act">5分ごとに時計を見て寄る</td>
-                <td class="src"><span class="badge b-wiki">Wiki</span></td>
-              </tr>
-              <tr data-cat="unlock">
-                <td class="time">20:00</td>
-                <td class="evcell"><span class="ev">トルーパー間隔が短縮</span> 30秒 → 25秒</td>
-                <td class="rep" data-l="周期">25秒ごと</td>
-                <td class="act">レーン放置の代償が大きくなる</td>
-                <td class="src"><span class="badge b-wiki">Wiki</span></td>
-              </tr>
-              <tr data-cat="unlock">
-                <td class="time">30:00</td>
-                <td class="evcell"><span class="ev">永続バフが最上区分に</span></td>
-                <td class="rep" data-l="周期">―</td>
-                <td class="act">終盤の箱回り・供物は序盤より重い</td>
-                <td class="src"><span class="badge b-wiki">Wiki</span></td>
-              </tr>
-              <tr data-cat="unlock">
-                <td class="time">35:00</td>
-                <td class="evcell"><span class="ev">トルーパー加速＋強化</span> ― 20秒間隔・全HP +50%</td>
-                <td class="rep" data-l="周期">20秒ごと</td>
-                <td class="act">1回の集団戦がそのまま決着に</td>
-                <td class="src"><span class="badge b-wiki">Wiki</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="note"><strong>時刻じゃない解禁：</strong> アイテム枠 9 → <strong>敵ウォーカー撃破ごとに +1（最大12）</strong>。ベースガーディアン撃破でそのレーンのジップライン恒常高速化。シュライン撃破で自軍トルーパーがスーパー化。 <span class="badge b-wiki">Wiki</span></div>
-      </section>
-
-      <!-- ============ souls ============ -->
-      <section id="souls">
-        <div class="sec-head">
-          <h2>ソウルの節目 ― パワースパイク</h2>
-          <p class="sec-lede">レベルは<strong>累計ソウル</strong>で決まります。買い物をしても減りません。相手より先に届いた時点が有利です。</p>
-        </div>
-        <div class="spikes">
-          <div class="spike"><div class="s">800</div><div class="t">最初の節目</div><p>Boon 1＋ポイント1。最初の買い物の目安</p></div>
-          <div class="spike"><div class="s">1,100</div><div class="t">2つ目のアビリティ</div><p>「2つ対1つ」で戦える一瞬が生まれる</p></div>
-          <div class="spike"><div class="s">2,000</div><div class="t">3つ目のアビリティ</div><p>通常アビリティが全部そろう</p></div>
-          <div class="spike"><div class="s">2,600</div><div class="t">Lv2強化が可能に</div><p>1本を Lv2（1+2pt）まで上げられる</p></div>
-          <div class="spike hero-card"><div class="s">3,800</div><div class="t">ULT 解禁 ★最大</div><p>先に開けたら待たずに使う。相手が越えたら距離を取る</p></div>
-          <div class="spike"><div class="s">49,200</div><div class="t">最大 Boon 35</div><p>全アビリティを最大まで上げ切れる量</p></div>
-        </div>
-        <details class="fold">
-          <summary>全節目表を見る（累計ソウル → Boon・解禁・ポイント）</summary>
-          <div class="fold-body">
-            <div class="tblwrap">
-              <table>
-                <thead><tr><th>累計ソウル</th><th>Boon</th><th>そこで起きること</th><th>ポイント累計</th></tr></thead>
-                <tbody id="boonBody"></tbody>
-              </table>
-            </div>
-            <p style="font-size:13.5px;color:var(--ink2);margin:14px 0 0">強化コストは共通で <strong>Lv1＝1pt / Lv2＝追加2pt / Lv3＝追加5pt</strong>（1本最大で累計8pt）。ポイントは貯めて切り札に回してもOK。 <span class="badge b-wiki">Wiki</span></p>
-          </div>
-        </details>
-      </section>
-
-      <!-- ============ items ============ -->
-      <section id="items">
+      <!-- ============ items (detail) ============ -->
+      <section class="detail" id="items">
         <div class="sec-head">
           <h2>アイテムの節目</h2>
           <p class="sec-lede">価格は全アイテム共通：<strong>T1＝800 / T2＝1,600 / T3＝3,200 / T4＝6,400</strong>。高い物を貯めて買わず、安い物を積み上げるのが基本。 <span class="badge b-times">TimesJP</span></p>
@@ -585,40 +453,11 @@
         </div>
       </section>
 
-      <!-- ============ bridge buffs ============ -->
-      <section id="bridge">
-        <div class="sec-head">
-          <h2>ブリッジバフ 4種</h2>
-          <p class="sec-lede"><strong>5:00から5分ごと</strong>、2つの橋に同時出現。取得は<strong>強近接</strong>、効果<strong>160秒</strong>、<strong>死ぬと消える</strong>。数値は時間とともに伸びる。 <span class="badge b-wiki">Wiki</span></p>
-        </div>
-        <div class="buffs">
-          <div class="buff">
-            <div class="sub">GUN</div><h4>銃バフ</h4>
-            <dl><dt>5分時点</dt><dd>連射 +12% / 弾数 +35%</dd><dt>40分時点</dt><dd>連射 +35% / 弾数 +70%</dd><dt>取得時</dt><dd>その場でリロード</dd></dl>
-            <p class="who"><strong>取りたい人：</strong>銃火力中心。直後の撃ち合いが露骨に強い</p>
-          </div>
-          <div class="buff">
-            <div class="sub">CASTING</div><h4>スピリットバフ</h4>
-            <dl><dt>5分時点</dt><dd>スピリット +15 / CD短縮 +12%</dd><dt>40分時点</dt><dd>スピリット +65 / CD短縮 +20%</dd></dl>
-            <p class="who"><strong>取りたい人：</strong>アビリティ火力中心。ULTの回転も速くなる</p>
-          </div>
-          <div class="buff">
-            <div class="sub">SURVIVAL</div><h4>耐久バフ</h4>
-            <dl><dt>5分時点</dt><dd>HP +200 / 回復 +4/秒</dd><dt>40分時点</dt><dd>HP +750 / 回復 +40/秒</dd></dl>
-            <p class="who"><strong>取りたい人：</strong>前に出る役。序盤の +200 は T1体力アイテム級</p>
-          </div>
-          <div class="buff">
-            <div class="sub">MOVEMENT</div><h4>移動バフ</h4>
-            <dl><dt>5分時点</dt><dd>スタミナ +2 / 疾走 +1.5m/s / ジップ +40%</dd><dt>40分時点</dt><dd>スタミナ +4 / 疾走 +4m/s / ジップ +80%</dd></dl>
-            <p class="who"><strong>取りたい人：</strong>ローム・壺運び役。逃げ性能も上がる</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ objectives ============ -->
-      <section id="objectives">
+      <!-- ============ objectives (detail) ============ -->
+      <section class="detail" id="objectives">
         <div class="sec-head">
           <h2>キャンプ＆オブジェ詳細</h2>
+          <p class="sec-lede">出現時刻そのものは上の統合タイムラインに集約。ここは内訳と数字の確認用です。</p>
         </div>
         <h3 style="margin-top:0">ジャングルキャンプ（ホーント）</h3>
         <div class="tblwrap">
@@ -632,6 +471,7 @@
           </table>
         </div>
         <p style="font-size:13.5px;color:var(--ink2)">キャンプ等のソウルは「未確保」で、<strong>死ぬと落とす</strong>。稼いだら早めにショップで使うのが安全。 <span class="badge b-wiki">Wiki</span> <span class="badge b-times">TimesJP</span></p>
+        <div class="note"><strong>時刻じゃない解禁：</strong> アイテム枠 9 → <strong>敵ウォーカー撃破ごとに +1（最大12）</strong>。ベースガーディアン撃破でそのレーンのジップライン恒常高速化。シュライン撃破で自軍トルーパーがスーパー化。 <span class="badge b-wiki">Wiki</span></div>
 
         <div class="twocol" style="margin-top:26px">
           <div class="card" style="padding:24px 26px">
@@ -691,8 +531,8 @@
         </details>
       </section>
 
-      <!-- ============ howto ============ -->
-      <section id="howto">
+      <!-- ============ howto (detail) ============ -->
+      <section class="detail" id="howto">
         <div class="sec-head">
           <h2>試合中の見方</h2>
         </div>
@@ -717,6 +557,47 @@
         <div class="note"><strong>30秒前チェック：</strong> ①ウェーブを押すアビリティを温存 ②HPとスタミナを残す ③ミニマップで消えている敵を確認。 <span class="badge b-times">TimesJP</span></div>
       </section>
 
+      <!-- ============ full boon table (detail) ============ -->
+      <section class="detail" id="boons">
+        <div class="sec-head">
+          <h2>ソウルの節目 ― 全Boon表</h2>
+          <p class="sec-lede">レベルは<strong>累計ソウル</strong>で決まります。買い物をしても減りません。上の帯は主要な節目だけ抜いたものです。</p>
+        </div>
+        <details class="fold" style="margin-top:0">
+          <summary>全節目表を見る（累計ソウル → Boon・解禁・ポイント）</summary>
+          <div class="fold-body">
+            <div class="tblwrap">
+              <table>
+                <thead><tr><th>累計ソウル</th><th>Boon</th><th>そこで起きること</th><th>ポイント累計</th></tr></thead>
+                <tbody id="boonBody"></tbody>
+              </table>
+            </div>
+            <p style="font-size:13.5px;color:var(--ink2);margin:14px 0 0">強化コストは共通で <strong>Lv1＝1pt / Lv2＝追加2pt / Lv3＝追加5pt</strong>（1本最大で累計8pt）。ポイントは貯めて切り札に回してもOK。 <span class="badge b-wiki">Wiki</span></p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ clock simulator (detail) ============ -->
+      <section class="detail" id="clock">
+        <div class="sec-head">
+          <h2>時計シミュレーター（予習用）</h2>
+          <p class="sec-lede">スライダーを動かすだけ。その時点で解禁済みの要素と次の一手が出ます。</p>
+        </div>
+        <div class="clockbox card">
+          <div class="clock-head">
+            <div class="clock-time" id="clockTime">0:00</div>
+            <p id="clockPhase">レーニング開始。まずはウェーブのソウルを確実に取る時間です。</p>
+          </div>
+          <input type="range" id="clockRange" min="0" max="40" step="0.5" value="0" aria-label="試合経過時間（分）" />
+          <div class="ticks"><span>0:00</span><span>5:00</span><span>10:00</span><span>15:00</span><span>20:00</span><span>25:00</span><span>30:00</span><span>35:00</span><span>40:00</span></div>
+          <div class="clock-now">
+            <h4>解禁済み</h4>
+            <div class="chips" id="clockChips"></div>
+            <p class="clock-next" id="clockNext"></p>
+          </div>
+        </div>
+      </section>
+
       <footer>
         <h2>出典（2026-11-20 取得）</h2>
         <ul>
@@ -732,6 +613,8 @@
         <p>Deadlock は開発中のタイトルです。時刻・数値はパッチで変わることがあります。出典間で食い違う数字は、正本（Deadlock Wiki）の現行値を優先し、確認できなかったものは載せていません。</p>
       </footer>
     </main>
+
+    <div id="toasts" aria-live="polite"></div>
 
     <script>
       // ---- Boon table (Deadlock Wiki, fetched 2026-11-20) ----
@@ -786,21 +669,7 @@
       });
       body.innerHTML = html;
 
-      // ---- Timeline filter ----
-      var fbtns = document.querySelectorAll(".filters button");
-      fbtns.forEach(function(btn){
-        btn.addEventListener("click", function(){
-          fbtns.forEach(function(b){ b.setAttribute("aria-pressed","false"); });
-          btn.setAttribute("aria-pressed","true");
-          var f = btn.getAttribute("data-f");
-          document.querySelectorAll("#tlTable tbody tr").forEach(function(tr){
-            var cats = (tr.getAttribute("data-cat")||"").split(" ");
-            tr.classList.toggle("hidden-row", !(f==="all" || cats.indexOf(f)>=0));
-          });
-        });
-      });
-
-      // ---- Match clock simulator ----
+      // ---- Match clock simulator (preview) ----
       var events = [
         {t:0,   name:"試合開始（ソウル600・枠9）"},
         {t:2,   name:"小キャンプ"},
@@ -860,70 +729,59 @@
       renderClock();
     </script>
 
-    <div id="toasts" aria-live="polite"></div>
-
     <script>
-      // ---- Live match timer: toasts + sound + optional browser notifications ----
+      // ---- Live match timer: toasts + beep + voice (speechSynthesis) + optional browser notifications ----
       (function(){
         var EV = [
-          {t:0,    s:"開始",               name:"試合開始"},
-          {t:2,    s:"小キャンプ",         name:"小キャンプ出現 ― 1:30のウェーブを押してから"},
-          {t:2.5,  s:"Snack",              name:"Healing Snack 出現"},
-          {t:3,    s:"箱・像",              name:"箱・バフコンテナ出現 ― 近場だけ30秒で回る"},
-          {t:5,    s:"ブリッジバフ＋中",   name:"ブリッジバフ＋中キャンプ ― 4:45には橋へ", key:true},
-          {t:6,    s:"耐性0%・加速",       name:"ガーディアン耐性0%・ジップライン加速解禁"},
-          {t:8,    s:"大＋供物",           name:"大キャンプ＋罪人の供物 ― HPに余裕があるときに", key:true},
-          {t:10,   s:"壺",                 name:"魂の壺 出現 ― ブリッジバフと分担を", key:true},
-          {t:11,   s:"裂け目（目安）",     name:"不安定な裂け目 初回（目安 11:00±1分）"},
-          {t:12,   s:"耐性−50%",           name:"ガーディアン耐性 −50% ― 序盤終了の目安"},
-          {t:15,   s:"壺＋バフ",           name:"壺＋ブリッジバフ出現"},
-          {t:20,   s:"壺＋バフ／25秒",     name:"壺＋ブリッジバフ／トルーパー25秒間隔に"},
-          {t:25,   s:"壺＋バフ",           name:"壺＋ブリッジバフ出現"},
-          {t:30,   s:"壺＋バフ／バフ最上", name:"壺＋ブリッジバフ／永続バフが最上区分に"},
-          {t:35,   s:"壺＋バフ／20秒",     name:"壺＋ブリッジバフ／トルーパー20秒間隔＋HP+50%", key:true},
-          {t:40,   s:"壺＋バフ",           name:"壺＋ブリッジバフ出現"}
+          {t:2,    s:"小キャンプ",         name:"小キャンプ出現 ― 1:30のウェーブを押してから", say:"小キャンプ解放", sayWarn:"まもなく小キャンプ"},
+          {t:2.5,  s:"Healing Snack",      name:"Healing Snack 出現", say:"ヒーリングスナック出現", sayWarn:"まもなくヒーリングスナック"},
+          {t:3,    s:"箱・黄金像",         name:"箱・黄金像出現 ― 近場だけ30秒で回る", say:"箱と黄金像出現", sayWarn:"まもなく箱と黄金像"},
+          {t:5,    s:"ブリッジバフ＋中キャンプ", name:"ブリッジバフ＋中キャンプ ― 4:45には橋へ", key:true, say:"ブリッジバフ出現。中キャンプも解放", sayWarn:"まもなくブリッジバフ"},
+          {t:6,    s:"耐性0%・ジップ加速", name:"ガーディアン耐性0%・ジップライン加速解禁", say:"ジップライン加速。ガーディアン耐性ゼロ", sayWarn:"まもなく耐性ゼロ"},
+          {t:8,    s:"大キャンプ＋供物",   name:"大キャンプ＋罪人の供物 ― HPに余裕があるときに", key:true, say:"大キャンプと罪人の供物、解放", sayWarn:"まもなく大キャンプ"},
+          {t:10,   s:"魂の壺",             name:"魂の壺 出現 ― ブリッジバフと分担を", key:true, say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
+          {t:11,   s:"裂け目（目安）",     name:"不安定な裂け目 初回（目安 11:00±1分）", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"},
+          {t:12,   s:"耐性−50%",           name:"ガーディアン耐性 −50% ― 序盤終了の目安", say:"ガーディアン耐性マイナス50パーセント", sayWarn:"まもなく耐性ダウン"},
+          {t:15,   s:"壺＋バフ／ウォーカー目安", name:"壺＋ブリッジバフ出現／ウォーカー目安", say:"壺とブリッジバフ出現", sayWarn:"まもなく壺とブリッジバフ"},
+          {t:20,   s:"壺＋バフ／25秒",     name:"壺＋ブリッジバフ／ミッドボス目安・トルーパー25秒間隔に", say:"壺とブリッジバフ出現。トルーパー25秒間隔", sayWarn:"まもなく壺とブリッジバフ"},
+          {t:25,   s:"壺＋バフ",           name:"壺＋ブリッジバフ出現", say:"壺とブリッジバフ出現", sayWarn:"まもなく壺とブリッジバフ"},
+          {t:30,   s:"壺＋バフ／バフ最上", name:"壺＋ブリッジバフ／永続バフが最上区分に", say:"壺とブリッジバフ出現。永続バフ最上区分", sayWarn:"まもなく壺とブリッジバフ"},
+          {t:35,   s:"壺＋バフ／20秒",     name:"壺＋ブリッジバフ／トルーパー20秒間隔＋HP+50%", key:true, say:"壺とブリッジバフ出現。トルーパー20秒間隔", sayWarn:"まもなく壺とブリッジバフ"},
+          {t:40,   s:"壺＋バフ",           name:"壺＋ブリッジバフ出現", say:"壺とブリッジバフ出現", sayWarn:"まもなく壺とブリッジバフ"}
         ];
         var MAXS = 40 * 60;
         var elapsed = 0, running = false, speed = 1, lastTs = 0, timerId = null;
-        var soundOn = true, warnOn = true, fired = {};
+        var soundOn = true, voiceOn = true, warnOn = true, fired = {};
         var actx = null;
         var baseTitle = document.title;
+        var synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
 
         var ltTime = document.getElementById("ltTime");
-        var ltNext = document.getElementById("ltNext");
         var ltFill = document.getElementById("ltFill");
         var ltTrack = document.getElementById("ltTrack");
         var ltToggle = document.getElementById("ltToggle");
         var ltLog = document.getElementById("ltLog");
-        var mapNow = document.getElementById("mapNow");
+        var nxCount = document.getElementById("nxCount");
+        var nxAt = document.getElementById("nxAt");
+        var nxName = document.getElementById("nxName");
+        var nxNote = document.getElementById("nxNote");
         var toasts = document.getElementById("toasts");
+        var tlBlocks = Array.prototype.slice.call(document.querySelectorAll("#tlGrid .tlb"));
 
         function fmtS(sec){
           sec = Math.max(0, Math.floor(sec));
           var m = Math.floor(sec / 60), s = sec % 60;
           return m + ":" + (s < 10 ? "0" : "") + s;
         }
-        // track dots + overview map markers
+        // progress track dots
         var trackDots = [];
         EV.forEach(function(e){
-          if(e.t === 0) return;
           var d = document.createElement("span");
           d.className = "dot" + (e.key ? " key" : "");
           d.style.left = (e.t / 40 * 100) + "%";
           d.title = fmtS(e.t * 60) + " " + e.s;
           ltTrack.appendChild(d);
           trackDots.push({el: d, t: e.t});
-        });
-        var axis = document.getElementById("mapAxis");
-        EV.forEach(function(e, i){
-          var mk = document.createElement("div");
-          mk.className = "mk " + (i % 2 ? "dn" : "up") + (e.key ? " key" : "") +
-            (e.t === 0 ? " edge-l" : "") + (e.t === 40 ? " edge-r" : "");
-          mk.style.left = (e.t / 40 * 100) + "%";
-          mk.setAttribute("data-t", e.t);
-          mk.innerHTML = '<span class="mk-dot"></span><span class="mk-lab"><span class="num">' +
-            fmtS(e.t * 60) + "</span>" + e.s + "</span>";
-          axis.appendChild(mk);
         });
 
         function ensureAudio(){
@@ -949,7 +807,34 @@
           else if(kind === "key"){ tone(659, 0, 0.14); tone(880, 0.16, 0.14); tone(1319, 0.32, 0.24); }
           else { tone(880, 0, 0.14); tone(1175, 0.16, 0.2); }
         }
-        function notify(kind, title, body){
+        // ---- voice (Web Speech API) ----
+        function ensureSpeech(){
+          if(!synth) return false;
+          try {
+            synth.getVoices();
+            if(synth.paused) synth.resume();
+          } catch(e){ /* ignore */ }
+          return true;
+        }
+        function speak(text){
+          if(!voiceOn) return;
+          if(!ensureSpeech()){
+            // no speech available: beep already fired alongside as fallback
+            return;
+          }
+          try {
+            synth.cancel(); // latest announcement wins
+            var u = new SpeechSynthesisUtterance(text);
+            u.lang = "ja-JP";
+            u.rate = 1.05;
+            var vs = synth.getVoices();
+            for(var i = 0; i < vs.length; i++){
+              if(vs[i].lang && vs[i].lang.indexOf("ja") === 0){ u.voice = vs[i]; break; }
+            }
+            synth.speak(u);
+          } catch(e){ /* ignore: beep fallback already played */ }
+        }
+        function notify(kind, title, body, sayText){
           var el = document.createElement("div");
           el.className = "toast" + (kind === "warn" ? " warn" : kind === "key" ? " key" : "");
           el.innerHTML = '<div class="tt">' + title + "</div>" + (body ? "<p>" + body + "</p>" : "");
@@ -958,8 +843,9 @@
           var li = document.createElement("li");
           li.innerHTML = '<span class="num">' + fmtS(elapsed) + "</span> " + title;
           if(ltLog.firstChild) ltLog.insertBefore(li, ltLog.firstChild); else ltLog.appendChild(li);
-          while(ltLog.children.length > 5) ltLog.removeChild(ltLog.lastChild);
+          while(ltLog.children.length > 4) ltLog.removeChild(ltLog.lastChild);
           beep(kind);
+          if(sayText) speak(sayText);
           try {
             if(window.Notification && Notification.permission === "granted"){
               new Notification(title, { body: body || "" });
@@ -974,34 +860,40 @@
           ltTime.textContent = fmtS(elapsed);
           var pct = Math.min(100, elapsed / MAXS * 100);
           ltFill.style.width = pct + "%";
-          mapNow.style.display = elapsed > 0 ? "block" : "none";
-          mapNow.style.left = pct + "%";
           trackDots.forEach(function(d){ d.el.classList.toggle("done", elapsed >= d.t * 60); });
-          axis.querySelectorAll(".mk").forEach(function(mk){
-            mk.classList.toggle("done", elapsed >= parseFloat(mk.getAttribute("data-t")) * 60 && elapsed > 0);
-          });
           var nx = nextEvent();
+          // integrated timeline highlight: done = start time passed, next = next event's start time
+          var nextT = nx ? nx.t : Infinity;
+          tlBlocks.forEach(function(b){
+            var bt = parseFloat(b.getAttribute("data-t"));
+            b.classList.toggle("done", bt * 60 <= elapsed && elapsed > 0 || (bt === 0 && elapsed > 0));
+            b.classList.toggle("next", bt === nextT);
+          });
           if(nx){
             var remain = nx.t * 60 - elapsed;
-            ltNext.innerHTML = "次は <strong>" + fmtS(nx.t * 60) + "「" + nx.s + "」</strong> ― あと <span class=\"cd\">" +
-              fmtS(remain) + "</span>" + (remain <= 30 && remain > 0 ? " ― 直前のウェーブを押す準備を" : "");
+            nxCount.textContent = fmtS(remain);
+            nxAt.textContent = fmtS(nx.t * 60);
+            nxName.textContent = nx.s;
+            nxNote.textContent = nx.name + (remain <= 30 && remain > 0 ? " ― 直前のウェーブを押す準備を。" : "");
             if(running) document.title = "あと" + fmtS(remain) + "｜" + nx.s + " ― " + baseTitle;
           } else {
-            ltNext.innerHTML = "主要イベントはすべて解禁済み。あとは5分周期（壺・バフ）と裂け目（約7分周期）の繰り返しです。";
+            nxCount.textContent = "―";
+            nxAt.textContent = "";
+            nxName.textContent = "主要イベントは解禁済み";
+            nxNote.textContent = "あとは5分周期（壺・バフ）と裂け目（約7分周期）の繰り返しです。";
             if(running) document.title = baseTitle;
           }
         }
         function check(){
           EV.forEach(function(e){
-            if(e.t === 0) return;
             var es = e.t * 60;
             if(warnOn && elapsed >= es - 30 && elapsed < es && !fired["w" + e.t]){
               fired["w" + e.t] = 1;
-              notify("warn", "あと30秒 ― " + fmtS(es) + "「" + e.s + "」", "直前のウェーブを速く押して、先に取りに行く準備を。");
+              notify("warn", "あと30秒 ― " + fmtS(es) + "「" + e.s + "」", "直前のウェーブを速く押して、先に取りに行く準備を。", e.sayWarn);
             }
             if(elapsed >= es && !fired["s" + e.t]){
               fired["s" + e.t] = 1;
-              notify(e.key ? "key" : "event", fmtS(es) + "「" + e.s + "」", e.name);
+              notify(e.key ? "key" : "event", fmtS(es) + "「" + e.s + "」", e.name, e.say);
             }
           });
         }
@@ -1011,13 +903,14 @@
           lastTs = ts;
           if(elapsed >= MAXS){
             elapsed = MAXS; check(); render(); pause();
-            ltNext.innerHTML = "40:00 に到達しました。リセットで最初から計り直せます。";
+            nxNote.textContent = "40:00 に到達しました。リセットで最初から計り直せます。";
             return;
           }
           check(); render();
         }
         function start(){
           ensureAudio();
+          ensureSpeech(); // unlock speech from the user gesture
           running = true; lastTs = 0;
           ltToggle.textContent = "一時停止";
           timerId = setInterval(function(){ tick(performance.now()); }, 200);
@@ -1033,13 +926,12 @@
         document.getElementById("ltReset").addEventListener("click", function(){
           pause(); elapsed = 0; fired = {}; ltLog.innerHTML = "";
           document.getElementById("ltJump").value = ""; render();
-          ltNext.textContent = "スタートを押すと、経過時間に合わせて通知と音で知らせます。速度は予習・確認用です。";
+          nxNote.textContent = "スタートを押すと実時間で進みます。全イベントを30秒前と開始の瞬間に、通知・音・音声で知らせます。";
         });
         // ---- manual time adjustment: recompute fired flags from current time ----
         function recalcFired(){
           fired = {};
           EV.forEach(function(e){
-            if(e.t === 0) return;
             if(e.t * 60 <= elapsed){ fired["s" + e.t] = 1; fired["w" + e.t] = 1; }
           });
         }
@@ -1071,9 +963,32 @@
         ltSound.addEventListener("click", function(){
           soundOn = !soundOn;
           ltSound.setAttribute("aria-pressed", soundOn ? "true" : "false");
-          ltSound.textContent = "音：" + (soundOn ? "ON" : "OFF");
+          ltSound.textContent = "ビープ音：" + (soundOn ? "ON" : "OFF");
           if(soundOn){ ensureAudio(); beep("event"); }
         });
+        var ltVoice = document.getElementById("ltVoice");
+        var ltVoiceTest = document.getElementById("ltVoiceTest");
+        if(!synth){
+          voiceOn = false;
+          ltVoice.disabled = true;
+          ltVoice.textContent = "音声読み上げ：この環境では利用不可";
+          ltVoiceTest.disabled = true;
+        } else {
+          ltVoice.addEventListener("click", function(){
+            voiceOn = !voiceOn;
+            ltVoice.setAttribute("aria-pressed", voiceOn ? "true" : "false");
+            ltVoice.textContent = "音声読み上げ：" + (voiceOn ? "ON" : "OFF");
+            if(!voiceOn && synth){ try { synth.cancel(); } catch(e){} }
+          });
+          ltVoiceTest.addEventListener("click", function(){
+            ensureSpeech();
+            var wasOff = !voiceOn;
+            if(wasOff) voiceOn = true;
+            speak("音声テストです。小キャンプ解放。");
+            if(wasOff) voiceOn = false;
+          });
+          if(synth.onvoiceschanged !== undefined){ synth.onvoiceschanged = function(){ synth.getVoices(); }; }
+        }
         var ltWarn = document.getElementById("ltWarn");
         ltWarn.addEventListener("click", function(){
           warnOn = !warnOn;

@@ -200,15 +200,55 @@
       .lane-head h2{font-size:24px;margin:0}
       .lane-head p{margin:0;color:var(--ink2);font-size:13px;font-weight:700}
       .lane-head .to-dash{margin-left:auto;font-size:12.5px;font-weight:900;white-space:nowrap}
-      .pickrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-      @media (max-width:760px){.pickrow{grid-template-columns:1fr 1fr}}
-      .pick{background:var(--surface);border:2.5px solid var(--edge);border-radius:14px;padding:9px 14px 11px;box-shadow:var(--hard)}
-      .pick.enemy{border-color:var(--key)}
-      .pick-lab{display:block;font-size:12px;font-weight:900;letter-spacing:.1em;color:var(--ink2);margin-bottom:2px}
-      .pick.enemy .pick-lab{color:var(--key)}
-      .pick-lab em{font-style:normal;color:var(--accent-ink)}
-      .pick select{width:100%;font:inherit;font-size:19px;font-weight:900;border:none;background:transparent;color:var(--ink);padding:2px 0;cursor:pointer;min-height:2rem}
-      .pick select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      .pickbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+      .slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;flex:1 1 640px}
+      @media (max-width:760px){.slots{grid-template-columns:1fr 1fr}}
+      .slot{display:flex;align-items:center;gap:8px;min-height:0;height:46px;padding:4px 10px;background:var(--surface);border:2.5px solid var(--blue);border-radius:12px;box-shadow:var(--hard);font:inherit;color:var(--ink);text-align:left;cursor:pointer;min-width:0}
+      .slot.enemy{border-color:var(--key)}
+      .slot:disabled{cursor:default;box-shadow:none;border-style:dashed;opacity:.8}
+      .slot:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      .slot-lab{font-size:11.5px;font-weight:900;letter-spacing:.08em;color:var(--blue);white-space:nowrap;line-height:1.25}
+      .slot.enemy .slot-lab{color:var(--key)}
+      .slot-lab em{display:block;font-style:normal;font-size:10px;color:var(--accent-ink);letter-spacing:.04em}
+      .slot img,.slot .slot-fb{width:32px;height:32px;border-radius:6px;flex:none}
+      .slot .slot-fb{display:grid;place-items:center;background:var(--surface2);font-size:11px;font-weight:900}
+      .slot-val{flex:1;min-width:0;font-size:15px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .slot:disabled .slot-val{color:var(--ink2);font-weight:700;font-size:13px}
+      .slot-x{font-size:15px;font-weight:900;color:var(--ink2)}
+      .slot:disabled .slot-x{display:none}
+      .pick-help{margin:0;font-size:12px;font-weight:700;color:var(--ink2);line-height:1.5}
+      .pick-help b{color:var(--blue)}
+      .pick-help b.en{color:var(--key)}
+      .hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:4px;user-select:none;-webkit-user-select:none}
+      @media (min-width:1021px){.hgrid{grid-template-columns:repeat(22,minmax(0,1fr))}}
+      .ht{position:relative;display:flex;flex-direction:column;align-items:center;gap:1px;min-height:0;min-width:0;padding:3px 1px 2px;background:var(--surface);border:2px solid var(--line);border-radius:9px;font:inherit;color:var(--ink);cursor:pointer;-webkit-touch-callout:none}
+      .ht:hover{border-color:var(--ink2)}
+      .ht:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+      .ht img,.ht .ht-fb{width:100%;max-width:46px;aspect-ratio:1;display:block;border-radius:6px;-webkit-user-drag:none}
+      .ht .ht-fb{display:grid;place-items:center;background:var(--surface2);font-size:11px;font-weight:900;line-height:1.1;text-align:center;overflow:hidden}
+      .ht-name{max-width:100%;font-size:9.5px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .ht-tag{position:absolute;top:-6px;left:50%;transform:translateX(-50%);padding:0 5px;border-radius:999px;font-size:9.5px;font-weight:900;line-height:1.45;color:#fff;white-space:nowrap;display:none}
+      .ht.team{border-color:var(--blue);background:var(--blue-soft);box-shadow:0 0 0 1.5px var(--blue)}
+      .ht.enemy{border-color:var(--key);background:var(--key-soft);box-shadow:0 0 0 1.5px var(--key)}
+      .ht.team .ht-tag{display:block;background:#2f5d8a}
+      .ht.enemy .ht-tag{display:block;background:#cf3524}
+      /* short desktop screens: shrink the grid and results so screen 2 still fits 100vh */
+      @media (min-width:1021px) and (max-height:820px){
+        .lane-inner{gap:9px;padding:10px 0 14px}
+        .lane-head h2{font-size:21px}
+        .slot{height:40px}
+        .slot img,.slot .slot-fb{width:28px;height:28px}
+        .ht img,.ht .ht-fb{max-width:32px}
+        .ht-name{font-size:9px}
+        .verdict{padding:10px 20px}
+        .vd-word{font-size:clamp(32px,3.6vw,44px)}
+        .vd-play{margin-top:4px;font-size:15px;line-height:1.5}
+        .mu{padding:8px 18px}
+        .mu-res{font-size:30px}
+        .counter{padding:9px 18px}
+        .chips{gap:6px;margin-top:6px}
+        .chip{padding:2px 11px;font-size:13.5px}
+      }
       .lane-main{display:grid;grid-template-columns:5fr 7fr;gap:14px;align-items:stretch}
       @media (max-width:760px){.lane-main{grid-template-columns:1fr}}
       .verdict{padding:16px 22px;display:flex;flex-direction:column;justify-content:center}
@@ -368,24 +408,16 @@
             <a class="to-dash" href="#screenDash">▲ タイマーに戻る</a>
           </div>
 
-          <div class="pickrow">
-            <div class="pick">
-              <label class="pick-lab" for="pkSelf">自分 <em>必須</em></label>
-              <select id="pkSelf" aria-label="自分のヒーロー"></select>
+          <div class="pickbar">
+            <div class="slots" id="pkSlots">
+              <button type="button" class="slot" data-slot="self"><span class="slot-lab">自分<em>必須</em></span><span class="slot-val">未選択</span><span class="slot-x" aria-hidden="true">×</span></button>
+              <button type="button" class="slot" data-slot="ally"><span class="slot-lab">味方</span><span class="slot-val">未選択</span><span class="slot-x" aria-hidden="true">×</span></button>
+              <button type="button" class="slot enemy" data-slot="e1"><span class="slot-lab">敵 1<em>必須</em></span><span class="slot-val">未選択</span><span class="slot-x" aria-hidden="true">×</span></button>
+              <button type="button" class="slot enemy" data-slot="e2"><span class="slot-lab">敵 2</span><span class="slot-val">未選択</span><span class="slot-x" aria-hidden="true">×</span></button>
             </div>
-            <div class="pick">
-              <label class="pick-lab" for="pkAlly">味方（もう1人）</label>
-              <select id="pkAlly" aria-label="味方のヒーロー"></select>
-            </div>
-            <div class="pick enemy">
-              <label class="pick-lab" for="pkE1">敵 1 <em>必須</em></label>
-              <select id="pkE1" aria-label="敵ヒーロー1"></select>
-            </div>
-            <div class="pick enemy">
-              <label class="pick-lab" for="pkE2">敵 2</label>
-              <select id="pkE2" aria-label="敵ヒーロー2"></select>
-            </div>
+            <p class="pick-help"><b>左クリック</b>＝自分→味方　<b class="en">右クリック</b>＝敵1→敵2<br>もう一度クリック／スロットをクリックで解除</p>
           </div>
+          <div class="hgrid" id="pkGrid" role="group" aria-label="ヒーロー選択（左クリックで自チーム、右クリックで敵）"></div>
 
           <div class="lane-main">
             <div class="verdict card" id="vdBox">
@@ -720,12 +752,15 @@
       (function(){
         var MATCH = {"Abrams":{"Viscous":6.2,"Violet":3.6,"Lash":3.5,"Bebop":3.2,"Rat King":3.1,"Venator":-4.5,"Billy":-3.8,"Celeste":-3.6,"Graves":-3.4,"Pocket":-3.1,"Baba":-3.0},"Apollo":{"Vindicta":6.3,"Haze":5.2,"Infernus":4.7,"Lady Geist":4.7,"Seven":3.9,"Graves":-5.5,"Drifter":-3.2,"Grey Talon":-3.1,"Pocket":-3.1,"Venator":-3.0},"Baba":{"Drifter":6.9,"Infernus":4.6,"Lady Geist":4.4,"Abrams":3.0,"Vindicta":-10.1,"Paige":-7.5,"Ivy":-5.2,"Holliday":-4.5,"Venator":-4.2},"Bebop":{"Rem":6.3,"Victor":4.9,"McGinnis":4.4,"Graves":3.9,"Deadman Danny":3.0,"Solomon":-8.4,"Dynamo":-6.0,"Celeste":-5.3,"Sinclair":-4.6,"Ivy":-4.2,"Mo & Krill":-4.1,"The Doorman":-3.9,"Abrams":-3.7,"Violet":-3.3},"Billy":{"Holliday":6.1,"Lady Geist":4.8,"Calico":4.8,"Lash":4.6,"Warden":4.6,"Nurse Harrow":4.6,"Grey Talon":4.1,"Abrams":3.9,"Deadman Danny":3.3,"Paige":3.1,"Rat King":-8.2,"Vyper":-5.7,"Pocket":-4.7,"Celeste":-4.4,"Infernus":-4.2,"Seven":-3.6,"Wraith":-3.1,"Shiv":-3.1},"Calico":{"Grey Talon":7.7,"Paradox":6.6,"Victor":4.5,"Lash":3.8,"Pocket":3.3,"Silver":3.2,"Seven":-8.6,"Graves":-7.6,"Warden":-5.6,"Holliday":-4.8,"Billy":-4.7,"Ivy":-3.7},"Celeste":{"Kelvin":6.9,"Infernus":5.7,"Bebop":5.3,"Billy":4.8,"Abrams":4.1,"Paige":3.7,"Graves":3.4,"Venator":-3.6,"Grey Talon":-3.6,"Deadman Danny":-3.5,"Lady Geist":-3.4,"Seven":-3.4},"Deadman Danny":{"Paige":10.4,"Silver":8.2,"Venator":8.0,"Infernus":5.3,"Pocket":4.6,"Dynamo":4.2,"Celeste":4.0,"Vindicta":-8.7,"Lash":-6.3,"Grey Talon":-6.0,"Holliday":-5.4,"Seven":-4.6,"Ivy":-4.0,"Shiv":-3.9,"Bebop":-3.4,"Graves":-3.3,"Billy":-3.2},"The Doorman":{"Venator":8.1,"Paradox":5.3,"Bebop":3.4,"Drifter":-6.1,"Mina":-5.8,"Shiv":-3.6},"Drifter":{"Yamato":6.2,"The Doorman":6.0,"Solomon":5.5,"Holliday":5.3,"Mirage":4.8,"Paradox":4.3,"Graves":3.8,"Apollo":3.1,"Baba":-7.0,"Rat King":-5.0,"Warden":-4.9,"Dynamo":-4.7,"McGinnis":-4.5,"Kelvin":-4.4,"Venator":-3.5},"Dynamo":{"Graves":8.6,"Bebop":5.4,"Drifter":4.4,"Vindicta":-6.4,"Deadman Danny":-4.3,"Silver":-4.0,"Rem":-3.9,"Pocket":-3.3,"Seven":-3.0},"Graves":{"Silver":12.3,"Calico":7.8,"Apollo":5.6,"Rem":4.1,"Deadman Danny":3.7,"Abrams":3.6,"Victor":3.4,"Mo & Krill":-10.1,"Dynamo":-8.5,"McGinnis":-5.2,"Bebop":-4.2,"Paige":-3.9,"Drifter":-3.6},"Grey Talon":{"Yamato":7.6,"Mo & Krill":6.6,"Deadman Danny":6.3,"Warden":5.2,"Pocket":4.7,"Celeste":4.3,"Mina":3.3,"Apollo":3.3,"Silver":3.1,"Calico":-7.4,"Rem":-6.7,"Vyper":-4.4,"Billy":-3.9,"Seven":-3.1},"Haze":{"Rat King":10.8,"Seven":7.1,"Mo & Krill":4.7,"Viscous":3.9,"Kelvin":3.7,"Ivy":3.3,"Violet":-5.5,"Apollo":-5.0,"Paradox":-4.4,"Sinclair":-4.3,"Solomon":-4.2},"Holliday":{"Infernus":5.9,"Deadman Danny":5.9,"Mina":5.7,"Calico":5.2,"Baba":4.8,"Nurse Harrow":4.7,"Vindicta":3.9,"Haze":3.4,"Billy":-5.7,"Rat King":-5.4,"Drifter":-5.0,"Bebop":-3.0},"Seven":{"Calico":8.5,"Nurse Harrow":7.2,"Deadman Danny":4.6,"Victor":4.0,"Celeste":3.8,"Venator":3.7,"Lash":3.6,"Billy":3.6,"Grey Talon":3.3,"Haze":-6.9,"Infernus":-6.8,"Yamato":-6.8,"Silver":-5.7,"Paige":-4.3,"Mina":-4.3,"Apollo":-4.0},"Infernus":{"Seven":6.3,"Warden":5.0,"McGinnis":4.5,"Yamato":3.9,"Billy":3.8,"Rat King":3.8,"Holliday":-5.9,"Silver":-5.9,"Celeste":-5.7,"Deadman Danny":-5.7,"Rem":-5.4,"Apollo":-5.2,"Baba":-5.0,"Shiv":-3.2,"Paige":-3.2,"Vindicta":-3.2,"Ivy":-3.0},"Ivy":{"Violet":7.8,"Baba":5.3,"Deadman Danny":4.2,"Mirage":4.1,"Bebop":3.8,"Calico":3.8,"Vyper":3.8,"Graves":3.2,"Mina":-6.3,"Pocket":-4.5,"McGinnis":-3.7,"Rem":-3.6,"Paradox":-3.5},"Kelvin":{"Viscous":4.9,"Drifter":4.6,"Lash":4.3,"Mo & Krill":3.6,"Celeste":-6.2,"Silver":-4.7,"Haze":-3.2,"Wraith":-3.1},"Lady Geist":{"Silver":9.0,"Celeste":3.9,"Wraith":3.8,"Paradox":3.3,"Calico":3.0,"Vyper":-7.1,"Nurse Harrow":-6.6,"Billy":-4.8,"Apollo":-4.7,"Mo & Krill":-4.4,"Baba":-4.4,"Yamato":-3.8,"Vindicta":-3.3,"Mina":-3.0},"Lash":{"Deadman Danny":6.8,"Mirage":6.7,"Rem":5.0,"Pocket":4.6,"Violet":4.1,"Lady Geist":3.3,"Paradox":3.1,"Grey Talon":3.1,"Paige":3.0,"McGinnis":-7.1,"Billy":-4.1,"Kelvin":-3.6,"Calico":-3.4,"Seven":-3.2,"Abrams":-3.0},"McGinnis":{"Lash":7.0,"Shiv":5.5,"Graves":5.0,"Drifter":3.9,"Ivy":3.4,"Paige":-11.1,"Paradox":-7.2,"Bebop":-5.3,"Infernus":-5.3,"Mina":-5.3},"Mina":{"Ivy":6.6,"The Doorman":6.0,"McGinnis":5.0,"Seven":4.5,"Pocket":4.1,"Rem":3.4,"Lady Geist":3.2,"Violet":-6.8,"Holliday":-5.2,"Victor":-3.2},"Mirage":{"Wraith":3.5,"Lash":-6.3,"Drifter":-4.9,"Ivy":-4.0},"Mo & Krill":{"Graves":10.2,"Victor":9.0,"Lady Geist":4.4,"Bebop":3.5,"Vindicta":-8.9,"Grey Talon":-6.5,"Haze":-4.6,"Shiv":-4.6,"Kelvin":-3.4},"Nurse Harrow":{"Lady Geist":6.6,"Shiv":4.8,"Venator":3.7,"Paige":3.4,"Seven":-7.4,"Billy":-4.7,"Holliday":-4.4},"Paige":{"McGinnis":10.4,"Baba":7.2,"Silver":4.5,"Seven":4.0,"Graves":3.9,"Shiv":3.2,"Deadman Danny":-10.5,"Pocket":-7.3,"Nurse Harrow":-3.7,"Celeste":-3.4,"Billy":-3.3,"Viscous":-3.3},"Paradox":{"McGinnis":7.1,"Haze":5.0,"Ivy":4.0,"Pocket":3.7,"Baba":3.3,"Warden":3.2,"Viscous":3.2,"Sinclair":3.1,"Victor":-9.7,"Violet":-7.6,"Calico":-6.1,"The Doorman":-4.9,"Drifter":-4.0},"Pocket":{"Paige":6.9,"Viscous":4.9,"Billy":4.5,"Ivy":4.4,"Yamato":3.5,"Grey Talon":-4.7,"Deadman Danny":-4.7,"Lash":-4.4,"Mina":-4.1,"Victor":-3.9,"Vindicta":-3.7,"Paradox":-3.5,"Calico":-3.5,"Lady Geist":-3.0},"Rat King":{"Billy":8.4,"Holliday":5.9,"Drifter":5.1,"Wraith":4.1,"Haze":-10.3,"Vindicta":-7.5,"Infernus":-4.1,"Venator":-3.4},"Rem":{"Grey Talon":7.1,"Infernus":5.0,"Ivy":3.8,"Dynamo":3.8,"Bebop":-6.7,"Lash":-4.5,"Graves":-3.8,"Mina":-3.1},"Shiv":{"Mo & Krill":4.3,"Deadman Danny":3.7,"The Doorman":3.5,"Victor":-6.7,"McGinnis":-6.2,"Silver":-5.8,"Nurse Harrow":-5.1,"Paige":-3.6},"Silver":{"Wraith":5.5,"Seven":5.5,"Shiv":5.4,"Infernus":5.2,"Kelvin":4.8,"Dynamo":3.7,"Graves":-12.3,"Lady Geist":-9.1,"Deadman Danny":-8.4,"Warden":-8.0,"Paige":-5.0,"Calico":-3.3,"Yamato":-3.0,"Grey Talon":-3.0,"Nurse Harrow":-3.0},"Sinclair":{"Haze":4.5,"Bebop":4.1},"Solomon":{"Bebop":7.9,"Haze":4.5,"Drifter":-5.5},"Venator":{"Vyper":6.9,"Abrams":4.3,"Baba":4.0,"Celeste":3.9,"Drifter":3.3,"Rat King":3.3,"The Doorman":-8.3,"Deadman Danny":-8.1,"Seven":-4.0,"Nurse Harrow":-3.9,"Pocket":-3.2,"Lady Geist":-3.1,"Yamato":-3.0,"McGinnis":-3.0},"Victor":{"Paradox":10.2,"Shiv":6.6,"Vindicta":4.5,"Pocket":3.8,"Mina":3.5,"Mo & Krill":-9.0,"Yamato":-5.9,"Bebop":-5.3,"Warden":-4.6,"Calico":-4.4,"Seven":-4.0,"Graves":-3.1},"Vindicta":{"Baba":10.2,"Deadman Danny":8.9,"Mo & Krill":8.9,"Rat King":7.8,"Dynamo":6.3,"Pocket":3.6,"Lady Geist":3.5,"Yamato":3.3,"Apollo":-6.3,"Victor":-4.3,"Wraith":-4.2,"Viscous":-3.9,"Holliday":-3.4},"Violet":{"Paradox":7.9,"Mina":6.9,"Wraith":6.6,"Haze":5.6,"Ivy":-7.8,"Lash":-3.7,"Abrams":-3.7},"Viscous":{"Vindicta":3.9,"Abrams":-6.3,"Pocket":-5.2,"Kelvin":-4.7,"Haze":-3.7},"Vyper":{"Lady Geist":6.9,"Billy":5.5,"Grey Talon":4.5,"Venator":-7.3,"Ivy":-3.9,"Infernus":-3.5,"Yamato":-3.0},"Warden":{"Silver":8.0,"Calico":5.9,"Drifter":5.0,"Victor":4.8,"Graves":3.3,"Infernus":-5.2,"Grey Talon":-4.7,"Billy":-4.4},"Wraith":{"Vindicta":3.9,"Violet":-7.2,"Silver":-6.2,"Rat King":-4.4,"Lady Geist":-4.2,"Mirage":-4.0,"Shiv":-3.3},"Yamato":{"Seven":6.7,"Victor":6.0,"Lady Geist":3.8,"Grey Talon":-7.3,"Drifter":-6.3,"Infernus":-4.4,"Pocket":-3.8,"Vindicta":-3.3}};
         var COUNTER = {"Abrams":[["Rebuttal",1.5],["Reactive Barrier",1.2],["Unstoppable",1.2],["Bullet Resilience",1.1]],"Apollo":[["Rebuttal",1.4],["Slowing Hex",1.3],["Headshot Booster",1.1],["Shadow Weave",1.1]],"Baba":[["Rebuttal",2.5],["Spirit Shielding",1.1],["Spirit Resilience",1.1],["Toxic Bullets",1.1]],"Bebop":[["Reactive Barrier",1.2],["Mystic Shot",1.2],["Indomitable",1.2],["Recharging Rush",1.2]],"Billy":[["Rebuttal",1.9],["Phantom Strike",1.3],["Warp Stone",1.2],["Bullet Resilience",1.1]],"Calico":[["Rebuttal",1.5],["Headhunter",1.1],["Headshot Booster",1.1],["Slowing Hex",1.1]],"Celeste":[["Silencer",1.1],["Spirit Resilience",1.1],["Crippling Headshot",1.1],["Spirit Burn",1.1]],"Deadman Danny":[["Knockdown",1.6],["Phantom Strike",1.2],["Witchmail",1.1],["Radiant Regeneration",1.1]],"The Doorman":[["Indomitable",1.5],["Cursed Relic",1.2],["Diviner's Kevlar",1.1],["Transcendent Cooldown",1.1]],"Drifter":[["Bullet Resilience",1.2],["Radiant Regeneration",1.2],["Mystic Regeneration",1.2],["Dispel Magic",1.2]],"Dynamo":[["Unstoppable",1.5],["Debuff Reducer",1.2],["Mystic Slow",1.2],["Cursed Relic",1.1]],"Graves":[["Mystic Slow",1.2],["Crippling Headshot",1.2],["Transcendent Cooldown",1.1],["Witchmail",1.1]],"Grey Talon":[["Spellbreaker",1.9],["Knockdown",1.2],["Veil Walker",1.2],["Phantom Strike",1.2]],"Haze":[["Metal Skin",3.6],["Plated Armor",1.6],["Rusted Barrel",1.3],["Suppressor",1.3]],"Holliday":[["Indomitable",1.2],["Slowing Hex",1.2],["Arctic Blast",1.2],["Cold Front",1.1]],"Rem":[["Counterspell",1.2],["Arctic Blast",1.1],["Shadow Weave",1.1],["Long Range",1.1]],"Seven":[["Knockdown",2.1],["Witchmail",1.2],["Silencer",1.2],["Vampiric Burst",1.2]],"Shiv":[["Crushing Fists",1.3],["Melee Lifesteal",1.2],["Lifestrike",1.2],["Stalker",1.2]],"Silver":[["Disarming Hex",1.5],["Metal Skin",1.3],["Bullet Resilience",1.3],["Rusted Barrel",1.2]],"Sinclair":[["Spellbreaker",1.3],["Witchmail",1.2],["Headhunter",1.1],["Ethereal Shift",1.1]],"Solomon":[["Witchmail",1.2],["Silencer",1.2],["Spellbreaker",1.2],["Inhibitor",1.2]],"Venator":[["Bullet Resilience",1.5],["Weapon Shielding",1.3],["Surge of Power",1.3],["Active Reload",1.2]],"Victor":[["Inhibitor",1.6],["Decay",1.4],["Crippling Headshot",1.3],["Witchmail",1.2]],"Vindicta":[["Knockdown",2.6],["Phantom Strike",2.3],["Metal Skin",1.4],["Plated Armor",1.4]],"Violet":[["Witchmail",1.1],["Spirit Resilience",1.1],["Slowing Bullets",1.1],["Healing Rite",1.1]],"Viscous":[["Rebuttal",1.7],["Cursed Relic",1.1],["Mystic Slow",1.1],["Spellbreaker",1.1]],"Vyper":[["Metal Skin",2.2],["Return Fire",2.1],["Disarming Hex",2.0],["Rusted Barrel",1.6]],"Warden":[["Bullet Resilience",1.2],["Infuser",1.2],["Dispel Magic",1.2],["Active Reload",1.1]],"Wraith":[["Slowing Hex",1.3],["Active Reload",1.3],["Cursed Relic",1.2],["Fleetfoot",1.2]],"Yamato":[["Spellbreaker",1.1],["Ethereal Shift",1.1],["Kinetic Dash",1.1],["Shadow Weave",1.1]],"Infernus":[["Dispel Magic",1.4],["Plated Armor",1.4],["Witchmail",1.2],["Rusted Barrel",1.1]],"Ivy":[["Guardian Ward",1.2],["Bullet Resilience",1.2],["Divine Barrier",1.2],["Weapon Shielding",1.1]],"Kelvin":[["Knockdown",1.3],["Guardian Ward",1.1],["Spirit Resilience",1.1],["Witchmail",1.1]],"Lady Geist":[["Spellbreaker",1.9],["Silencer",1.3],["Spirit Resilience",1.2],["Counterspell",1.2]],"Lash":[["Counterspell",2.0],["Knockdown",1.3],["Phantom Strike",1.3],["Veil Walker",1.2]],"McGinnis":[["Knockdown",1.2],["Weapon Shielding",1.2],["Witchmail",1.1],["Capacitor",1.1]],"Mina":[["Slowing Hex",1.4],["Silencer",1.3],["Spellbreaker",1.2],["Spirit Resilience",1.2]],"Mirage":[["Dispel Magic",1.3],["Plated Armor",1.2],["Silencer",1.1],["Divine Barrier",1.1]],"Mo & Krill":[["Indomitable",1.2],["Knockdown",1.2],["Headhunter",1.2],["Crushing Fists",1.2]],"Nurse Harrow":[["Healbane",1.3],["Knockdown",1.2],["Inhibitor",1.2],["Express Shot",1.1]],"Paige":[["Healing Tempo",1.3],["Mystic Slow",1.1],["Healing Booster",1.1],["Active Reload",1.1]],"Paradox":[["Spellbreaker",2.4],["Debuff Reducer",1.3],["Recharging Rush",1.1],["Active Reload",1.1]],"Pocket":[["Divine Barrier",2.3],["Guardian Ward",1.6],["Spellbreaker",1.4],["Silencer",1.3]],"Rat King":[["Bullet Resilience",1.4],["Plated Armor",1.4],["Crushing Fists",1.2],["Metal Skin",1.2]]};
-        var HEROES = Object.keys(MATCH);
+        // pick-screen order: alphabetical like the deadlock.wiki Heroes list ("The Doorman" under D)
+        var ROSTER = [["Abrams","abrams"],["Apollo","apollo"],["Baba","baba"],["Bebop","bebop"],["Billy","billy"],["Calico","calico"],["Celeste","celeste"],["Deadman Danny","deadman-danny"],["The Doorman","the-doorman"],["Drifter","drifter"],["Dynamo","dynamo"],["Graves","graves"],["Grey Talon","grey-talon"],["Haze","haze"],["Holliday","holliday"],["Infernus","infernus"],["Ivy","ivy"],["Kelvin","kelvin"],["Lady Geist","lady-geist"],["Lash","lash"],["McGinnis","mcginnis"],["Mina","mina"],["Mirage","mirage"],["Mo & Krill","mo-and-krill"],["Nurse Harrow","nurse-harrow"],["Paige","paige"],["Paradox","paradox"],["Pocket","pocket"],["Rat King","rat-king"],["Rem","rem"],["Seven","seven"],["Shiv","shiv"],["Silver","silver"],["Sinclair","sinclair"],["Solomon","solomon"],["Venator","venator"],["Victor","victor"],["Vindicta","vindicta"],["Violet","violet"],["Viscous","viscous"],["Vyper","vyper"],["Warden","warden"],["Wraith","wraith"],["Yamato","yamato"]];
+        var SLUG = {};
+        ROSTER.forEach(function(r){ SLUG[r[0]] = r[1]; });
+        var SLOT_LAB = { self: "自分", ally: "味方", e1: "敵1", e2: "敵2" };
+        var picks = { self: "", ally: "", e1: "", e2: "" };
 
-        var selSelf = document.getElementById("pkSelf");
-        var selAlly = document.getElementById("pkAlly");
-        var selE1 = document.getElementById("pkE1");
-        var selE2 = document.getElementById("pkE2");
+        var pkGrid = document.getElementById("pkGrid");
+        var slotEls = Array.prototype.slice.call(document.querySelectorAll("#pkSlots .slot"));
         var vdBox = document.getElementById("vdBox");
         var vdWord = document.getElementById("vdWord");
         var vdAvg = document.getElementById("vdAvg");
@@ -736,17 +771,79 @@
         var muAlly = document.getElementById("muAlly");
         var ctChips = document.getElementById("ctChips");
 
-        [selSelf, selAlly, selE1, selE2].forEach(function(sel){
-          var o0 = document.createElement("option");
-          o0.value = ""; o0.textContent = "−";
-          sel.appendChild(o0);
-          HEROES.forEach(function(h){
-            var o = document.createElement("option");
-            o.value = h; o.textContent = h;
-            sel.appendChild(o);
+        // icon, or a text tile when the image is missing
+        function iconEl(name, cls, fbCls){
+          var img = document.createElement("img");
+          img.src = "icons/" + SLUG[name] + ".png";
+          img.alt = ""; img.className = cls || ""; img.draggable = false;
+          img.addEventListener("error", function(){
+            var fb = document.createElement("span");
+            fb.className = fbCls; fb.textContent = name;
+            img.replaceWith(fb);
           });
-          sel.addEventListener("change", update);
+          return img;
+        }
+
+        var tiles = {};
+        ROSTER.forEach(function(r){
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "ht"; b.dataset.hero = r[0]; b.title = r[0];
+          var tag = document.createElement("span"); tag.className = "ht-tag";
+          var nm = document.createElement("span"); nm.className = "ht-name"; nm.textContent = r[0];
+          b.appendChild(tag); b.appendChild(iconEl(r[0], "", "ht-fb")); b.appendChild(nm);
+          pkGrid.appendChild(b);
+          tiles[r[0]] = b;
         });
+
+        function slotOf(h){
+          for(var k in picks){ if(picks[k] === h) return k; }
+          return "";
+        }
+        // left = own team (self, then ally), right = enemy (e1, then e2); clicking an assigned hero clears it
+        function assign(h, side){
+          var cur = slotOf(h);
+          if(cur){ picks[cur] = ""; }
+          else {
+            var order = side === "enemy" ? ["e1", "e2"] : ["self", "ally"];
+            picks[!picks[order[0]] ? order[0] : order[1]] = h;
+          }
+          syncPicks();
+        }
+        pkGrid.addEventListener("click", function(ev){
+          var t = ev.target.closest(".ht");
+          if(t) assign(t.dataset.hero, "team");
+        });
+        pkGrid.addEventListener("contextmenu", function(ev){
+          ev.preventDefault();
+          var t = ev.target.closest(".ht");
+          if(t) assign(t.dataset.hero, "enemy");
+        });
+        slotEls.forEach(function(el){
+          el.addEventListener("click", function(){
+            var k = el.dataset.slot;
+            if(picks[k]){ picks[k] = ""; syncPicks(); }
+          });
+        });
+
+        function syncPicks(){
+          ROSTER.forEach(function(r){
+            var k = slotOf(r[0]), t = tiles[r[0]];
+            t.classList.toggle("team", k === "self" || k === "ally");
+            t.classList.toggle("enemy", k === "e1" || k === "e2");
+            t.querySelector(".ht-tag").textContent = k ? SLOT_LAB[k] : "";
+            t.setAttribute("aria-label", r[0] + (k ? "（" + SLOT_LAB[k] + "）" : ""));
+          });
+          slotEls.forEach(function(el){
+            var k = el.dataset.slot, h = picks[k];
+            var old = el.querySelector("img, .slot-fb");
+            if(old) old.remove();
+            el.querySelector(".slot-val").textContent = h || "未選択";
+            el.disabled = !h;
+            el.setAttribute("aria-label", SLOT_LAB[k] + "：" + (h ? h + "（クリックで解除）" : "未選択"));
+            if(h) el.insertBefore(iconEl(h, "", "slot-fb"), el.querySelector(".slot-val"));
+          });
+          update();
+        }
 
         function fmtPts(v){
           if(v > 0) return "+" + v.toFixed(1);
@@ -783,7 +880,7 @@
           return "かなり不利。絶対に死なないのが最優先。タワーは渡してもいい、経験値圏内で耐えてロームやガンク要請";
         }
         function update(){
-          var self = selSelf.value, ally = selAlly.value, e1 = selE1.value, e2 = selE2.value;
+          var self = picks.self, ally = picks.ally, e1 = picks.e1, e2 = picks.e2;
           renderMu(mu1, "自分 vs 敵1", self, e1);
           renderMu(mu2, "自分 vs 敵2", self, e2);
 
@@ -853,7 +950,7 @@
             return '<span class="chip">' + it.name + '<span class="cx">×' + it.mult.toFixed(1) + '</span><span class="cvs">vs ' + it.vs + '</span></span>';
           }).join("");
         }
-        update();
+        syncPicks();
       })();
     </script>
   </body>

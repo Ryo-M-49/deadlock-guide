@@ -18,6 +18,7 @@
         --key:#cf3524; --key-soft:#fde4de;
         --teal:#0f766e; --teal-soft:#d5efec;
         --blue:#2f5d8a; --blue-soft:#dbe7f5;
+        --good:#177245; --good-soft:#dcf3e4;
         --hard:5px 5px 0 rgba(22,41,77,.14);
         --radius:18px;
       }
@@ -30,11 +31,12 @@
           --key:#ff9a8a; --key-soft:#4a2620;
           --teal:#5fd3c4; --teal-soft:#173f3c;
           --blue:#93bde8; --blue-soft:#223a5c;
+          --good:#63d99a; --good-soft:#173b28;
           --hard:5px 5px 0 rgba(0,0,0,.45);
         }
       }
       *{box-sizing:border-box}
-      html{scroll-behavior:smooth}
+      html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
       body{margin:0;color:var(--ink);
         background:
           radial-gradient(circle at 12% 0%, var(--bg2) 0, transparent 420px),
@@ -42,9 +44,9 @@
         font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;
         font-size:15.5px;line-height:1.7;-webkit-text-size-adjust:100%}
       .num{font-family:"Barlow Condensed","Zen Kaku Gothic New",sans-serif;font-weight:600;letter-spacing:.02em}
-      main{max-width:1060px;margin:0 auto;padding:0 20px 96px}
+      main{max-width:1060px;margin:0 auto;padding:0 20px}
       @media (min-width:1200px){
-        main{max-width:1400px;padding:0 32px 110px}
+        main{max-width:1400px;padding:0 32px}
         .buffs{grid-template-columns:repeat(4,1fr)}
       }
       a{color:var(--accent-ink)}
@@ -176,84 +178,74 @@
         .tlgrid{grid-template-columns:repeat(7,1fr)}
       }
 
-      /* ---------- sticky nav (below dashboard) ---------- */
-      nav.toc{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);
-        backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-        margin:34px -20px 0;padding:10px 20px;border-bottom:2px solid var(--line)}
-      @media (min-width:1200px){nav.toc{margin:34px -32px 0;padding:10px 32px}}
-      nav.toc ul{display:flex;gap:10px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
-      nav.toc a{display:inline-flex;align-items:center;min-height:38px;padding:4px 16px;border:2px solid var(--edge);
-        border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;font-size:13.5px;font-weight:900}
-      nav.toc a:active{background:var(--accent-soft)}
-
-      /* ---------- lower sections ---------- */
-      section.detail{margin-top:80px;scroll-margin-top:76px}
-      .sec-head{margin-bottom:26px}
-      section.detail h2{font-size:clamp(22px,3.6vw,28px);font-weight:900;margin:0;line-height:1.3}
-      .sec-lede{color:var(--ink2);margin:10px 0 0;max-width:44em;font-size:15px}
-      .sec-lede strong{color:var(--ink)}
-      section.detail h3{font-size:17px;font-weight:900;margin:32px 0 14px}
-
-      /* ---------- clock simulator ---------- */
-      .clockbox{padding:26px}
-      .clock-head{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-      .clock-time{font-family:"Barlow Condensed",sans-serif;font-size:56px;font-weight:700;line-height:1;color:var(--accent-ink)}
-      .clock-head p{margin:0;color:var(--ink2);font-size:14.5px;flex:1;min-width:200px;font-weight:700}
-      input[type=range]{width:100%;height:40px;accent-color:var(--accent);margin:10px 0 2px}
-      .clock-now{margin-top:18px;border-top:2px dashed var(--line);padding-top:18px}
-      .clock-now h4{margin:0 0 10px;font-size:13px;letter-spacing:.1em;color:var(--ink2)}
-      .chips{display:flex;flex-wrap:wrap;gap:8px}
-      .chip{font-size:13px;font-weight:700;background:var(--surface2);border:1.5px solid var(--line);border-radius:999px;padding:4px 12px}
-      .chip.fresh{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
-      .chip .num{font-size:14px}
-      .clock-next{margin-top:14px;font-size:14.5px}
-      .clock-next strong{color:var(--key)}
-
-      /* ---------- tables ---------- */
-      .tblwrap{background:var(--surface);border:2.5px solid var(--edge);border-radius:var(--radius);box-shadow:var(--hard);overflow:hidden}
-      table{border-collapse:collapse;width:100%;font-size:14.5px}
-      th{background:var(--navy);color:#fff;text-align:left;font-size:12.5px;letter-spacing:.06em;padding:12px 16px;white-space:nowrap}
-      @media (prefers-color-scheme: dark){th{background:#0a1226}}
-      td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
-      tr:last-child td{border-bottom:none}
-      tr.keyrow td{background:var(--accent-soft)}
-      @media (max-width:720px){
-        table,thead,tbody,tr,td{display:block}
-        thead{display:none}
-        tr{padding:12px 16px;border-bottom:1px solid var(--line)}
-        tr:last-child{border-bottom:none}
-        td{border:none;padding:3px 0}
-      }
-
-      /* ---------- buff cards ---------- */
-      .buffs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-      .buff{background:var(--surface);border:2.5px solid var(--edge);border-radius:var(--radius);padding:24px;box-shadow:var(--hard)}
-      .buff h4{margin:0 0 2px;font-size:18px;font-weight:900}
-      .buff .sub{font-size:12px;color:var(--accent-ink);font-weight:900;letter-spacing:.14em;font-family:"Barlow Condensed",sans-serif}
-      .buff dl{margin:14px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13.5px}
-      .buff dt{color:var(--ink2);font-weight:700;white-space:nowrap}
-      .buff dd{margin:0;font-weight:700}
-      .buff .who{margin-top:14px;font-size:13.5px;color:var(--ink2);border-top:2px dashed var(--line);padding-top:12px}
-      .buff .who strong{color:var(--ink)}
-
-      .note{background:var(--surface2);border:2px solid var(--line);border-radius:var(--radius);padding:18px 22px;font-size:14.5px;margin-top:22px}
-      .note strong{color:var(--key)}
-      .twocol{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-      @media (max-width:720px){.twocol{grid-template-columns:1fr}}
-      ul.tight{margin:6px 0;padding-left:1.25em}
-      ul.tight li{margin:6px 0}
-      details.fold{margin-top:22px;background:var(--surface);border:2px solid var(--line);border-radius:var(--radius);overflow:hidden}
-      details.fold summary{cursor:pointer;font-weight:900;padding:16px 22px;list-style:none;display:flex;align-items:center;gap:10px}
-      details.fold summary::-webkit-details-marker{display:none}
-      details.fold summary::after{content:"＋";margin-left:auto;color:var(--accent-ink);font-weight:900}
-      details.fold[open ] summary::after{content:"−"}
-      details.fold .fold-body{padding:0 22px 22px}
-      details.fold .tblwrap{box-shadow:none;border-width:2px}
-      footer{margin-top:88px;border-top:2px solid var(--line);padding-top:24px;font-size:13px;color:var(--ink2)}
-      footer h2{font-size:17px;color:var(--ink)}
-      footer li{margin:4px 0;word-break:break-all}
       .kbd{display:inline-block;border:2px solid var(--edge);border-bottom-width:3px;border-radius:6px;background:var(--surface);
         padding:0 7px;font-size:12.5px;font-weight:900;font-family:inherit}
+
+      /* ---------- two-screen scroll snap ---------- */
+      .screen{scroll-snap-align:start;scroll-snap-stop:always;position:relative}
+      @media (min-width:1021px){
+        .screen{height:100vh;height:100dvh;overflow:hidden}
+      }
+      @media (max-width:1020px){
+        html{scroll-snap-type:y proximity}
+        .screen{min-height:100dvh}
+      }
+      .scroll-hint{position:absolute;left:50%;transform:translateX(-50%);bottom:5px;font-size:11.5px;font-weight:900;color:var(--ink2);letter-spacing:.08em;white-space:nowrap;pointer-events:none}
+      @media (max-width:1020px){.scroll-hint{display:none}}
+
+      /* ---------- lane matchup (screen 2) ---------- */
+      .screen-lane{display:flex;flex-direction:column}
+      .lane-inner{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:16px 0 20px;width:100%}
+      .lane-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+      .lane-head h2{font-size:24px;margin:0}
+      .lane-head p{margin:0;color:var(--ink2);font-size:13px;font-weight:700}
+      .lane-head .to-dash{margin-left:auto;font-size:12.5px;font-weight:900;white-space:nowrap}
+      .pickrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+      @media (max-width:760px){.pickrow{grid-template-columns:1fr 1fr}}
+      .pick{background:var(--surface);border:2.5px solid var(--edge);border-radius:14px;padding:9px 14px 11px;box-shadow:var(--hard)}
+      .pick.enemy{border-color:var(--key)}
+      .pick-lab{display:block;font-size:12px;font-weight:900;letter-spacing:.1em;color:var(--ink2);margin-bottom:2px}
+      .pick.enemy .pick-lab{color:var(--key)}
+      .pick-lab em{font-style:normal;color:var(--accent-ink)}
+      .pick select{width:100%;font:inherit;font-size:19px;font-weight:900;border:none;background:transparent;color:var(--ink);padding:2px 0;cursor:pointer;min-height:2rem}
+      .pick select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      .lane-main{display:grid;grid-template-columns:5fr 7fr;gap:14px;align-items:stretch}
+      @media (max-width:760px){.lane-main{grid-template-columns:1fr}}
+      .verdict{padding:16px 22px;display:flex;flex-direction:column;justify-content:center}
+      .verdict.good{border-color:var(--good);background:var(--good-soft)}
+      .verdict.bad{border-color:var(--key);background:var(--key-soft)}
+      .vd-lab{font-size:11.5px;font-weight:900;letter-spacing:.16em;color:var(--ink2)}
+      .vd-word{font-size:clamp(38px,4.6vw,56px);font-weight:900;line-height:1.15}
+      .verdict.good .vd-word{color:var(--good)}
+      .verdict.bad .vd-word{color:var(--key)}
+      .vd-avg{font-size:14px;font-weight:900;color:var(--ink2)}
+      .vd-play{margin:8px 0 0;font-size:16.5px;font-weight:700;line-height:1.6}
+      .vd-worst{margin:6px 0 0;font-size:14.5px;font-weight:900;color:var(--key)}
+      .vd-worst:empty{display:none}
+      .matchcol{display:flex;flex-direction:column;gap:10px}
+      .mu{padding:12px 20px;display:flex;align-items:center;gap:18px;flex:1}
+      .mu-lab{font-size:15px;font-weight:900;line-height:1.45;flex:1;min-width:0}
+      .mu-lab small{display:block;font-size:11.5px;color:var(--ink2);letter-spacing:.08em;font-weight:900}
+      .mu-res{font-size:37px;font-weight:900;line-height:1.1;white-space:nowrap;text-align:right}
+      .mu-res.good{color:var(--good)}
+      .mu-res.bad{color:var(--key)}
+      .mu-res.even{color:var(--ink2)}
+      .mu-res small{display:block;font-size:11.5px;color:var(--ink2);font-weight:900}
+      .mu.empty{opacity:.55;box-shadow:none}
+      .mu-ally{font-size:13.5px;font-weight:700;color:var(--ink2);padding:0 4px;line-height:1.6}
+      .mu-ally:empty{display:none}
+      .mu-ally .good{color:var(--good);font-weight:900}
+      .mu-ally .bad{color:var(--key);font-weight:900}
+      .counter{padding:14px 20px}
+      .ct-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+      .ct-head h3{margin:0;font-size:17px}
+      .ct-head span{font-size:12px;color:var(--ink2);font-weight:700}
+      .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+      .chip{display:inline-flex;align-items:baseline;gap:7px;background:var(--surface2);border:2px solid var(--line);border-radius:999px;padding:4px 13px;font-size:14.5px;font-weight:900}
+      .chip .cx{color:var(--accent-ink);font-family:"Barlow Condensed",sans-serif;font-size:16.5px;font-weight:600}
+      .chip .cvs{font-size:11px;color:var(--ink2);font-weight:700}
+      .ct-empty{color:var(--ink2);font-size:14px;font-weight:700}
+      .lane-note{font-size:11.5px;color:var(--ink2);margin:0;line-height:1.6}
 
       /* ---------- toasts ---------- */
       #toasts{position:fixed;top:14px;right:14px;z-index:80;display:flex;flex-direction:column;gap:10px;max-width:min(370px,calc(100vw - 28px))}
@@ -270,6 +262,7 @@
   </head>
   <body>
     <main>
+      <div class="screen screen-dash" id="screenDash">
       <header class="top">
         <h1>Deadlock 試合タイミング早見表</h1>
         <p class="lead">タイマーを回せば、見るのはこの1画面だけ。</p>
@@ -343,7 +336,7 @@
           <div class="tlb" data-t="6"><div class="tlb-t">6:00</div><div class="tlb-n">ジップライン加速＋耐性0%</div><div class="tlb-s">ガーディアンが柔らかくなる</div><div class="tlb-state"></div></div>
           <div class="tlb keymark" data-t="8"><div class="tlb-t">8:00</div><div class="tlb-n">罪人の供物＋大キャンプ</div><div class="tlb-s">供物 復活5:00・大 復活5:35</div><div class="tlb-state"></div></div>
           <div class="tlb keymark" data-t="10"><div class="tlb-t">10:00</div><div class="tlb-n">魂の壺</div><div class="tlb-s">以後 5分ごと（黄⇔緑で交互）</div><div class="tlb-state"></div></div>
-          <div class="tlb" data-t="10"><div class="tlb-t">10–12<small>:00</small></div><div class="tlb-n">不安定な裂け目 初回</div><div class="tlb-s">11:00±1分・以後 約7分ごと</div><div class="tlb-state"></div></div>
+          <div class="tlb" data-t="12"><div class="tlb-t">12:00<small>目安</small></div><div class="tlb-n">不安定な裂け目 初回</div><div class="tlb-s">以後 約7分ごと（19:00／26:00／33:00 目安）</div><div class="tlb-state"></div></div>
           <div class="tlb" data-t="12"><div class="tlb-t">12:00</div><div class="tlb-n">耐性 −50%</div><div class="tlb-s">序盤終了の目安</div><div class="tlb-state"></div></div>
           <div class="tlb" data-t="15"><div class="tlb-t">15:00<small>〜</small></div><div class="tlb-n">ウォーカー目安</div><div class="tlb-s">壺＋バフも同時湧き（5分ごと）</div><div class="tlb-state"></div></div>
           <div class="tlb" data-t="20"><div class="tlb-t">20:00</div><div class="tlb-n">ミッドボス目安＋トルーパー25秒</div><div class="tlb-s">ウェーブ間隔 30秒 → 25秒</div><div class="tlb-state"></div></div>
@@ -360,374 +353,71 @@
           <div class="sb ult"><div class="v">3,800</div><div class="l">ULT 解禁 ★最大</div></div>
           <div class="sb"><div class="v">4,800</div><div class="l">系統投資ボーナス</div></div>
         </div>
-        <p class="dash-note">節目に先に届いたら、その間に仕掛ける。相手の累計ソウルは <span class="kbd">Tab</span> で確認、3,800 超えは「ULTあり前提」。詳細は下のセクション（試合前後の確認用）。</p>
+        <p class="dash-note">節目に先に届いたら、その間に仕掛ける。相手の累計ソウルは <span class="kbd">Tab</span> で確認、3,800 超えは「ULTあり前提」。</p>
+        <p class="dash-note">数値：Deadlock Wiki／DeadlockTimesJP（2026-11-20取得）</p>
       </section>
+        <p class="scroll-hint">▼ 下へスクロール ― レーン相性（対面プランナー）</p>
+      </div>
 
-      <nav class="toc" aria-label="目次">
-        <ul>
-          <li><a href="#dash">ダッシュボード</a></li>
-          <li><a href="#bridge">ブリッジバフ</a></li>
-          <li><a href="#items">アイテムの節目</a></li>
-          <li><a href="#objectives">オブジェ詳細</a></li>
-          <li><a href="#howto">試合中の見方</a></li>
-          <li><a href="#boons">全Boon表</a></li>
-          <li><a href="#clock">時計シミュレーター</a></li>
-        </ul>
-      </nav>
+      <!-- ============ screen 2: lane matchup planner ============ -->
+      <section id="lane" class="screen screen-lane" aria-label="レーン相性">
+        <div class="lane-inner">
+          <div class="lane-head">
+            <h2>レーン相性 ― 最初のレーン戦</h2>
+            <p>対面が分かったら選ぶだけ。相性・立ち回り・対策アイテムが即出ます。</p>
+            <a class="to-dash" href="#screenDash">▲ タイマーに戻る</a>
+          </div>
 
-      <!-- ============ bridge buffs (detail) ============ -->
-      <section class="detail" id="bridge">
-        <div class="sec-head">
-          <h2>ブリッジバフ 4種</h2>
-          <p class="sec-lede"><strong>5:00から5分ごと</strong>、2つの橋に同時出現。取得は<strong>強近接</strong>、効果<strong>160秒</strong>、<strong>死ぬと消える</strong>。数値は時間とともに伸びる。 <span class="badge b-wiki">Wiki</span></p>
-        </div>
-        <div class="buffs">
-          <div class="buff">
-            <div class="sub">GUN</div><h4>銃バフ</h4>
-            <dl><dt>5分時点</dt><dd>連射 +12% / 弾数 +35%</dd><dt>40分時点</dt><dd>連射 +35% / 弾数 +70%</dd><dt>取得時</dt><dd>その場でリロード</dd></dl>
-            <p class="who"><strong>取りたい人：</strong>銃火力中心。直後の撃ち合いが露骨に強い</p>
-          </div>
-          <div class="buff">
-            <div class="sub">CASTING</div><h4>スピリットバフ</h4>
-            <dl><dt>5分時点</dt><dd>スピリット +15 / CD短縮 +12%</dd><dt>40分時点</dt><dd>スピリット +65 / CD短縮 +20%</dd></dl>
-            <p class="who"><strong>取りたい人：</strong>アビリティ火力中心。ULTの回転も速くなる</p>
-          </div>
-          <div class="buff">
-            <div class="sub">SURVIVAL</div><h4>耐久バフ</h4>
-            <dl><dt>5分時点</dt><dd>HP +200 / 回復 +4/秒</dd><dt>40分時点</dt><dd>HP +750 / 回復 +40/秒</dd></dl>
-            <p class="who"><strong>取りたい人：</strong>前に出る役。序盤の +200 は T1体力アイテム級</p>
-          </div>
-          <div class="buff">
-            <div class="sub">MOVEMENT</div><h4>移動バフ</h4>
-            <dl><dt>5分時点</dt><dd>スタミナ +2 / 疾走 +1.5m/s / ジップ +40%</dd><dt>40分時点</dt><dd>スタミナ +4 / 疾走 +4m/s / ジップ +80%</dd></dl>
-            <p class="who"><strong>取りたい人：</strong>ローム・壺運び役。逃げ性能も上がる</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ items (detail) ============ -->
-      <section class="detail" id="items">
-        <div class="sec-head">
-          <h2>アイテムの節目</h2>
-          <p class="sec-lede">価格は全アイテム共通：<strong>T1＝800 / T2＝1,600 / T3＝3,200 / T4＝6,400</strong>。高い物を貯めて買わず、安い物を積み上げるのが基本。 <span class="badge b-times">TimesJP</span></p>
-        </div>
-        <div class="twocol">
-          <div>
-            <h3 style="margin-top:0">系統投資ボーナス（同系統の累計）</h3>
-            <div class="tblwrap">
-              <table>
-                <thead><tr><th>投資額</th><th>銃</th><th>スピリット</th><th>体力</th></tr></thead>
-                <tbody>
-                  <tr><td class="num" style="font-size:18px">800</td><td>+9%</td><td>+7</td><td>+9%</td></tr>
-                  <tr><td class="num" style="font-size:18px">1,600</td><td>+12%</td><td>+11</td><td>+12%</td></tr>
-                  <tr><td class="num" style="font-size:18px">2,400</td><td>+15%</td><td>+15</td><td>+15%</td></tr>
-                  <tr><td class="num" style="font-size:18px">3,200</td><td>+18%</td><td>+19</td><td>+20%</td></tr>
-                  <tr class="keyrow"><td class="num" style="font-size:18px">4,800 ★</td><td><strong>+46%</strong></td><td><strong>+38</strong></td><td><strong>+38%</strong></td></tr>
-                  <tr><td class="num" style="font-size:18px">6,400</td><td>+54%</td><td>+45</td><td>+42%</td></tr>
-                  <tr><td class="num" style="font-size:18px">8,000</td><td>+62%</td><td>+52</td><td>+46%</td></tr>
-                  <tr><td class="num" style="font-size:18px">11,200</td><td>+74%</td><td>+59</td><td>+50%</td></tr>
-                  <tr><td class="num" style="font-size:18px">16,000</td><td>+86%</td><td>+66</td><td>+54%</td></tr>
-                  <tr><td class="num" style="font-size:18px">22,400</td><td>+100%</td><td>+75</td><td>+60%</td></tr>
-                  <tr><td class="num" style="font-size:18px">28,800（上限）</td><td>+115%</td><td>+100</td><td>+66%</td></tr>
-                </tbody>
-              </table>
+          <div class="pickrow">
+            <div class="pick">
+              <label class="pick-lab" for="pkSelf">自分 <em>必須</em></label>
+              <select id="pkSelf" aria-label="自分のヒーロー"></select>
             </div>
-            <p style="font-size:13.5px;color:var(--ink2)">★4,800 が最大の跳ねどころ（銃は +28%）。これが「4.8kスパイク」。売ると投資額も減る。 <span class="badge b-wiki">Wiki</span> <span class="badge b-times">TimesJP</span></p>
-          </div>
-          <div>
-            <h3 style="margin-top:0">「戦っていい」買い物の目安</h3>
-            <div class="tblwrap">
-              <table>
-                <thead><tr><th>タイミング</th><th>なぜ強いか</th></tr></thead>
-                <tbody>
-                  <tr><td><strong>系統 4,800 到達</strong></td><td>投資ボーナスが跳ねる</td></tr>
-                  <tr><td><strong>最初のティア2</strong>（序盤）</td><td>相手が T1 だけの間は明確な個体差</td></tr>
-                  <tr><td><strong>最初のティア3</strong>（中盤）</td><td>4.8k到達と重なれば二重スパイク</td></tr>
-                  <tr><td><strong>最初のティア4</strong>（後半）</td><td>1つ目は大きい。2つ目以降は過信しない</td></tr>
-                  <tr><td><strong>相手より先に買えた直後</strong></td><td>買ったら戦う、が原則</td></tr>
-                </tbody>
-              </table>
+            <div class="pick">
+              <label class="pick-lab" for="pkAlly">味方（もう1人）</label>
+              <select id="pkAlly" aria-label="味方のヒーロー"></select>
             </div>
-            <div class="note">アイテム枠は <strong>9 → ウォーカー1体ごとに +1 → 最大12</strong>。アクティブは最大4つ。 <span class="badge b-wiki">Wiki</span></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ objectives (detail) ============ -->
-      <section class="detail" id="objectives">
-        <div class="sec-head">
-          <h2>キャンプ＆オブジェ詳細</h2>
-          <p class="sec-lede">出現時刻そのものは上の統合タイムラインに集約。ここは内訳と数字の確認用です。</p>
-        </div>
-        <h3 style="margin-top:0">ジャングルキャンプ（ホーント）</h3>
-        <div class="tblwrap">
-          <table>
-            <thead><tr><th>種類</th><th>見分け方</th><th>初出現</th><th>復活（全滅から）</th><th>メモ</th></tr></thead>
-            <tbody>
-              <tr><td><strong>小キャンプ</strong></td><td>三角のみ・緑目</td><td class="num" style="font-size:18px">2:00</td><td class="num" style="font-size:18px">1:25</td><td>ウェーブの合間に</td></tr>
-              <tr><td><strong>中キャンプ</strong></td><td>三角＋線1本・黄目</td><td class="num" style="font-size:18px">5:00</td><td class="num" style="font-size:18px">4:50</td><td>中盤ファームの主力</td></tr>
-              <tr><td><strong>大キャンプ</strong></td><td>三角＋線2本・赤目</td><td class="num" style="font-size:18px">8:00</td><td class="num" style="font-size:18px">5:35</td><td>実入り最大・硬い。装備が揃ってから</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p style="font-size:13.5px;color:var(--ink2)">キャンプ等のソウルは「未確保」で、<strong>死ぬと落とす</strong>。稼いだら早めにショップで使うのが安全。 <span class="badge b-wiki">Wiki</span> <span class="badge b-times">TimesJP</span></p>
-        <div class="note"><strong>時刻じゃない解禁：</strong> アイテム枠 9 → <strong>敵ウォーカー撃破ごとに +1（最大12）</strong>。ベースガーディアン撃破でそのレーンのジップライン恒常高速化。シュライン撃破で自軍トルーパーがスーパー化。 <span class="badge b-wiki">Wiki</span></div>
-
-        <div class="twocol" style="margin-top:26px">
-          <div class="card" style="padding:24px 26px">
-            <h3 style="margin-top:0">罪人の供物（ガチャ）― 8:00〜</h3>
-            <ul class="tight">
-              <li>壊せるのは<strong>近接だけ</strong>。復活は壊してから <strong>5:00</strong></li>
-              <li>反撃は1台合計 <strong>320</strong> ダメージ → HP余裕時に</li>
-              <li>ランプ全点灯で強近接＝<strong>ジャックポット</strong>（永続バフ4つ・反撃なし）</li>
-              <li>鐘楼の頂上に3台、ガレージに2台まとまった場所あり</li>
-            </ul>
-          </div>
-          <div class="card" style="padding:24px 26px">
-            <h3 style="margin-top:0">魂の壺 ― 10:00〜 5分ごと</h3>
-            <ul class="tight">
-              <li>初回 York（黄）側 → 以後交互。着地まで12.5秒</li>
-              <li>報酬 <strong>250 ＋ 70×経過分</strong>（10分湧き＝950）＋運搬者に永続バフ4つ</li>
-              <li>運搬中はジップ・テレポーター不可。近接かスタンで落とす</li>
-              <li>拾って45秒で減価、さらに45秒で消滅</li>
-            </ul>
-          </div>
-          <div class="card" style="padding:24px 26px">
-            <h3 style="margin-top:0">ミッドボス ― 最初からいる</h3>
-            <ul class="tight">
-              <li>中央地下。HP <strong>15,600</strong>（毎分 +234）＋再生シールド</li>
-              <li>報酬 <strong>1,500 ＋ 25×経過分</strong> ソウル＋全員に永続バフ2つ＋結晶3つ</li>
-              <li>結晶所持チームは死亡時に3秒後・全回復で復活（<strong>3分間</strong>）</li>
-              <li>復活は <strong>7分 → 6分 → 5分</strong>。残り時間は Tab で確認</li>
-            </ul>
-          </div>
-          <div class="card" style="padding:24px 26px">
-            <h3 style="margin-top:0">不安定な裂け目 ― 初回 10:00〜12:00</h3>
-            <ul class="tight">
-              <li>橋の陣取り。確保 <strong>12秒</strong>、両軍がいると進まない</li>
-              <li>60秒決着なし＝引き分け（ソウルはオーブで放出）</li>
-              <li>報酬 <strong>1,482 ＋ 222×分</strong>（13分から加算）をチーム均等配分</li>
-              <li>次回は終了後 <strong>7分±1分</strong></li>
-            </ul>
-          </div>
-        </div>
-
-        <details class="fold">
-          <summary>防衛ライン（タワー）の数字を見る</summary>
-          <div class="fold-body">
-            <div class="tblwrap">
-              <table>
-                <thead><tr><th>対象</th><th>HP</th><th>倒すと</th><th>時間で変わること</th></tr></thead>
-                <tbody>
-                  <tr><td><strong>ガーディアン</strong>（各レーン1）</td><td class="num" style="font-size:18px">5,500</td><td>チームに 1,375 ソウル。隣のショップが閉じる</td><td>耐性 50% → 0%（6:00）→ −50%（12:00）</td></tr>
-                  <tr><td><strong>ウォーカー</strong>（各レーン1）</td><td class="num" style="font-size:18px">―</td><td><strong>アイテム枠 +1</strong>（最大3つ）</td><td>ガーディアン撃破まで無敵</td></tr>
-                  <tr><td><strong>ベースガーディアン</strong>（2体1組）</td><td class="num" style="font-size:18px">―</td><td>そのレーンのジップライン恒常高速化</td><td>―</td></tr>
-                  <tr><td><strong>シュライン</strong>（2つ）</td><td class="num" style="font-size:18px">―</td><td>自軍トルーパーがスーパー化。2つでパトロン攻撃可能に</td><td>―</td></tr>
-                </tbody>
-              </table>
+            <div class="pick enemy">
+              <label class="pick-lab" for="pkE1">敵 1 <em>必須</em></label>
+              <select id="pkE1" aria-label="敵ヒーロー1"></select>
             </div>
-            <p style="font-size:13.5px;color:var(--ink2);margin:14px 0 0">裏取りできていない数字は「―」（不明な数字は載せない方針）。ガーディアン初回撃破の中央値は 9.8分（TimesJP の試合データ）。 <span class="badge b-wiki">Wiki</span> <span class="badge b-times">TimesJP</span></p>
-          </div>
-        </details>
-      </section>
-
-      <!-- ============ howto (detail) ============ -->
-      <section class="detail" id="howto">
-        <div class="sec-head">
-          <h2>試合中の見方</h2>
-        </div>
-        <div class="twocol">
-          <div class="card" style="padding:26px 28px">
-            <h3 style="margin-top:0">相手のソウルと ULT 判定</h3>
-            <ul class="tight">
-              <li><span class="kbd">Tab</span> で<strong>全員の累計ソウル</strong>が見える（買っても減らない）</li>
-              <li>相手が <strong>3,800</strong> を越えたら「ULTあり前提」で動く</li>
-              <li>見るのは <strong>1,100 / 2,000 / 3,800</strong> への近さだけ。ウェーブの合間に一瞬でOK</li>
-            </ul>
-          </div>
-          <div class="card" style="padding:26px 28px">
-            <h3 style="margin-top:0">スパイク後の60秒</h3>
-            <ul class="tight">
-              <li>「自分だけ強い」時間は<strong>1〜2ウェーブ分</strong>だけ</li>
-              <li>やることは1つ：<strong>キルかタワーダメージに変える</strong></li>
-              <li>相手が先なら、その間は無理をしない</li>
-            </ul>
-          </div>
-        </div>
-        <div class="note"><strong>30秒前チェック：</strong> ①ウェーブを押すアビリティを温存 ②HPとスタミナを残す ③ミニマップで消えている敵を確認。 <span class="badge b-times">TimesJP</span></div>
-      </section>
-
-      <!-- ============ full boon table (detail) ============ -->
-      <section class="detail" id="boons">
-        <div class="sec-head">
-          <h2>ソウルの節目 ― 全Boon表</h2>
-          <p class="sec-lede">レベルは<strong>累計ソウル</strong>で決まります。買い物をしても減りません。上の帯は主要な節目だけ抜いたものです。</p>
-        </div>
-        <details class="fold" style="margin-top:0">
-          <summary>全節目表を見る（累計ソウル → Boon・解禁・ポイント）</summary>
-          <div class="fold-body">
-            <div class="tblwrap">
-              <table>
-                <thead><tr><th>累計ソウル</th><th>Boon</th><th>そこで起きること</th><th>ポイント累計</th></tr></thead>
-                <tbody id="boonBody"></tbody>
-              </table>
+            <div class="pick enemy">
+              <label class="pick-lab" for="pkE2">敵 2</label>
+              <select id="pkE2" aria-label="敵ヒーロー2"></select>
             </div>
-            <p style="font-size:13.5px;color:var(--ink2);margin:14px 0 0">強化コストは共通で <strong>Lv1＝1pt / Lv2＝追加2pt / Lv3＝追加5pt</strong>（1本最大で累計8pt）。ポイントは貯めて切り札に回してもOK。 <span class="badge b-wiki">Wiki</span></p>
           </div>
-        </details>
-      </section>
 
-      <!-- ============ clock simulator (detail) ============ -->
-      <section class="detail" id="clock">
-        <div class="sec-head">
-          <h2>時計シミュレーター（予習用）</h2>
-          <p class="sec-lede">スライダーを動かすだけ。その時点で解禁済みの要素と次の一手が出ます。</p>
-        </div>
-        <div class="clockbox card">
-          <div class="clock-head">
-            <div class="clock-time" id="clockTime">0:00</div>
-            <p id="clockPhase">レーニング開始。まずはウェーブのソウルを確実に取る時間です。</p>
+          <div class="lane-main">
+            <div class="verdict card" id="vdBox">
+              <div class="vd-lab">LANE ― レーン総合</div>
+              <div class="vd-word" id="vdWord">未選択</div>
+              <div class="vd-avg" id="vdAvg">自分と敵1を選んでください</div>
+              <p class="vd-play" id="vdPlay">選んだ瞬間に、押すか守るかと具体的な動き方がここに出ます。</p>
+              <p class="vd-worst" id="vdWorst"></p>
+            </div>
+            <div class="matchcol">
+              <div class="mu card empty" id="mu1"></div>
+              <div class="mu card empty" id="mu2"></div>
+              <p class="mu-ally" id="muAlly"></p>
+            </div>
           </div>
-          <input type="range" id="clockRange" min="0" max="40" step="0.5" value="0" aria-label="試合経過時間（分）" />
-          <div class="ticks"><span>0:00</span><span>5:00</span><span>10:00</span><span>15:00</span><span>20:00</span><span>25:00</span><span>30:00</span><span>35:00</span><span>40:00</span></div>
-          <div class="clock-now">
-            <h4>解禁済み</h4>
-            <div class="chips" id="clockChips"></div>
-            <p class="clock-next" id="clockNext"></p>
+
+          <div class="counter card">
+            <div class="ct-head">
+              <h3>対策アイテム候補</h3>
+              <span>購入率ベースの目安 ― その敵がいると買われやすくなる順（対策は1枠から）</span>
+            </div>
+            <div class="chips" id="ctChips"><span class="ct-empty">敵を選ぶと、その敵への対策アイテムがここに出ます。</span></div>
           </div>
+
+          <p class="lane-note">相性：DeadlockTimesJP（6分時点のレーン勝ち−負けの変化、300レーン以上のペアのみ、差3pt未満は互角扱い）。対策：敵にいると買われやすくなるアイテム（Phantom以上 約4.4万試合）。2026-11-20取得</p>
         </div>
       </section>
-
-      <footer>
-        <h2>出典（2026-11-20 取得）</h2>
-        <ul>
-          <li>Deadlock Wiki ― Boon（全節目表）: https://deadlock.wiki/Boon</li>
-          <li>Deadlock Wiki ― Cursed Apple（マップ時刻・出現/復活表）: https://deadlock.wiki/Cursed_Apple</li>
-          <li>Deadlock Wiki ― Powerups（ブリッジバフ4種・160秒・数値帯）: https://deadlock.wiki/Powerups</li>
-          <li>Deadlock Wiki ― Items（価格・投資ボーナス表・枠）: https://deadlock.wiki/Items</li>
-          <li>Deadlock Wiki ― Extra Slots（ウォーカー撃破で枠+1）: https://deadlock.wiki/Extra_Slots</li>
-          <li>Deadlock Wiki ― Midboss / Soul Urn / Unstable Rift / Lane Guardian / Trooper / Mechanics: https://deadlock.wiki/Midboss ・ https://deadlock.wiki/Soul_Urn ・ https://deadlock.wiki/Unstable_Rift ・ https://deadlock.wiki/Lane_Guardian ・ https://deadlock.wiki/Trooper ・ https://deadlock.wiki/Mechanics</li>
-          <li>DeadlockTimesJP ― レーニング完全ガイド（時刻表・30秒前ウェーブ・スパイク表）: https://deadlocktimes.jp/blog/deadlock-laning-guide/</li>
-          <li>DeadlockTimesJP ― アイテムの買い方の基本（4.8k投資ボーナス・スパイクの考え方）: https://deadlocktimes.jp/blog/deadlock-item-buying-basics/</li>
-        </ul>
-        <p>Deadlock は開発中のタイトルです。時刻・数値はパッチで変わることがあります。出典間で食い違う数字は、正本（Deadlock Wiki）の現行値を優先し、確認できなかったものは載せていません。</p>
-      </footer>
     </main>
 
     <div id="toasts" aria-live="polite"></div>
 
-    <script>
-      // ---- Boon table (Deadlock Wiki, fetched 2026-11-20) ----
-      var boons = [
-        [600,0,"開始時：アビリティ1つ解禁（ULT以外）",0],
-        [800,1,"アビリティポイント +1",1],
-        [1100,2,"アビリティ解禁 2つ目",1],
-        [1500,3,"アビリティポイント +1",2],
-        [2000,4,"アビリティ解禁 3つ目",2],
-        [2600,5,"アビリティポイント +1（＝1本をLv2にできる）",3],
-        [3200,6,"アビリティポイント +1",4],
-        [3800,7,"ULT 解禁 ★",4],
-        [4500,8,"アビリティポイント +1",5],
-        [5200,9,"アビリティポイント +1",6],
-        [5900,10,"アビリティポイント +1",7],
-        [6600,11,"アビリティポイント +1",8],
-        [7400,12,"アビリティポイント +1",9],
-        [8200,13,"アビリティポイント +1",10],
-        [9000,14,"アビリティポイント +1",11],
-        [9800,15,"アビリティポイント +1",12],
-        [10700,16,"アビリティポイント +1",13],
-        [11600,17,"アビリティポイント +1",14],
-        [12500,18,"アビリティポイント +1",15],
-        [13400,19,"アビリティポイント +1",16],
-        [14400,20,"アビリティポイント +1",17],
-        [15500,21,"アビリティポイント +1",18],
-        [16700,22,"アビリティポイント +1",19],
-        [18000,23,"アビリティポイント +1",20],
-        [19500,24,"アビリティポイント +1",21],
-        [21200,25,"アビリティポイント +1",22],
-        [23100,26,"アビリティポイント +1",23],
-        [25200,27,"アビリティポイント +1",24],
-        [27500,28,"アビリティポイント +1",25],
-        [30000,29,"アビリティポイント +1",26],
-        [32700,30,"アビリティポイント +1",27],
-        [35600,31,"アビリティポイント +1",28],
-        [38700,32,"アビリティポイント +1",29],
-        [42000,33,"アビリティポイント +1",30],
-        [45500,34,"アビリティポイント +1",31],
-        [49200,35,"最大到達：ポイント +1（全アビリティ最大化可能）",32]
-      ];
-      var fmt = function(n){ return n.toLocaleString("en-US"); };
-      var body = document.getElementById("boonBody");
-      var html = "";
-      boons.forEach(function(r){
-        var key = (r[0]===1100||r[0]===2000||r[0]===3800);
-        html += "<tr" + (r[0]===3800 ? ' class="keyrow"' : "") + ">" +
-          '<td class="num" style="font-size:19px">' + fmt(r[0]) + "</td>" +
-          "<td>" + (r[1]===0 ? "―" : r[1]) + "</td>" +
-          "<td>" + (key ? "<strong>" + r[2] + "</strong>" : r[2]) + "</td>" +
-          "<td>" + r[3] + "</td></tr>";
-      });
-      body.innerHTML = html;
 
-      // ---- Match clock simulator (preview) ----
-      var events = [
-        {t:0,   name:"試合開始（ソウル600・枠9）"},
-        {t:2,   name:"小キャンプ"},
-        {t:2.5, name:"Healing Snack"},
-        {t:3,   name:"箱・バフコンテナ"},
-        {t:5,   name:"ブリッジバフ＋中キャンプ"},
-        {t:6,   name:"ガーディアン耐性0%・ジップ加速"},
-        {t:8,   name:"大キャンプ＋罪人の供物"},
-        {t:10,  name:"魂の壺（以後5分ごと）"},
-        {t:10,  name:"裂け目 初回ウィンドウ開始（〜12:00）"},
-        {t:12,  name:"ガーディアン耐性 −50%"},
-        {t:20,  name:"トルーパー 25秒間隔"},
-        {t:30,  name:"永続バフ 最上区分"},
-        {t:35,  name:"トルーパー 20秒間隔＋HP+50%"}
-      ];
-      var phases = [
-        [0,"レーニング開始。まずはウェーブのソウルを確実に取る時間です。"],
-        [2,"小キャンプが開きました。ウェーブの合間に回し始められます。"],
-        [5,"最初の山場：ブリッジバフと中キャンプ。橋の取り合いが起きます。"],
-        [8,"大キャンプと供物が開放。レーンを離れて動く時間が増えていきます。"],
-        [10,"壺と裂け目の時代へ。5分ごとの節目に寄れるチームが伸びます。"],
-        [12,"レーニング終了の目安。ガーディアンは柔らかく、押し込みが加速します。"],
-        [20,"トルーパーが速くなり、中盤戦へ。オブジェの取り合いが本格化。"],
-        [35,"最終局面。ウェーブが20秒ごと＋強化され、1回の勝敗が決定的です。"]
-      ];
-      var range = document.getElementById("clockRange");
-      var cTime = document.getElementById("clockTime");
-      var cPhase = document.getElementById("clockPhase");
-      var cChips = document.getElementById("clockChips");
-      var cNext = document.getElementById("clockNext");
-      function fmtT(t){
-        var m = Math.floor(t), s = Math.round((t-m)*60);
-        if(s===60){ m+=1; s=0; }
-        return m + ":" + (s<10?"0":"") + s;
-      }
-      function renderClock(){
-        var t = parseFloat(range.value);
-        cTime.textContent = fmtT(t);
-        var ph = phases[0][1];
-        phases.forEach(function(p){ if(t>=p[0]) ph = p[1]; });
-        cPhase.textContent = ph;
-        var chips = "", next = null;
-        events.forEach(function(e){
-          if(e.t<=t){
-            var fresh = (t - e.t) < 1 && e.t>0;
-            chips += '<span class="chip' + (fresh?' fresh':'') + '"><span class="num">' + fmtT(e.t) + "</span> " + e.name + "</span>";
-          } else if(!next){ next = e; }
-        });
-        cChips.innerHTML = chips || '<span class="chip">まだ何も出ていません</span>';
-        if(next){
-          cNext.innerHTML = "次は <strong>" + fmtT(next.t) + " の「" + next.name + "」</strong> ― その30秒前のウェーブを押す準備を。";
-        } else {
-          cNext.innerHTML = "主要イベントはすべて解禁済み。あとは5分周期（壺・バフ）と裂け目（約7分周期）の繰り返しです。";
-        }
-      }
-      range.addEventListener("input", renderClock);
-      renderClock();
-    </script>
 
     <script>
       // ---- Live match timer: toasts + beep + voice (speechSynthesis) + optional browser notifications ----
@@ -736,18 +426,29 @@
           {t:2,    s:"小キャンプ",         name:"小キャンプ出現 ― 1:30のウェーブを押してから", say:"小キャンプ解放", sayWarn:"まもなく小キャンプ"},
           {t:2.5,  s:"Healing Snack",      name:"Healing Snack 出現", say:"ヒーリングスナック出現", sayWarn:"まもなくヒーリングスナック"},
           {t:3,    s:"箱・黄金像",         name:"箱・黄金像出現 ― 近場だけ30秒で回る", say:"箱と黄金像出現", sayWarn:"まもなく箱と黄金像"},
-          {t:5,    s:"ブリッジバフ＋中キャンプ", name:"ブリッジバフ＋中キャンプ ― 4:45には橋へ", key:true, say:"ブリッジバフ出現。中キャンプも解放", sayWarn:"まもなくブリッジバフ"},
+          {t:5,    s:"ブリッジバフ",       name:"ブリッジバフ出現＋中キャンプ解放 ― 4:45には橋へ。以後5分ごと", key:true, say:"ブリッジバフ出現。中キャンプも解放", sayWarn:"まもなくブリッジバフ"},
           {t:6,    s:"耐性0%・ジップ加速", name:"ガーディアン耐性0%・ジップライン加速解禁", say:"ジップライン加速。ガーディアン耐性ゼロ", sayWarn:"まもなく耐性ゼロ"},
           {t:8,    s:"大キャンプ＋供物",   name:"大キャンプ＋罪人の供物 ― HPに余裕があるときに", key:true, say:"大キャンプと罪人の供物、解放", sayWarn:"まもなく大キャンプ"},
-          {t:10,   s:"魂の壺",             name:"魂の壺 出現 ― ブリッジバフと分担を", key:true, say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
-          {t:11,   s:"裂け目（目安）",     name:"不安定な裂け目 初回（目安 11:00±1分）", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"},
+          {t:10,   s:"魂の壺",             name:"魂の壺 出現 ― 以後5分ごと。ブリッジバフ（残り2種）と分担を", key:true, say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
+          {t:10,   s:"ブリッジバフ",       name:"ブリッジバフ出現（残り2種）", say:"ブリッジバフ出現", sayWarn:"まもなくブリッジバフ"},
+          {t:12,   s:"裂け目（目安）",     name:"不安定な裂け目 初回（目安）― 以後 約7分ごと", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"},
           {t:12,   s:"耐性−50%",           name:"ガーディアン耐性 −50% ― 序盤終了の目安", say:"ガーディアン耐性マイナス50パーセント", sayWarn:"まもなく耐性ダウン"},
-          {t:15,   s:"壺＋バフ／ウォーカー目安", name:"壺＋ブリッジバフ出現／ウォーカー目安", say:"壺とブリッジバフ出現", sayWarn:"まもなく壺とブリッジバフ"},
-          {t:20,   s:"壺＋バフ／25秒",     name:"壺＋ブリッジバフ／ミッドボス目安・トルーパー25秒間隔に", say:"壺とブリッジバフ出現。トルーパー25秒間隔", sayWarn:"まもなく壺とブリッジバフ"},
-          {t:25,   s:"壺＋バフ",           name:"壺＋ブリッジバフ出現", say:"壺とブリッジバフ出現", sayWarn:"まもなく壺とブリッジバフ"},
-          {t:30,   s:"壺＋バフ／バフ最上", name:"壺＋ブリッジバフ／永続バフが最上区分に", say:"壺とブリッジバフ出現。永続バフ最上区分", sayWarn:"まもなく壺とブリッジバフ"},
-          {t:35,   s:"壺＋バフ／20秒",     name:"壺＋ブリッジバフ／トルーパー20秒間隔＋HP+50%", key:true, say:"壺とブリッジバフ出現。トルーパー20秒間隔", sayWarn:"まもなく壺とブリッジバフ"},
-          {t:40,   s:"壺＋バフ",           name:"壺＋ブリッジバフ出現", say:"壺とブリッジバフ出現", sayWarn:"まもなく壺とブリッジバフ"}
+          {t:15,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― ウォーカー目安の時間帯", say:"ブリッジバフ出現", sayWarn:"まもなくブリッジバフ"},
+          {t:15,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
+          {t:19,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"},
+          {t:20,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― ミッドボス目安・トルーパー25秒間隔に", say:"ブリッジバフ出現。トルーパー25秒間隔", sayWarn:"まもなくブリッジバフ"},
+          {t:20,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
+          {t:25,   s:"ブリッジバフ",       name:"ブリッジバフ出現", say:"ブリッジバフ出現", sayWarn:"まもなくブリッジバフ"},
+          {t:25,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
+          {t:26,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"},
+          {t:30,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― 永続バフが最上区分に", say:"ブリッジバフ出現。永続バフ最上区分", sayWarn:"まもなくブリッジバフ"},
+          {t:30,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
+          {t:33,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"},
+          {t:35,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― トルーパー20秒間隔＋HP+50%", key:true, say:"ブリッジバフ出現。トルーパー20秒間隔", sayWarn:"まもなくブリッジバフ"},
+          {t:35,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
+          {t:40,   s:"ブリッジバフ",       name:"ブリッジバフ出現", say:"ブリッジバフ出現", sayWarn:"まもなくブリッジバフ"},
+          {t:40,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
+          {t:40,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"}
         ];
         var MAXS = 40 * 60;
         var elapsed = 0, running = false, speed = 1, lastTs = 0, timerId = null;
@@ -885,14 +586,14 @@
           }
         }
         function check(){
-          EV.forEach(function(e){
+          EV.forEach(function(e, i){
             var es = e.t * 60;
-            if(warnOn && elapsed >= es - 30 && elapsed < es && !fired["w" + e.t]){
-              fired["w" + e.t] = 1;
+            if(warnOn && elapsed >= es - 30 && elapsed < es && !fired["w" + i]){
+              fired["w" + i] = 1;
               notify("warn", "あと30秒 ― " + fmtS(es) + "「" + e.s + "」", "直前のウェーブを速く押して、先に取りに行く準備を。", e.sayWarn);
             }
-            if(elapsed >= es && !fired["s" + e.t]){
-              fired["s" + e.t] = 1;
+            if(elapsed >= es && !fired["s" + i]){
+              fired["s" + i] = 1;
               notify(e.key ? "key" : "event", fmtS(es) + "「" + e.s + "」", e.name, e.say);
             }
           });
@@ -931,8 +632,8 @@
         // ---- manual time adjustment: recompute fired flags from current time ----
         function recalcFired(){
           fired = {};
-          EV.forEach(function(e){
-            if(e.t * 60 <= elapsed){ fired["s" + e.t] = 1; fired["w" + e.t] = 1; }
+          EV.forEach(function(e, i){
+            if(e.t * 60 <= elapsed){ fired["s" + i] = 1; fired["w" + i] = 1; }
           });
         }
         function setElapsed(sec){
@@ -1011,6 +712,148 @@
           });
         }
         render();
+      })();
+    </script>
+
+    <script>
+      // ---- Lane matchup planner: data from DeadlockTimesJP (fetched 2026-11-20) ----
+      (function(){
+        var MATCH = {"Abrams":{"Viscous":6.2,"Violet":3.6,"Lash":3.5,"Bebop":3.2,"Rat King":3.1,"Venator":-4.5,"Billy":-3.8,"Celeste":-3.6,"Graves":-3.4,"Pocket":-3.1,"Baba":-3.0},"Apollo":{"Vindicta":6.3,"Haze":5.2,"Infernus":4.7,"Lady Geist":4.7,"Seven":3.9,"Graves":-5.5,"Drifter":-3.2,"Grey Talon":-3.1,"Pocket":-3.1,"Venator":-3.0},"Baba":{"Drifter":6.9,"Infernus":4.6,"Lady Geist":4.4,"Abrams":3.0,"Vindicta":-10.1,"Paige":-7.5,"Ivy":-5.2,"Holliday":-4.5,"Venator":-4.2},"Bebop":{"Rem":6.3,"Victor":4.9,"McGinnis":4.4,"Graves":3.9,"Deadman Danny":3.0,"Solomon":-8.4,"Dynamo":-6.0,"Celeste":-5.3,"Sinclair":-4.6,"Ivy":-4.2,"Mo & Krill":-4.1,"The Doorman":-3.9,"Abrams":-3.7,"Violet":-3.3},"Billy":{"Holliday":6.1,"Lady Geist":4.8,"Calico":4.8,"Lash":4.6,"Warden":4.6,"Nurse Harrow":4.6,"Grey Talon":4.1,"Abrams":3.9,"Deadman Danny":3.3,"Paige":3.1,"Rat King":-8.2,"Vyper":-5.7,"Pocket":-4.7,"Celeste":-4.4,"Infernus":-4.2,"Seven":-3.6,"Wraith":-3.1,"Shiv":-3.1},"Calico":{"Grey Talon":7.7,"Paradox":6.6,"Victor":4.5,"Lash":3.8,"Pocket":3.3,"Silver":3.2,"Seven":-8.6,"Graves":-7.6,"Warden":-5.6,"Holliday":-4.8,"Billy":-4.7,"Ivy":-3.7},"Celeste":{"Kelvin":6.9,"Infernus":5.7,"Bebop":5.3,"Billy":4.8,"Abrams":4.1,"Paige":3.7,"Graves":3.4,"Venator":-3.6,"Grey Talon":-3.6,"Deadman Danny":-3.5,"Lady Geist":-3.4,"Seven":-3.4},"Deadman Danny":{"Paige":10.4,"Silver":8.2,"Venator":8.0,"Infernus":5.3,"Pocket":4.6,"Dynamo":4.2,"Celeste":4.0,"Vindicta":-8.7,"Lash":-6.3,"Grey Talon":-6.0,"Holliday":-5.4,"Seven":-4.6,"Ivy":-4.0,"Shiv":-3.9,"Bebop":-3.4,"Graves":-3.3,"Billy":-3.2},"The Doorman":{"Venator":8.1,"Paradox":5.3,"Bebop":3.4,"Drifter":-6.1,"Mina":-5.8,"Shiv":-3.6},"Drifter":{"Yamato":6.2,"The Doorman":6.0,"Solomon":5.5,"Holliday":5.3,"Mirage":4.8,"Paradox":4.3,"Graves":3.8,"Apollo":3.1,"Baba":-7.0,"Rat King":-5.0,"Warden":-4.9,"Dynamo":-4.7,"McGinnis":-4.5,"Kelvin":-4.4,"Venator":-3.5},"Dynamo":{"Graves":8.6,"Bebop":5.4,"Drifter":4.4,"Vindicta":-6.4,"Deadman Danny":-4.3,"Silver":-4.0,"Rem":-3.9,"Pocket":-3.3,"Seven":-3.0},"Graves":{"Silver":12.3,"Calico":7.8,"Apollo":5.6,"Rem":4.1,"Deadman Danny":3.7,"Abrams":3.6,"Victor":3.4,"Mo & Krill":-10.1,"Dynamo":-8.5,"McGinnis":-5.2,"Bebop":-4.2,"Paige":-3.9,"Drifter":-3.6},"Grey Talon":{"Yamato":7.6,"Mo & Krill":6.6,"Deadman Danny":6.3,"Warden":5.2,"Pocket":4.7,"Celeste":4.3,"Mina":3.3,"Apollo":3.3,"Silver":3.1,"Calico":-7.4,"Rem":-6.7,"Vyper":-4.4,"Billy":-3.9,"Seven":-3.1},"Haze":{"Rat King":10.8,"Seven":7.1,"Mo & Krill":4.7,"Viscous":3.9,"Kelvin":3.7,"Ivy":3.3,"Violet":-5.5,"Apollo":-5.0,"Paradox":-4.4,"Sinclair":-4.3,"Solomon":-4.2},"Holliday":{"Infernus":5.9,"Deadman Danny":5.9,"Mina":5.7,"Calico":5.2,"Baba":4.8,"Nurse Harrow":4.7,"Vindicta":3.9,"Haze":3.4,"Billy":-5.7,"Rat King":-5.4,"Drifter":-5.0,"Bebop":-3.0},"Seven":{"Calico":8.5,"Nurse Harrow":7.2,"Deadman Danny":4.6,"Victor":4.0,"Celeste":3.8,"Venator":3.7,"Lash":3.6,"Billy":3.6,"Grey Talon":3.3,"Haze":-6.9,"Infernus":-6.8,"Yamato":-6.8,"Silver":-5.7,"Paige":-4.3,"Mina":-4.3,"Apollo":-4.0},"Infernus":{"Seven":6.3,"Warden":5.0,"McGinnis":4.5,"Yamato":3.9,"Billy":3.8,"Rat King":3.8,"Holliday":-5.9,"Silver":-5.9,"Celeste":-5.7,"Deadman Danny":-5.7,"Rem":-5.4,"Apollo":-5.2,"Baba":-5.0,"Shiv":-3.2,"Paige":-3.2,"Vindicta":-3.2,"Ivy":-3.0},"Ivy":{"Violet":7.8,"Baba":5.3,"Deadman Danny":4.2,"Mirage":4.1,"Bebop":3.8,"Calico":3.8,"Vyper":3.8,"Graves":3.2,"Mina":-6.3,"Pocket":-4.5,"McGinnis":-3.7,"Rem":-3.6,"Paradox":-3.5},"Kelvin":{"Viscous":4.9,"Drifter":4.6,"Lash":4.3,"Mo & Krill":3.6,"Celeste":-6.2,"Silver":-4.7,"Haze":-3.2,"Wraith":-3.1},"Lady Geist":{"Silver":9.0,"Celeste":3.9,"Wraith":3.8,"Paradox":3.3,"Calico":3.0,"Vyper":-7.1,"Nurse Harrow":-6.6,"Billy":-4.8,"Apollo":-4.7,"Mo & Krill":-4.4,"Baba":-4.4,"Yamato":-3.8,"Vindicta":-3.3,"Mina":-3.0},"Lash":{"Deadman Danny":6.8,"Mirage":6.7,"Rem":5.0,"Pocket":4.6,"Violet":4.1,"Lady Geist":3.3,"Paradox":3.1,"Grey Talon":3.1,"Paige":3.0,"McGinnis":-7.1,"Billy":-4.1,"Kelvin":-3.6,"Calico":-3.4,"Seven":-3.2,"Abrams":-3.0},"McGinnis":{"Lash":7.0,"Shiv":5.5,"Graves":5.0,"Drifter":3.9,"Ivy":3.4,"Paige":-11.1,"Paradox":-7.2,"Bebop":-5.3,"Infernus":-5.3,"Mina":-5.3},"Mina":{"Ivy":6.6,"The Doorman":6.0,"McGinnis":5.0,"Seven":4.5,"Pocket":4.1,"Rem":3.4,"Lady Geist":3.2,"Violet":-6.8,"Holliday":-5.2,"Victor":-3.2},"Mirage":{"Wraith":3.5,"Lash":-6.3,"Drifter":-4.9,"Ivy":-4.0},"Mo & Krill":{"Graves":10.2,"Victor":9.0,"Lady Geist":4.4,"Bebop":3.5,"Vindicta":-8.9,"Grey Talon":-6.5,"Haze":-4.6,"Shiv":-4.6,"Kelvin":-3.4},"Nurse Harrow":{"Lady Geist":6.6,"Shiv":4.8,"Venator":3.7,"Paige":3.4,"Seven":-7.4,"Billy":-4.7,"Holliday":-4.4},"Paige":{"McGinnis":10.4,"Baba":7.2,"Silver":4.5,"Seven":4.0,"Graves":3.9,"Shiv":3.2,"Deadman Danny":-10.5,"Pocket":-7.3,"Nurse Harrow":-3.7,"Celeste":-3.4,"Billy":-3.3,"Viscous":-3.3},"Paradox":{"McGinnis":7.1,"Haze":5.0,"Ivy":4.0,"Pocket":3.7,"Baba":3.3,"Warden":3.2,"Viscous":3.2,"Sinclair":3.1,"Victor":-9.7,"Violet":-7.6,"Calico":-6.1,"The Doorman":-4.9,"Drifter":-4.0},"Pocket":{"Paige":6.9,"Viscous":4.9,"Billy":4.5,"Ivy":4.4,"Yamato":3.5,"Grey Talon":-4.7,"Deadman Danny":-4.7,"Lash":-4.4,"Mina":-4.1,"Victor":-3.9,"Vindicta":-3.7,"Paradox":-3.5,"Calico":-3.5,"Lady Geist":-3.0},"Rat King":{"Billy":8.4,"Holliday":5.9,"Drifter":5.1,"Wraith":4.1,"Haze":-10.3,"Vindicta":-7.5,"Infernus":-4.1,"Venator":-3.4},"Rem":{"Grey Talon":7.1,"Infernus":5.0,"Ivy":3.8,"Dynamo":3.8,"Bebop":-6.7,"Lash":-4.5,"Graves":-3.8,"Mina":-3.1},"Shiv":{"Mo & Krill":4.3,"Deadman Danny":3.7,"The Doorman":3.5,"Victor":-6.7,"McGinnis":-6.2,"Silver":-5.8,"Nurse Harrow":-5.1,"Paige":-3.6},"Silver":{"Wraith":5.5,"Seven":5.5,"Shiv":5.4,"Infernus":5.2,"Kelvin":4.8,"Dynamo":3.7,"Graves":-12.3,"Lady Geist":-9.1,"Deadman Danny":-8.4,"Warden":-8.0,"Paige":-5.0,"Calico":-3.3,"Yamato":-3.0,"Grey Talon":-3.0,"Nurse Harrow":-3.0},"Sinclair":{"Haze":4.5,"Bebop":4.1},"Solomon":{"Bebop":7.9,"Haze":4.5,"Drifter":-5.5},"Venator":{"Vyper":6.9,"Abrams":4.3,"Baba":4.0,"Celeste":3.9,"Drifter":3.3,"Rat King":3.3,"The Doorman":-8.3,"Deadman Danny":-8.1,"Seven":-4.0,"Nurse Harrow":-3.9,"Pocket":-3.2,"Lady Geist":-3.1,"Yamato":-3.0,"McGinnis":-3.0},"Victor":{"Paradox":10.2,"Shiv":6.6,"Vindicta":4.5,"Pocket":3.8,"Mina":3.5,"Mo & Krill":-9.0,"Yamato":-5.9,"Bebop":-5.3,"Warden":-4.6,"Calico":-4.4,"Seven":-4.0,"Graves":-3.1},"Vindicta":{"Baba":10.2,"Deadman Danny":8.9,"Mo & Krill":8.9,"Rat King":7.8,"Dynamo":6.3,"Pocket":3.6,"Lady Geist":3.5,"Yamato":3.3,"Apollo":-6.3,"Victor":-4.3,"Wraith":-4.2,"Viscous":-3.9,"Holliday":-3.4},"Violet":{"Paradox":7.9,"Mina":6.9,"Wraith":6.6,"Haze":5.6,"Ivy":-7.8,"Lash":-3.7,"Abrams":-3.7},"Viscous":{"Vindicta":3.9,"Abrams":-6.3,"Pocket":-5.2,"Kelvin":-4.7,"Haze":-3.7},"Vyper":{"Lady Geist":6.9,"Billy":5.5,"Grey Talon":4.5,"Venator":-7.3,"Ivy":-3.9,"Infernus":-3.5,"Yamato":-3.0},"Warden":{"Silver":8.0,"Calico":5.9,"Drifter":5.0,"Victor":4.8,"Graves":3.3,"Infernus":-5.2,"Grey Talon":-4.7,"Billy":-4.4},"Wraith":{"Vindicta":3.9,"Violet":-7.2,"Silver":-6.2,"Rat King":-4.4,"Lady Geist":-4.2,"Mirage":-4.0,"Shiv":-3.3},"Yamato":{"Seven":6.7,"Victor":6.0,"Lady Geist":3.8,"Grey Talon":-7.3,"Drifter":-6.3,"Infernus":-4.4,"Pocket":-3.8,"Vindicta":-3.3}};
+        var COUNTER = {"Abrams":[["Rebuttal",1.5],["Reactive Barrier",1.2],["Unstoppable",1.2],["Bullet Resilience",1.1]],"Apollo":[["Rebuttal",1.4],["Slowing Hex",1.3],["Headshot Booster",1.1],["Shadow Weave",1.1]],"Baba":[["Rebuttal",2.5],["Spirit Shielding",1.1],["Spirit Resilience",1.1],["Toxic Bullets",1.1]],"Bebop":[["Reactive Barrier",1.2],["Mystic Shot",1.2],["Indomitable",1.2],["Recharging Rush",1.2]],"Billy":[["Rebuttal",1.9],["Phantom Strike",1.3],["Warp Stone",1.2],["Bullet Resilience",1.1]],"Calico":[["Rebuttal",1.5],["Headhunter",1.1],["Headshot Booster",1.1],["Slowing Hex",1.1]],"Celeste":[["Silencer",1.1],["Spirit Resilience",1.1],["Crippling Headshot",1.1],["Spirit Burn",1.1]],"Deadman Danny":[["Knockdown",1.6],["Phantom Strike",1.2],["Witchmail",1.1],["Radiant Regeneration",1.1]],"The Doorman":[["Indomitable",1.5],["Cursed Relic",1.2],["Diviner's Kevlar",1.1],["Transcendent Cooldown",1.1]],"Drifter":[["Bullet Resilience",1.2],["Radiant Regeneration",1.2],["Mystic Regeneration",1.2],["Dispel Magic",1.2]],"Dynamo":[["Unstoppable",1.5],["Debuff Reducer",1.2],["Mystic Slow",1.2],["Cursed Relic",1.1]],"Graves":[["Mystic Slow",1.2],["Crippling Headshot",1.2],["Transcendent Cooldown",1.1],["Witchmail",1.1]],"Grey Talon":[["Spellbreaker",1.9],["Knockdown",1.2],["Veil Walker",1.2],["Phantom Strike",1.2]],"Haze":[["Metal Skin",3.6],["Plated Armor",1.6],["Rusted Barrel",1.3],["Suppressor",1.3]],"Holliday":[["Indomitable",1.2],["Slowing Hex",1.2],["Arctic Blast",1.2],["Cold Front",1.1]],"Rem":[["Counterspell",1.2],["Arctic Blast",1.1],["Shadow Weave",1.1],["Long Range",1.1]],"Seven":[["Knockdown",2.1],["Witchmail",1.2],["Silencer",1.2],["Vampiric Burst",1.2]],"Shiv":[["Crushing Fists",1.3],["Melee Lifesteal",1.2],["Lifestrike",1.2],["Stalker",1.2]],"Silver":[["Disarming Hex",1.5],["Metal Skin",1.3],["Bullet Resilience",1.3],["Rusted Barrel",1.2]],"Sinclair":[["Spellbreaker",1.3],["Witchmail",1.2],["Headhunter",1.1],["Ethereal Shift",1.1]],"Solomon":[["Witchmail",1.2],["Silencer",1.2],["Spellbreaker",1.2],["Inhibitor",1.2]],"Venator":[["Bullet Resilience",1.5],["Weapon Shielding",1.3],["Surge of Power",1.3],["Active Reload",1.2]],"Victor":[["Inhibitor",1.6],["Decay",1.4],["Crippling Headshot",1.3],["Witchmail",1.2]],"Vindicta":[["Knockdown",2.6],["Phantom Strike",2.3],["Metal Skin",1.4],["Plated Armor",1.4]],"Violet":[["Witchmail",1.1],["Spirit Resilience",1.1],["Slowing Bullets",1.1],["Healing Rite",1.1]],"Viscous":[["Rebuttal",1.7],["Cursed Relic",1.1],["Mystic Slow",1.1],["Spellbreaker",1.1]],"Vyper":[["Metal Skin",2.2],["Return Fire",2.1],["Disarming Hex",2.0],["Rusted Barrel",1.6]],"Warden":[["Bullet Resilience",1.2],["Infuser",1.2],["Dispel Magic",1.2],["Active Reload",1.1]],"Wraith":[["Slowing Hex",1.3],["Active Reload",1.3],["Cursed Relic",1.2],["Fleetfoot",1.2]],"Yamato":[["Spellbreaker",1.1],["Ethereal Shift",1.1],["Kinetic Dash",1.1],["Shadow Weave",1.1]],"Infernus":[["Dispel Magic",1.4],["Plated Armor",1.4],["Witchmail",1.2],["Rusted Barrel",1.1]],"Ivy":[["Guardian Ward",1.2],["Bullet Resilience",1.2],["Divine Barrier",1.2],["Weapon Shielding",1.1]],"Kelvin":[["Knockdown",1.3],["Guardian Ward",1.1],["Spirit Resilience",1.1],["Witchmail",1.1]],"Lady Geist":[["Spellbreaker",1.9],["Silencer",1.3],["Spirit Resilience",1.2],["Counterspell",1.2]],"Lash":[["Counterspell",2.0],["Knockdown",1.3],["Phantom Strike",1.3],["Veil Walker",1.2]],"McGinnis":[["Knockdown",1.2],["Weapon Shielding",1.2],["Witchmail",1.1],["Capacitor",1.1]],"Mina":[["Slowing Hex",1.4],["Silencer",1.3],["Spellbreaker",1.2],["Spirit Resilience",1.2]],"Mirage":[["Dispel Magic",1.3],["Plated Armor",1.2],["Silencer",1.1],["Divine Barrier",1.1]],"Mo & Krill":[["Indomitable",1.2],["Knockdown",1.2],["Headhunter",1.2],["Crushing Fists",1.2]],"Nurse Harrow":[["Healbane",1.3],["Knockdown",1.2],["Inhibitor",1.2],["Express Shot",1.1]],"Paige":[["Healing Tempo",1.3],["Mystic Slow",1.1],["Healing Booster",1.1],["Active Reload",1.1]],"Paradox":[["Spellbreaker",2.4],["Debuff Reducer",1.3],["Recharging Rush",1.1],["Active Reload",1.1]],"Pocket":[["Divine Barrier",2.3],["Guardian Ward",1.6],["Spellbreaker",1.4],["Silencer",1.3]],"Rat King":[["Bullet Resilience",1.4],["Plated Armor",1.4],["Crushing Fists",1.2],["Metal Skin",1.2]]};
+        var HEROES = Object.keys(MATCH);
+
+        var selSelf = document.getElementById("pkSelf");
+        var selAlly = document.getElementById("pkAlly");
+        var selE1 = document.getElementById("pkE1");
+        var selE2 = document.getElementById("pkE2");
+        var vdBox = document.getElementById("vdBox");
+        var vdWord = document.getElementById("vdWord");
+        var vdAvg = document.getElementById("vdAvg");
+        var vdPlay = document.getElementById("vdPlay");
+        var vdWorst = document.getElementById("vdWorst");
+        var mu1 = document.getElementById("mu1");
+        var mu2 = document.getElementById("mu2");
+        var muAlly = document.getElementById("muAlly");
+        var ctChips = document.getElementById("ctChips");
+
+        [selSelf, selAlly, selE1, selE2].forEach(function(sel){
+          var o0 = document.createElement("option");
+          o0.value = ""; o0.textContent = "−";
+          sel.appendChild(o0);
+          HEROES.forEach(function(h){
+            var o = document.createElement("option");
+            o.value = h; o.textContent = h;
+            sel.appendChild(o);
+          });
+          sel.addEventListener("change", update);
+        });
+
+        function fmtPts(v){
+          if(v > 0) return "+" + v.toFixed(1);
+          if(v < 0) return "−" + Math.abs(v).toFixed(1);
+          return "±0.0";
+        }
+        function scoreOf(atk, def){
+          if(!atk || !def) return null;
+          if(MATCH[atk] && typeof MATCH[atk][def] === "number") return { v: MATCH[atk][def], known: true };
+          return { v: 0, known: false };
+        }
+        function judge(sc){
+          if(!sc.known || (sc.v > -3 && sc.v < 3)) return { word: "互角", cls: "even", sub: "データ上差なし" };
+          if(sc.v >= 3) return { word: "有利", cls: "good", sub: "" };
+          return { word: "不利", cls: "bad", sub: "" };
+        }
+        function renderMu(el, lab, atk, def){
+          if(!atk || !def){
+            el.className = "mu card empty";
+            el.innerHTML = '<div class="mu-lab"><small>' + lab + '</small>未選択</div><div class="mu-res even">―</div>';
+            return;
+          }
+          var sc = scoreOf(atk, def), j = judge(sc);
+          el.className = "mu card";
+          el.innerHTML = '<div class="mu-lab"><small>' + lab + '</small>' + atk + ' vs ' + def + '</div>' +
+            '<div class="mu-res ' + j.cls + '">' + j.word + ' <span class="num">' + (sc.known ? fmtPts(sc.v) : "") + '</span>' +
+            (j.sub ? '<small>' + j.sub + '</small>' : '') + '</div>';
+        }
+        function playFor(avg){
+          if(avg >= 6) return "強気にトレードしてレーンを押す。先に節目（800／3,800）に届いたら即仕掛ける";
+          if(avg >= 3) return "有利寄り。HP交換で勝ち、タワーを削る。無理なダイブだけ避ける";
+          if(avg > -3) return "互角。ファーム優先でデス回避。仕掛けはガンクや相手のミス待ち";
+          if(avg > -6) return "不利。タワー下で受けてソウルを取り切る。回復を切らさず、相方と声を合わせて耐える";
+          return "かなり不利。絶対に死なないのが最優先。タワーは渡してもいい、経験値圏内で耐えてロームやガンク要請";
+        }
+        function update(){
+          var self = selSelf.value, ally = selAlly.value, e1 = selE1.value, e2 = selE2.value;
+          renderMu(mu1, "自分 vs 敵1", self, e1);
+          renderMu(mu2, "自分 vs 敵2", self, e2);
+
+          // ally sub-lines
+          if(ally && (e1 || e2)){
+            var lines = [];
+            [e1, e2].forEach(function(e, i){
+              if(!e) return;
+              var sc = scoreOf(ally, e), j = judge(sc);
+              lines.push('味方 <b>' + ally + '</b> vs 敵' + (i + 1) + ' <b>' + e + '</b>：<span class="' + j.cls + '">' + j.word + (sc.known ? ' ' + fmtPts(sc.v) : '（データ上差なし）') + '</span>');
+            });
+            muAlly.innerHTML = lines.join("　／　");
+          } else {
+            muAlly.innerHTML = "";
+          }
+
+          // verdict from all available pairs (missing data = 0 / even)
+          var pairs = [];
+          function addPair(atk, def){ if(atk && def){ var sc = scoreOf(atk, def); pairs.push({ atk: atk, def: def, v: sc.v, known: sc.known }); } }
+          addPair(self, e1); addPair(self, e2); addPair(ally, e1); addPair(ally, e2);
+          var hasMain = self && (e1 || e2);
+          if(!hasMain || !pairs.length){
+            vdBox.className = "verdict card";
+            vdWord.textContent = "未選択";
+            vdAvg.textContent = "自分と敵1を選んでください";
+            vdPlay.textContent = "選んだ瞬間に、押すか守るかと具体的な動き方がここに出ます。";
+            vdWorst.textContent = "";
+          } else {
+            var sum = 0, worst = null;
+            pairs.forEach(function(p){
+              sum += p.v;
+              if(p.known && p.v <= -3 && (!worst || p.v < worst.v)) worst = p;
+            });
+            var avg = sum / pairs.length;
+            var word, cls;
+            if(avg >= 3){ word = "押せるレーン"; cls = "good"; }
+            else if(avg <= -3){ word = "守るレーン"; cls = "bad"; }
+            else { word = "互角のレーン"; cls = ""; }
+            vdBox.className = "verdict card" + (cls ? " " + cls : "");
+            vdWord.textContent = word;
+            vdAvg.textContent = "平均 " + fmtPts(avg) + " pt（" + pairs.length + "ペアで判定）";
+            vdPlay.textContent = playFor(avg);
+            if(worst){
+              vdWorst.textContent = "注意：一番の天敵は " + worst.def + "（" + fmtPts(worst.v) + (worst.atk !== self ? "／味方 " + worst.atk + " が対面" : "") + "）";
+            } else {
+              vdWorst.textContent = "";
+            }
+          }
+
+          // counter items: merge both enemies, dedupe by max multiplier, top 8
+          var enemies = [e1, e2].filter(function(e){ return !!e; });
+          if(!enemies.length){
+            ctChips.innerHTML = '<span class="ct-empty">敵を選ぶと、その敵への対策アイテムがここに出ます。</span>';
+            return;
+          }
+          var best = {};
+          enemies.forEach(function(e){
+            (COUNTER[e] || []).forEach(function(pair){
+              var name = pair[0], mult = pair[1];
+              if(!best[name] || mult > best[name].mult) best[name] = { name: name, mult: mult, vs: e };
+            });
+          });
+          var list = Object.keys(best).map(function(k){ return best[k]; });
+          list.sort(function(a, b){ return b.mult - a.mult || (a.name < b.name ? -1 : 1); });
+          list = list.slice(0, 8);
+          ctChips.innerHTML = list.map(function(it){
+            return '<span class="chip">' + it.name + '<span class="cx">×' + it.mult.toFixed(1) + '</span><span class="cvs">vs ' + it.vs + '</span></span>';
+          }).join("");
+        }
+        update();
       })();
     </script>
   </body>

@@ -308,6 +308,39 @@
       .ct-empty{color:var(--ink2);font-size:14px;font-weight:700}
       .lane-note{font-size:11.5px;color:var(--ink2);margin:0;line-height:1.6}
 
+      /* ---------- counter items (screen 3, reuses the screen 2 layout) ---------- */
+      .screen-items .it-target{display:flex;align-items:center;gap:16px;padding:12px 20px}
+      .it-target img,.it-target .it-fb{width:64px;height:64px;border-radius:12px;flex:none}
+      .it-fb{display:grid;place-items:center;background:var(--surface2);font-size:11px;font-weight:900;line-height:1.15;text-align:center;overflow:hidden}
+      .it-lab{font-size:11.5px;font-weight:900;letter-spacing:.12em;color:var(--key)}
+      .it-hero{font-size:30px;font-weight:900;line-height:1.2}
+      .it-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+      .it-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px 16px;padding:18px 20px;align-content:center}
+      .it-card img,.it-card .it-fb{width:76px;height:76px;border-radius:12px;object-fit:contain}
+      .it-name{font-size:20px;font-weight:900;line-height:1.3}
+      .it-mult{font-size:34px;line-height:1;color:var(--accent-ink);white-space:nowrap}
+      .it-mult small{font-size:17px}
+      .it-note{grid-column:1/-1;margin:0;font-size:14.5px;font-weight:700;line-height:1.55;border-top:2px solid var(--line);padding-top:8px}
+      .it-empty{grid-column:1/-1;padding:34px 20px;text-align:center;color:var(--ink2);font-weight:700}
+      @media (min-width:1021px){.it-note{min-height:calc(3.1em + 10px)}}
+      @media (max-width:1020px){.screen-items .lane-note{order:1}.screen-items .it-target{order:3}.screen-items .hpanel{order:2}.screen-items .it-cards{order:4}}
+      @media (max-width:760px){.it-cards{grid-template-columns:1fr}}
+      @media (min-width:1021px) and (max-height:820px){
+        .screen-items .lane-inner{gap:9px;padding:10px 0 14px}
+        .screen-items .lane-left{gap:9px}
+        .screen-items .lane-note{font-size:10.5px;line-height:1.5}
+        .screen-items .hpanel{height:calc(100vh - 24px);height:calc(100dvh - 24px)}
+        .screen-items .lane-head h2{font-size:21px}
+        .screen-items .ht-name{font-size:8.5px}
+        .screen-items .it-target{padding:8px 18px}
+        .it-target img,.it-target .it-fb{width:48px;height:48px}
+        .it-hero{font-size:24px}
+        .it-card{padding:12px 16px}
+        .it-card img,.it-card .it-fb{width:60px;height:60px}
+        .it-name{font-size:17px}
+        .it-note{font-size:13px}
+      }
+
       /* ---------- toasts ---------- */
       #toasts{position:fixed;top:14px;right:14px;z-index:80;display:flex;flex-direction:column;gap:10px;max-width:min(370px,calc(100vw - 28px))}
       .toast{background:var(--surface);border:2.5px solid var(--edge);border-left:8px solid var(--accent);border-radius:14px;
@@ -468,6 +501,28 @@
           <aside class="hpanel" aria-label="ヒーロー選択">
             <div class="hp-head"><span>HEROES</span><small><b>左</b>自チーム／<b class="en">右</b>敵</small></div>
             <div class="hgrid" id="pkGrid" role="group" aria-label="ヒーロー選択（左クリックで自チーム、右クリックで敵）"></div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ============ screen 3: counter items ============ -->
+      <section id="items" class="screen screen-lane screen-items" aria-label="対策アイテム">
+        <div class="lane-inner">
+          <div class="lane-left">
+          <div class="lane-head">
+            <h2>対策アイテム</h2>
+            <p>敵ヒーローを1体選ぶと、上位4件が出ます。</p>
+            <a class="to-dash" href="#screenDash">▲ タイマーに戻る</a>
+          </div>
+          <p class="lane-note">敵にいると買われやすくなるアイテム（DeadlockTimesJP、Phantom以上・約4.4万試合の購入傾向、2026-11-20取得。勝率保証ではない）</p>
+
+          <div class="it-target card" id="itTarget" aria-live="polite"></div>
+          <div class="it-cards" id="itCards"></div>
+          </div>
+
+          <aside class="hpanel" aria-label="敵ヒーロー選択">
+            <div class="hp-head"><span>HEROES</span><small><b class="en">クリック</b>で敵を1体選択</small></div>
+            <div class="hgrid" id="itGrid" role="group" aria-label="敵ヒーロー選択（クリックで1体）"></div>
           </aside>
         </div>
       </section>
@@ -977,6 +1032,77 @@
           }).join("");
         }
         syncPicks();
+
+        // ---- Screen 3: counter items for one enemy hero (own state, shares COUNTER/ROSTER read-only) ----
+        (function(){
+          var ITEMS = {"Active Reload":{"slug":"active-reload","note":"リロードの隙を消して撃ち続けたい時に。継戦火力を保つ枠"},"Arctic Blast":{"slug":"arctic-blast","note":"集団をまとめて凍結・スロウしたい時に。近距離の集団戦で使う"},"Bullet Resilience":{"slug":"bullet-resilience","note":"銃ダメが痛い相手全般に。HPが減るほど硬くなる受けの基本枠（格闘ダメにも効く）"},"Capacitor":{"slug":"capacitor","note":"1人を強スロウ＋サイレンスで捕まえたい時に。移動アビリティ封じも兼ねる"},"Cold Front":{"slug":"cold-front","note":"周囲をまとめてスロウしたい時に。序盤の小規模戦で使う氷の波"},"Counterspell":{"slug":"counterspell","note":"大技・ウルトを1回無効化したい時に。パリィの構えに合わせて使う"},"Crippling Headshot":{"slug":"crippling-headshot","note":"回復する相手を銃で溶かしたい時に。回復阻害＋耐性低下の完成形"},"Crushing Fists":{"slug":"crushing-fists","note":"格闘で殴り合う相手に。銃耐性を剥がしながらスタンまで狙える"},"Cursed Relic":{"slug":"cursed-relic","note":"1人を確実に止めたい時に。詠唱中断・サイレンス・武装解除・アイテム封じを全部入りでかける"},"Debuff Reducer":{"slug":"debuff-reducer","note":"状態異常が長い相手に。Unstoppable／Spellbreaker の素材にもなる、まず入れる軽い対策"},"Decay":{"slug":"decay","note":"HPの高いタンクを削りたい時に。現在HP割合の継続ダメ＋回復阻害"},"Disarming Hex":{"slug":"disarming-hex","note":"銃キャリーを無力化したい時に。武装解除＋銃耐性低下で撃ち合いを止める"},"Dispel Magic":{"slug":"dispel-magic","note":"デバフをまとめて解除したい時に。ウルト以外なら全解除＋回復＋加速（火傷や毒の解除に）"},"Divine Barrier":{"slug":"divine-barrier","note":"味方か自分を守りたい時に。デバフ解除＋バリア＋加速。味方に使うとCD半分"},"Diviner's Kevlar":{"slug":"diviners-kevlar","note":"ウルトを使う起点で硬くなりたい時に。ウルト発動でバリアとスピリット火力を得る"},"Ethereal Shift":{"slug":"ethereal-shift","note":"死にそうな一瞬をやり過ごしたい時に。短時間無敵になる緊急回避"},"Express Shot":{"slug":"express-shot","note":"瞬間火力が欲しい時に。次の攻撃が2連射になるバースト枠"},"Fleetfoot":{"slug":"fleetfoot","note":"距離を詰める／離す判断が大事な相手に。移動速度で位置取りを変える"},"Guardian Ward":{"slug":"guardian-ward","note":"序盤の受けを厚くしたい時に。バリア＋移動速度を自分か味方に付与"},"Headhunter":{"slug":"headhunter","note":"ヘッドショットで確実に落としたい時に。回復と加速も付く追撃枠"},"Headshot Booster":{"slug":"headshot-booster","note":"序盤の銃火力を安く底上げしたい時に。ヘッドショットの一発を重くする"},"Healbane":{"slug":"healbane","note":"回復持ちへの最初の回答。スピリットダメで回復阻害を付与する（購入目安14分ごろ）"},"Healing Booster":{"slug":"healing-booster","note":"自分の回復量を伸ばしたい時に。回復役や回復ビルドの増幅枠"},"Healing Rite":{"slug":"healing-rite","note":"レーンの立て直しに。安全な場所で回復＋スプリント（被弾で解除される）"},"Healing Tempo":{"slug":"healing-tempo","note":"回復をかけた味方をそのまま強くしたい時に。回復に発射速度と移動速度が付く"},"Indomitable":{"slug":"indomitable","note":"捕まる前提の保険に。次のCCを自動解除＋バリア（ただし Dynamo のウルトは解除できない）"},"Infuser":{"slug":"infuser","note":"スピリット火力と吸血を一気に上げたい時に。短時間の決戦用アクティブ"},"Inhibitor":{"slug":"inhibitor","note":"終盤の汎用対策に。回復阻害＋相手の与ダメ低下を銃弾で蓄積付与"},"Kinetic Dash":{"slug":"kinetic-dash","note":"ダッシュジャンプ後に撃ち勝ちたい時に。発射速度と弾数が増える攻めの起点"},"Knockdown":{"slug":"knockdown","note":"詠唱型ウルト（Seven 等）を止めたい時に。発動まで2秒あるので事前に狙って使う"},"Lifestrike":{"slug":"lifestrike","note":"格闘で殴りながら回復したい時に。スロウも付くので逃がしにくい"},"Long Range":{"slug":"long-range","note":"遠距離から撃つ型の時に。距離があるほど銃ダメが伸びる"},"Melee Lifesteal":{"slug":"melee-lifesteal","note":"格闘の継戦を安く補いたい時に。殴るたび回復する序盤枠"},"Metal Skin":{"slug":"metal-skin","note":"銃のバーストを真正面から受ける時に。発動中は銃弾無効（その間は移動が遅い）"},"Mystic Regeneration":{"slug":"mystic-regeneration","note":"スピリットダメを与え続ける型の継戦に。当てるほど再生が増える"},"Mystic Shot":{"slug":"mystic-shot","note":"次の一発を重くしたい時に。銃弾にスピリットダメが乗り、バーストの起点になる"},"Mystic Slow":{"slug":"mystic-slow","note":"スピリットで当てるたび相手を鈍らせたい時に。逃げる相手への追撃にも"},"Phantom Strike":{"slug":"phantom-strike","note":"遠くの1人に一気に詰めたい時に。テレポート＋引きずり下ろし＋武装解除で捕まえる"},"Plated Armor":{"slug":"plated-armor","note":"終盤の銃キャリー対策に。確率で銃弾そのものか付随効果をはじく"},"Radiant Regeneration":{"slug":"radiant-regeneration","note":"アビリティを回しながら戦う型の継戦に。使うたび回復と加速が付く"},"Reactive Barrier":{"slug":"reactive-barrier","note":"スタン等のCCで先に捕まる場面が多い相手に。受けた瞬間に自動でバリア"},"Rebuttal":{"slug":"rebuttal","note":"格闘で殴ってくる相手に。パリィ成功で回復＋そのダメを反射し、殴り合いに強くなる"},"Recharging Rush":{"slug":"recharging-rush","note":"チャージ系アビリティを早く回したい時に。大ダメを与えるほどチャージが戻る"},"Return Fire":{"slug":"return-fire","note":"撃たれる前提で反撃したい時に。攻撃してきた相手へ自動で撃ち返す"},"Rusted Barrel":{"slug":"rusted-barrel","note":"撃ち合いで負ける相手に先に買う軽い対策。発射速度と銃耐性を下げる"},"Shadow Weave":{"slug":"shadow-weave","note":"裏取り・奇襲の起点に。ステルスで視界外から仕掛ける（被弾で一瞬見える）"},"Silencer":{"slug":"silencer","note":"アビリティ依存の相手に。銃弾を当て続けるとサイレンスを付与できる終盤の銃枠"},"Slowing Bullets":{"slug":"slowing-bullets","note":"銃で当てるたび相手を鈍らせたい時に。追撃と逃げ防止の両用"},"Slowing Hex":{"slug":"slowing-hex","note":"機動力の高い相手を捕まえたい時に。移動スロウ＋移動系アビリティ封じ"},"Spellbreaker":{"slug":"spellbreaker","note":"大きなスピリットの一発が怖い相手に。次の一撃だけ大幅に軽減する（素材は Debuff Reducer）"},"Spirit Burn":{"slug":"spirit-burn","note":"スピリット型の回復阻害の完成形。回復する相手を燃やして回復を大きく下げる"},"Spirit Resilience":{"slug":"spirit-resilience","note":"スピリットで溶かされる時の定番耐性。HPが減るほど硬くなる"},"Spirit Shielding":{"slug":"spirit-shielding","note":"スピリットの一瞬のバーストを受ける時に。受けた瞬間にバリアが張られる、つなぎの盾"},"Stalker":{"slug":"stalker","note":"近距離で張り付く型の時に。傷口を開くと相手が見え、銃耐性も下がる"},"Suppressor":{"slug":"suppressor","note":"相手の発射速度を落としたい時に。スピリットダメを与えるたび付与する"},"Surge of Power":{"slug":"surge-of-power","note":"主力アビリティを恒常強化したい時に。使うと加速も付くスピリット火力枠"},"Toxic Bullets":{"slug":"toxic-bullets","note":"回復する相手への銃側の回答。出血で最大HP割合ダメ＋回復阻害"},"Transcendent Cooldown":{"slug":"transcendent-cooldown","note":"アビリティとアイテムの回転を上げたい時に。全CD短縮の終盤枠"},"Unstoppable":{"slug":"unstoppable","note":"決定的なCCやウルトの前に使う最重要対策。短時間CC無効（スタン中は使えないので先読みで）"},"Vampiric Burst":{"slug":"vampiric-burst","note":"一気に殴り勝ちたい決戦時に。短時間だけ銃の吸血と発射速度が跳ね上がる"},"Veil Walker":{"slug":"veil-walker","note":"ベールを抜ける動線があるマップで。ステルス＋回復＋加速で位置を変える"},"Warp Stone":{"slug":"warp-stone","note":"距離を一瞬で詰める／離す時に。前方テレポート＋銃耐性で攻守両用"},"Weapon Shielding":{"slug":"weapon-shielding","note":"銃のバーストを受ける時に自動でバリア。ただし上位の素材にはならないので本命を直接目指す場面も"},"Witchmail":{"slug":"witchmail","note":"スピリットで殴られ続ける戦況で。受けるほど自分のアビリティが早く戻る終盤枠"}};
+          var itGrid = document.getElementById("itGrid");
+          var itTarget = document.getElementById("itTarget");
+          var itCards = document.getElementById("itCards");
+          var enemy = "";
+          var itTiles = {};
+
+          function itemIcon(name){
+            var img = document.createElement("img");
+            img.src = "items/" + ITEMS[name].slug + ".png";
+            img.alt = "";
+            img.addEventListener("error", function(){ img.replaceWith(el("span", "it-fb", name)); });
+            return img;
+          }
+          function el(tag, cls, text){
+            var e = document.createElement(tag);
+            e.className = cls;
+            if(text) e.textContent = text;
+            return e;
+          }
+
+          ROSTER.forEach(function(r){
+            var b = el("button", "ht");
+            b.type = "button"; b.dataset.hero = r[0]; b.title = r[0];
+            b.appendChild(el("span", "ht-tag", "敵"));
+            b.appendChild(iconEl(r[0], "", "ht-fb"));
+            b.appendChild(el("span", "ht-name", r[0]));
+            itGrid.appendChild(b);
+            itTiles[r[0]] = b;
+          });
+          itGrid.addEventListener("click", function(ev){
+            var t = ev.target.closest(".ht");
+            if(!t) return;
+            enemy = t.dataset.hero === enemy ? "" : t.dataset.hero;
+            render();
+          });
+
+          function render(){
+            ROSTER.forEach(function(r){
+              var on = r[0] === enemy;
+              itTiles[r[0]].classList.toggle("enemy", on);
+              itTiles[r[0]].setAttribute("aria-label", r[0] + (on ? "（選択中）" : ""));
+              itTiles[r[0]].setAttribute("aria-pressed", on ? "true" : "false");
+            });
+            itTarget.textContent = "";
+            itCards.textContent = "";
+            var txt = el("div", "");
+            txt.appendChild(el("div", "it-lab", "敵ヒーロー"));
+            txt.appendChild(el("div", "it-hero", enemy || "未選択"));
+            if(enemy) itTarget.appendChild(iconEl(enemy, "", "it-fb"));
+            itTarget.appendChild(txt);
+            if(!enemy){
+              itCards.appendChild(el("div", "it-empty card", "ヒーローを選ぶと、買われやすくなるアイテム上位4件がここに出ます。"));
+              return;
+            }
+            COUNTER[enemy].slice(0, 4).forEach(function(pair){
+              var card = el("div", "it-card card");
+              card.appendChild(itemIcon(pair[0]));
+              card.appendChild(el("div", "it-name", pair[0]));
+              var mult = el("div", "it-mult num", pair[1].toFixed(1));
+              mult.appendChild(el("small", "", "倍"));
+              card.appendChild(mult);
+              card.appendChild(el("p", "it-note", ITEMS[pair[0]].note));
+              itCards.appendChild(card);
+            });
+          }
+          render();
+        })();
       })();
     </script>
   </body>

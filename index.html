@@ -205,7 +205,7 @@
       /* phones/tablets: one column, hero panel sits between the slots and the results */
       @media (max-width:1020px){
         .lane-left{display:contents}
-        .lane-head{order:1}.pickbar{order:2}.hpanel{order:3}.lane-main{order:4}.counter{order:5}.lane-note{order:6}
+        .lane-head{order:1}.pickbar{order:2}.hpanel{order:3}.lane-main{order:4}.duo{order:5}.counter{order:6}.lane-note{order:7}
       }
       .lane-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
       .lane-head h2{font-size:24px;margin:0}
@@ -266,6 +266,9 @@
         .screen-lane .vd-play{margin-top:4px;font-size:15px;line-height:1.5}
         .screen-lane .mu{padding:8px 18px}
         .screen-lane .mu-res{font-size:30px}
+        .duo{padding:5px 18px}
+        .duo-val{font-size:23px}
+        .duo-role{font-size:13.5px;line-height:1.45}
         .screen-lane .counter{padding:8px 18px}
         .screen-lane .chips{gap:6px;margin-top:6px}
         .screen-lane .chip{padding:1px 11px;font-size:13.5px}
@@ -297,6 +300,23 @@
       .mu-ally:empty{display:none}
       .mu-ally .good{color:var(--good);font-weight:900}
       .mu-ally .bad{color:var(--key);font-weight:900}
+      /* duo card: per-hero averages + who should face which enemy */
+      .duo{display:flex;align-items:center;gap:8px 20px;padding:9px 20px}
+      .duo[hidden],.duo-role[hidden]{display:none}
+      .duo-sum{display:flex;flex-wrap:wrap;gap:4px 20px;flex:none}
+      .duo-lab{font-size:11.5px;font-weight:900;letter-spacing:.06em;line-height:1.35;color:var(--ink2);white-space:nowrap}
+      .duo-val{font-size:27px;line-height:1.1;font-weight:700;white-space:nowrap}
+      .duo-val.good{color:var(--good)}
+      .duo-val.bad{color:var(--key)}
+      .duo-val.none{color:var(--ink2);font-size:15px;line-height:30px}
+      .duo-role{flex:1;min-width:0;border-left:2px solid var(--line);padding-left:20px;font-size:14.5px;font-weight:700;line-height:1.55}
+      .duo-role p{margin:0}
+      .duo-role .self{color:var(--blue)}
+      .duo-role .ally{color:var(--accent-ink)}
+      @media (max-width:760px){
+        .duo{flex-direction:column;align-items:stretch}
+        .duo-role{border-left:0;border-top:2px solid var(--line);padding:6px 0 0}
+      }
       .counter{padding:14px 20px}
       .ct-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
       .ct-head h3{margin:0;font-size:17px}
@@ -307,6 +327,23 @@
       .chip .cvs{font-size:11px;color:var(--ink2);font-weight:700}
       .ct-empty{color:var(--ink2);font-size:14px;font-weight:700}
       .lane-note{font-size:11.5px;color:var(--ink2);margin:0;line-height:1.6}
+
+      /* narrow + short desktops: make room for the duo card */
+      @media (min-width:1021px) and (max-width:1300px) and (max-height:820px){
+        #lane .lane-head p,#lane .pick-help br{display:none}
+        #lane .lane-left{gap:6px}
+        #lane .mu{padding:4px 18px}
+        #lane .mu-ally{font-size:12.5px;line-height:1.45;margin:0}
+        #lane .matchcol{gap:6px}
+        #lane .vd-play{font-size:14px;line-height:1.45}
+        #lane .vd-worst{font-size:13.5px;margin-top:4px}
+        #lane .chips{gap:4px 6px}
+        #lane .chip{padding:0 10px;font-size:13px;line-height:1.5}
+        #lane .chip .cx{font-size:15px;line-height:1.3}
+        #lane .ct-head h3{font-size:15px}
+        .duo-sum{gap:4px 14px}
+        .duo-role{padding-left:14px;font-size:13px}
+      }
 
       /* ---------- counter items (screen 3, reuses the screen 2 layout) ---------- */
       .screen-items .it-target{display:flex;align-items:center;gap:16px;padding:12px 20px}
@@ -478,11 +515,11 @@
               <button type="button" class="slot enemy" data-slot="e1"><span class="slot-lab">敵 1<em>必須</em></span><span class="slot-val">未選択</span><span class="slot-x" aria-hidden="true">×</span></button>
               <button type="button" class="slot enemy" data-slot="e2"><span class="slot-lab">敵 2</span><span class="slot-val">未選択</span><span class="slot-x" aria-hidden="true">×</span></button>
             </div>
-            <p class="pick-help"><b>左クリック</b>＝自分→味方　<b class="en">右クリック</b>＝敵1→敵2<br>もう一度クリック／スロットをクリックで解除</p>
+            <p class="pick-help"><b>左クリック</b>＝自分→味方　<b class="en">右クリック</b>＝敵1→敵2　<br>もう一度クリック／スロットをクリックで解除</p>
           </div>
           <div class="lane-main">
             <div class="verdict card" id="vdBox">
-              <div class="vd-lab">LANE ― レーン総合</div>
+              <div class="vd-lab" id="vdLab">LANE ― レーン総合</div>
               <div class="vd-word" id="vdWord">未選択</div>
               <div class="vd-avg" id="vdAvg">自分と敵1を選んでください</div>
               <p class="vd-play" id="vdPlay">選んだ瞬間に、押すか守るかと具体的な動き方がここに出ます。</p>
@@ -493,6 +530,11 @@
               <div class="mu card empty" id="mu2"></div>
               <p class="mu-ally" id="muAlly"></p>
             </div>
+          </div>
+
+          <div class="duo card" id="duoBox" hidden>
+            <div class="duo-sum" id="duoSum"></div>
+            <div class="duo-role" id="duoRole"></div>
           </div>
 
           <div class="counter card">
@@ -852,6 +894,7 @@
         var pkGrid = document.getElementById("pkGrid");
         var slotEls = Array.prototype.slice.call(document.querySelectorAll("#pkSlots .slot"));
         var vdBox = document.getElementById("vdBox");
+        var vdLab = document.getElementById("vdLab");
         var vdWord = document.getElementById("vdWord");
         var vdAvg = document.getElementById("vdAvg");
         var vdPlay = document.getElementById("vdPlay");
@@ -859,6 +902,9 @@
         var mu1 = document.getElementById("mu1");
         var mu2 = document.getElementById("mu2");
         var muAlly = document.getElementById("muAlly");
+        var duoBox = document.getElementById("duoBox");
+        var duoSum = document.getElementById("duoSum");
+        var duoRole = document.getElementById("duoRole");
         var ctChips = document.getElementById("ctChips");
 
         // icon, or a text tile when the image is missing
@@ -945,6 +991,26 @@
           if(MATCH[atk] && typeof MATCH[atk][def] === "number") return { v: MATCH[atk][def], known: true };
           return { v: 0, known: false };
         }
+        // data has one decimal, so sum in tenths to keep float noise off the band edges
+        function mean(list){
+          var t = 0;
+          list.forEach(function(p){ t += Math.round(p.v * 10); });
+          return t / 10 / list.length;
+        }
+        // round halves away from zero so + and − averages display symmetrically
+        function fmtAvg(v){ return fmtPts((v < 0 ? -1 : 1) * Math.round(Math.abs(v) * 10) / 10); }
+        function sumHtml(lab, hero, pairs){
+          var head = '<div><div class="duo-lab">' + lab + (hero ? '（' + hero + '）' : '') + '</div>';
+          if(!pairs.length) return head + '<div class="duo-val none">未選択</div></div>';
+          var v = mean(pairs);
+          return head + '<div class="duo-val num' + (v >= 3 ? ' good' : v <= -3 ? ' bad' : '') + '">' + fmtAvg(v) + '</div></div>';
+        }
+        function roleHtml(self, ally, e){
+          var d = Math.round((scoreOf(ally, e).v - scoreOf(self, e).v) * 10) / 10;
+          if(Math.abs(d) < 1) return '<p><b>' + e + '</b> にはどちらでも互角</p>';
+          var who = d > 0 ? '<b class="ally">味方</b>' : '<b class="self">自分</b>';
+          return '<p><b>' + e + '</b> には' + who + 'の方が <b class="num">' + fmtPts(Math.abs(d)) + '</b> 有利 → 前に出るのは' + who + '寄り</p>';
+        }
         function judge(sc){
           if(!sc.known || (sc.v > -3 && sc.v < 3)) return { word: "互角", cls: "even", sub: "データ上差なし" };
           if(sc.v >= 3) return { word: "有利", cls: "good", sub: "" };
@@ -991,7 +1057,11 @@
           var pairs = [];
           function addPair(atk, def){ if(atk && def){ var sc = scoreOf(atk, def); pairs.push({ atk: atk, def: def, v: sc.v, known: sc.known }); } }
           addPair(self, e1); addPair(self, e2); addPair(ally, e1); addPair(ally, e2);
+          var enemies = [e1, e2].filter(function(e){ return !!e; });
           var hasMain = self && (e1 || e2);
+          vdLab.textContent = hasMain && ally ? "LANE ― 2人の組み合わせでの総合" : "LANE ― レーン総合";
+          duoBox.hidden = !hasMain;
+          duoRole.hidden = !ally;
           if(!hasMain || !pairs.length){
             vdBox.className = "verdict card";
             vdWord.textContent = "未選択";
@@ -999,29 +1069,30 @@
             vdPlay.textContent = "選んだ瞬間に、押すか守るかと具体的な動き方がここに出ます。";
             vdWorst.textContent = "";
           } else {
-            var sum = 0, worst = null;
+            var worst = null;
             pairs.forEach(function(p){
-              sum += p.v;
               if(p.known && p.v <= -3 && (!worst || p.v < worst.v)) worst = p;
             });
-            var avg = sum / pairs.length;
+            var avg = mean(pairs);
             var word, cls;
             if(avg >= 3){ word = "押せるレーン"; cls = "good"; }
             else if(avg <= -3){ word = "守るレーン"; cls = "bad"; }
             else { word = "互角のレーン"; cls = ""; }
             vdBox.className = "verdict card" + (cls ? " " + cls : "");
             vdWord.textContent = word;
-            vdAvg.textContent = "平均 " + fmtPts(avg) + " pt（" + pairs.length + "ペアで判定）";
+            vdAvg.textContent = (ally ? "2人の平均 " : "平均 ") + fmtAvg(avg) + " pt（" + pairs.length + "ペアで判定）";
             vdPlay.textContent = playFor(avg);
             if(worst){
-              vdWorst.textContent = "注意：一番の天敵は " + worst.def + "（" + fmtPts(worst.v) + (worst.atk !== self ? "／味方 " + worst.atk + " が対面" : "") + "）";
+              vdWorst.textContent = "注意：一番の天敵は " + (worst.atk === self ? "自分" : "味方") + " " + worst.atk + " 対 " + worst.def + "（" + fmtPts(worst.v) + "）";
             } else {
               vdWorst.textContent = "";
             }
+            duoSum.innerHTML = sumHtml("自分 平均", self, pairs.filter(function(p){ return p.atk === self; })) +
+              sumHtml("味方 平均", ally, pairs.filter(function(p){ return p.atk === ally; }));
+            duoRole.innerHTML = ally ? enemies.map(function(e){ return roleHtml(self, ally, e); }).join("") : "";
           }
 
           // counter items: merge both enemies, dedupe by max multiplier, top 8
-          var enemies = [e1, e2].filter(function(e){ return !!e; });
           if(!enemies.length){
             ctChips.innerHTML = '<span class="ct-empty">敵を選ぶと、その敵への対策アイテムがここに出ます。</span>';
             return;

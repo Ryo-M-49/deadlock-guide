@@ -358,7 +358,6 @@
         box-shadow:0 8px 28px rgba(0,0,0,.25);padding:12px 16px;font-size:14px;animation:toastin .25s ease-out}
       .toast .tt{font-weight:900}
       .toast .tt .num{color:var(--accent-ink);font-size:16px}
-      .toast.warn{border-left-color:#eab308}
       .toast.key{border-left-color:var(--key)}
       .toast p{margin:2px 0 0;color:var(--ink2);font-size:13px}
       @keyframes toastin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
@@ -409,7 +408,6 @@
               <button type="button" id="ltSound" aria-pressed="true">ビープ音：ON</button>
               <button type="button" id="ltVoice" aria-pressed="true">音声読み上げ：ON</button>
               <button type="button" id="ltVoiceTest">音声テスト</button>
-              <button type="button" id="ltWarn" aria-pressed="true">30秒前警告：ON</button>
               <button type="button" id="ltNotify">ブラウザ通知を許可</button>
             </div>
             <ul class="ltlog" id="ltLog" aria-label="通知ログ"></ul>
@@ -420,7 +418,7 @@
               <div class="nx-count"><small>あと </small><span id="nxCount">2:00</span></div>
               <div class="nx-what">
                 <div class="nx-name"><span class="num" id="nxAt">2:00</span><span id="nxName">小キャンプ</span></div>
-                <p class="nx-note" id="nxNote">スタートを押すと実時間で進みます。全イベントを30秒前と開始の瞬間に、通知・音・音声で知らせます。</p>
+                <p class="nx-note" id="nxNote">スタートを押すと実時間で進みます。全イベントを時刻ちょうどに1回、通知・音・音声で知らせます。</p>
               </div>
             </div>
             <div class="track" id="ltTrack"><div class="track-fill" id="ltFill"></div></div>
@@ -433,7 +431,6 @@
           <p>時間で出るものは全部ここ。過ぎたものは薄く、次は赤く光ります。</p>
         </div>
         <div class="tlgrid" id="tlGrid">
-          <div class="tlb" data-t="0"><div class="tlb-t">0:00</div><div class="tlb-n">試合開始</div><div class="tlb-s">所持600／ウェーブ30秒ごと</div><div class="tlb-state"></div></div>
           <div class="tlb" data-t="2"><div class="tlb-t">2:00</div><div class="tlb-n">小キャンプ</div><div class="tlb-s">全滅から 1:25 で復活</div><div class="tlb-state"></div></div>
           <div class="tlb" data-t="2.5"><div class="tlb-t">2:30</div><div class="tlb-n">Healing Snack</div><div class="tlb-s">取ってから 3:00 で復活</div><div class="tlb-state"></div></div>
           <div class="tlb" data-t="3"><div class="tlb-t">3:00</div><div class="tlb-n">箱・黄金像</div><div class="tlb-s">壊してから 3:00 で復活</div><div class="tlb-state"></div></div>
@@ -557,36 +554,36 @@
       // ---- Live match timer: toasts + beep + voice (speechSynthesis) + optional browser notifications ----
       (function(){
         var EV = [
-          {t:2,    s:"小キャンプ",         name:"小キャンプ出現 ― 1:30のウェーブを押してから", say:"小キャンプ解放", sayWarn:"まもなく小キャンプ"},
-          {t:2.5,  s:"Healing Snack",      name:"Healing Snack 出現", say:"ヒーリングスナック出現", sayWarn:"まもなくヒーリングスナック"},
-          {t:3,    s:"箱・黄金像",         name:"箱・黄金像出現 ― 近場だけ30秒で回る", say:"箱と黄金像出現", sayWarn:"まもなく箱と黄金像"},
-          {t:5,    s:"ブリッジバフ",       name:"ブリッジバフ出現＋中キャンプ解放 ― 4:45には橋へ。以後5分ごと", key:true, say:"ブリッジバフ出現。中キャンプも解放", sayWarn:"まもなくブリッジバフ"},
-          {t:6,    s:"耐性0%・ジップ加速", name:"ガーディアン耐性0%・ジップライン加速解禁", say:"ジップライン加速。ガーディアン耐性ゼロ", sayWarn:"まもなく耐性ゼロ"},
-          {t:8,    s:"大キャンプ＋供物",   name:"大キャンプ＋罪人の供物 ― HPに余裕があるときに", key:true, say:"大キャンプと罪人の供物、解放", sayWarn:"まもなく大キャンプ"},
-          {t:10,   s:"魂の壺",             name:"魂の壺 出現 ― 以後5分ごと。ブリッジバフ（残り2種）と分担を", key:true, say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
-          {t:10,   s:"ブリッジバフ",       name:"ブリッジバフ出現（残り2種）", say:"ブリッジバフ出現", sayWarn:"まもなくブリッジバフ"},
-          {t:12,   s:"裂け目（目安）",     name:"不安定な裂け目 初回（目安）― 以後 約7分ごと", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"},
-          {t:12,   s:"耐性−50%",           name:"ガーディアン耐性 −50% ― 序盤終了の目安", say:"ガーディアン耐性マイナス50パーセント", sayWarn:"まもなく耐性ダウン"},
-          {t:15,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― ウォーカー目安の時間帯", say:"ブリッジバフ出現", sayWarn:"まもなくブリッジバフ"},
-          {t:15,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
-          {t:19,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"},
-          {t:20,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― ミッドボス目安・トルーパー25秒間隔に", say:"ブリッジバフ出現。トルーパー25秒間隔", sayWarn:"まもなくブリッジバフ"},
-          {t:20,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
-          {t:25,   s:"ブリッジバフ",       name:"ブリッジバフ出現", say:"ブリッジバフ出現", sayWarn:"まもなくブリッジバフ"},
-          {t:25,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
-          {t:26,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"},
-          {t:30,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― 永続バフが最上区分に", say:"ブリッジバフ出現。永続バフ最上区分", sayWarn:"まもなくブリッジバフ"},
-          {t:30,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
-          {t:33,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"},
-          {t:35,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― トルーパー20秒間隔＋HP+50%", key:true, say:"ブリッジバフ出現。トルーパー20秒間隔", sayWarn:"まもなくブリッジバフ"},
-          {t:35,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
-          {t:40,   s:"ブリッジバフ",       name:"ブリッジバフ出現", say:"ブリッジバフ出現", sayWarn:"まもなくブリッジバフ"},
-          {t:40,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現", sayWarn:"まもなく魂の壺"},
-          {t:40,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です", sayWarn:"まもなく裂け目の目安"}
+          {t:2,    s:"小キャンプ",         name:"小キャンプ出現 ― 1:30のウェーブを押してから", say:"小キャンプ解放"},
+          {t:2.5,  s:"Healing Snack",      name:"Healing Snack 出現", say:"ヒーリングスナック出現"},
+          {t:3,    s:"箱・黄金像",         name:"箱・黄金像出現 ― 近場だけ30秒で回る", say:"箱と黄金像出現"},
+          {t:5,    s:"ブリッジバフ",       name:"ブリッジバフ出現＋中キャンプ解放 ― 4:45には橋へ。以後5分ごと", key:true, say:"ブリッジバフ出現。中キャンプも解放"},
+          {t:6,    s:"耐性0%・ジップ加速", name:"ガーディアン耐性0%・ジップライン加速解禁", say:"ジップライン加速。ガーディアン耐性ゼロ"},
+          {t:8,    s:"大キャンプ＋供物",   name:"大キャンプ＋罪人の供物 ― HPに余裕があるときに", key:true, say:"大キャンプと罪人の供物、解放"},
+          {t:10,   s:"魂の壺",             name:"魂の壺 出現 ― 以後5分ごと。ブリッジバフ（残り2種）と分担を", key:true, say:"魂の壺出現"},
+          {t:10,   s:"ブリッジバフ",       name:"ブリッジバフ出現（残り2種）", say:"ブリッジバフ出現"},
+          {t:12,   s:"裂け目（目安）",     name:"不安定な裂け目 初回（目安）― 以後 約7分ごと", say:"不安定な裂け目、目安の時刻です"},
+          {t:12,   s:"耐性−50%",           name:"ガーディアン耐性 −50% ― 序盤終了の目安", say:"ガーディアン耐性マイナス50パーセント"},
+          {t:15,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― ウォーカー目安の時間帯", say:"ブリッジバフ出現"},
+          {t:15,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現"},
+          {t:19,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です"},
+          {t:20,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― ミッドボス目安・トルーパー25秒間隔に", say:"ブリッジバフ出現。トルーパー25秒間隔"},
+          {t:20,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現"},
+          {t:25,   s:"ブリッジバフ",       name:"ブリッジバフ出現", say:"ブリッジバフ出現"},
+          {t:25,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現"},
+          {t:26,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です"},
+          {t:30,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― 永続バフが最上区分に", say:"ブリッジバフ出現。永続バフ最上区分"},
+          {t:30,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現"},
+          {t:33,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です"},
+          {t:35,   s:"ブリッジバフ",       name:"ブリッジバフ出現 ― トルーパー20秒間隔＋HP+50%", key:true, say:"ブリッジバフ出現。トルーパー20秒間隔"},
+          {t:35,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現"},
+          {t:40,   s:"ブリッジバフ",       name:"ブリッジバフ出現", say:"ブリッジバフ出現"},
+          {t:40,   s:"魂の壺",             name:"魂の壺 出現", say:"魂の壺出現"},
+          {t:40,   s:"裂け目（目安）",     name:"不安定な裂け目（目安）", say:"不安定な裂け目、目安の時刻です"}
         ];
         var MAXS = 40 * 60;
         var elapsed = 0, running = false, speed = 1, lastTs = 0, timerId = null;
-        var soundOn = true, voiceOn = true, warnOn = true, fired = {};
+        var soundOn = true, voiceOn = true, fired = {};
         var actx = null;
         var baseTitle = document.title;
         var synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
@@ -638,8 +635,7 @@
         }
         function beep(kind){
           if(!soundOn || !actx) return;
-          if(kind === "warn"){ tone(740, 0, 0.16); }
-          else if(kind === "key"){ tone(659, 0, 0.14); tone(880, 0.16, 0.14); tone(1319, 0.32, 0.24); }
+          if(kind === "key"){ tone(659, 0, 0.14); tone(880, 0.16, 0.14); tone(1319, 0.32, 0.24); }
           else { tone(880, 0, 0.14); tone(1175, 0.16, 0.2); }
         }
         // ---- voice (Web Speech API) ----
@@ -669,9 +665,9 @@
             synth.speak(u);
           } catch(e){ /* ignore: beep fallback already played */ }
         }
-        function notify(kind, title, body, sayText){
+        function notify(kind, title, body){
           var el = document.createElement("div");
-          el.className = "toast" + (kind === "warn" ? " warn" : kind === "key" ? " key" : "");
+          el.className = "toast" + (kind === "key" ? " key" : "");
           el.innerHTML = '<div class="tt">' + title + "</div>" + (body ? "<p>" + body + "</p>" : "");
           toasts.appendChild(el);
           setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 7000);
@@ -680,7 +676,6 @@
           if(ltLog.firstChild) ltLog.insertBefore(li, ltLog.firstChild); else ltLog.appendChild(li);
           while(ltLog.children.length > 4) ltLog.removeChild(ltLog.lastChild);
           beep(kind);
-          if(sayText) speak(sayText);
           try {
             if(window.Notification && Notification.permission === "granted"){
               new Notification(title, { body: body || "" });
@@ -701,7 +696,7 @@
           var nextT = nx ? nx.t : Infinity;
           tlBlocks.forEach(function(b){
             var bt = parseFloat(b.getAttribute("data-t"));
-            b.classList.toggle("done", bt * 60 <= elapsed && elapsed > 0 || (bt === 0 && elapsed > 0));
+            b.classList.toggle("done", bt * 60 <= elapsed);
             b.classList.toggle("next", bt === nextT);
           });
           if(nx){
@@ -720,17 +715,16 @@
           }
         }
         function check(){
+          var says = [];
           EV.forEach(function(e, i){
             var es = e.t * 60;
-            if(warnOn && elapsed >= es - 30 && elapsed < es && !fired["w" + i]){
-              fired["w" + i] = 1;
-              notify("warn", "あと30秒 ― " + fmtS(es) + "「" + e.s + "」", "直前のウェーブを速く押して、先に取りに行く準備を。", e.sayWarn);
-            }
-            if(elapsed >= es && !fired["s" + i]){
-              fired["s" + i] = 1;
-              notify(e.key ? "key" : "event", fmtS(es) + "「" + e.s + "」", e.name, e.say);
+            if(elapsed >= es && !fired[i]){
+              fired[i] = 1;
+              notify(e.key ? "key" : "event", fmtS(es) + "「" + e.s + "」", e.name);
+              says.push(e.say);
             }
           });
+          if(says.length) speak(says.join("。")); // same-time events: one utterance, since speak() cancels the previous one
         }
         function tick(ts){
           if(!running) return;
@@ -761,13 +755,13 @@
         document.getElementById("ltReset").addEventListener("click", function(){
           pause(); elapsed = 0; fired = {}; ltLog.innerHTML = "";
           document.getElementById("ltJump").value = ""; render();
-          nxNote.textContent = "スタートを押すと実時間で進みます。全イベントを30秒前と開始の瞬間に、通知・音・音声で知らせます。";
+          nxNote.textContent = "スタートを押すと実時間で進みます。全イベントを時刻ちょうどに1回、通知・音・音声で知らせます。";
         });
         // ---- manual time adjustment: recompute fired flags from current time ----
         function recalcFired(){
           fired = {};
           EV.forEach(function(e, i){
-            if(e.t * 60 <= elapsed){ fired["s" + i] = 1; fired["w" + i] = 1; }
+            if(e.t * 60 <= elapsed){ fired[i] = 1; }
           });
         }
         function setElapsed(sec){
@@ -824,12 +818,6 @@
           });
           if(synth.onvoiceschanged !== undefined){ synth.onvoiceschanged = function(){ synth.getVoices(); }; }
         }
-        var ltWarn = document.getElementById("ltWarn");
-        ltWarn.addEventListener("click", function(){
-          warnOn = !warnOn;
-          ltWarn.setAttribute("aria-pressed", warnOn ? "true" : "false");
-          ltWarn.textContent = "30秒前警告：" + (warnOn ? "ON" : "OFF");
-        });
         var ltNotify = document.getElementById("ltNotify");
         if(!window.Notification){
           ltNotify.disabled = true;

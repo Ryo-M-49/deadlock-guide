@@ -149,7 +149,7 @@
         .tbtns{gap:6px;margin-top:6px}
         .tbtns button{min-height:31px;padding:3px 10px;font-size:12.5px;border-radius:10px}
         .tbtns button.primary{font-size:14px;padding:3px 20px}
-        .tbtns button.adj{padding:3px 7px;font-size:14px}
+        .tbtns button.adj{padding:3px 6px;font-size:14px}
         .tbtns select{min-height:31px;padding:3px 6px;font-size:12.5px}
         .tbtns input[type="text"]{min-height:31px;width:64px;font-size:15px;padding:3px 6px}
         .ltlog{margin-top:8px;padding-top:6px;max-height:42px;overflow:hidden}
@@ -252,7 +252,7 @@
       .ht.team .ht-tag{display:block;background:#2f6fb5}
       .ht.enemy .ht-tag{display:block;background:#cf3524}
       /* short desktop screens: shrink the grid and results so screen 2 still fits 100vh */
-      @media (min-width:1021px) and (max-height:820px){
+      @media (min-width:1021px) and (max-height:860px),(min-width:1021px) and (max-width:1365px) and (max-height:1100px){
         .screen-lane .lane-inner{gap:9px;padding:10px 0 14px}
         .screen-lane .lane-left{gap:7px}
         .screen-lane .lane-note{font-size:10.5px;line-height:1.5}
@@ -269,9 +269,9 @@
         .duo{padding:5px 18px}
         .duo-val{font-size:23px}
         .duo-role{font-size:13.5px;line-height:1.45}
-        .screen-lane .counter{padding:8px 18px}
+        .screen-lane .counter{padding:8px 12px}
         .screen-lane .chips{gap:6px;margin-top:6px}
-        .screen-lane .chip{padding:1px 11px;font-size:13.5px}
+        .screen-lane .chip{padding:1px 6px;font-size:13.5px}
       }
       .lane-main{display:grid;grid-template-columns:5fr 7fr;gap:14px;align-items:stretch}
       @media (max-width:760px){.lane-main{grid-template-columns:1fr}}
@@ -317,29 +317,55 @@
         .duo{flex-direction:column;align-items:stretch}
         .duo-role{border-left:0;border-top:2px solid var(--line);padding:6px 0 0}
       }
-      .counter{padding:14px 20px}
+      .counter{padding:14px 14px}
       .ct-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
       .ct-head h3{margin:0;font-size:17px}
       .ct-head span{font-size:12px;color:var(--ink2);font-weight:700}
-      .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-      .chip{display:inline-flex;align-items:baseline;gap:7px;background:var(--surface2);border:2px solid var(--line);border-radius:999px;padding:4px 13px;font-size:14.5px;font-weight:900}
+      .chips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px 6px;margin-top:10px}
+      @media (max-width:1270px){.chips{grid-template-columns:repeat(3,minmax(0,1fr))}}
+      @media (max-width:760px){.chips{grid-template-columns:1fr 1fr}}
+      @media (max-width:560px){.chips{grid-template-columns:1fr}}
+      .chips .ct-empty{grid-column:1/-1}
+      .chip{display:flex;flex-direction:column;justify-content:center;min-width:0;background:var(--surface2);border:2px solid var(--line);border-radius:12px;padding:3px 6px;font-size:14px;font-weight:900;line-height:1.35}
+      .chip-main{display:flex;align-items:baseline;justify-content:space-between;gap:4px}
+      .chip-sub{display:flex;align-items:center;gap:0 4px;line-height:1.35}
+      .chip .chip-sub .cvs{font-size:10px;letter-spacing:-.02em;margin-left:auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
       .chip .cx{color:var(--accent-ink);font-family:"Barlow Condensed",sans-serif;font-size:16.5px;font-weight:600}
       .chip .cvs{font-size:11px;color:var(--ink2);font-weight:700}
       .ct-empty{color:var(--ink2);font-size:14px;font-weight:700}
       .lane-note{font-size:11.5px;color:var(--ink2);margin:0;line-height:1.6}
 
+      /* item genre badge (in-game shop colors) + soul price, shared by screens 2 and 3 */
+      .genre{display:inline-block;border-radius:6px;padding:2px 9px;font-size:13px;font-weight:900;line-height:1.4;white-space:nowrap;color:#fff}
+      .g-weapon{background:#b4560b}
+      .g-vital{background:#3d7a1c}
+      .g-spirit{background:#7a45b5}
+      .cost{font-family:"Barlow Condensed","Zen Kaku Gothic New",sans-serif;font-weight:600;white-space:nowrap}
+      .cost small{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:700;color:var(--ink2);margin-left:2px}
+      .chip .genre{padding:0 4px;font-size:10px;line-height:1.5;border-radius:5px}
+      .chip .cost{font-size:15.5px}
+
       /* narrow + short desktops: make room for the duo card */
-      @media (min-width:1021px) and (max-width:1300px) and (max-height:820px){
+      @media (min-width:1021px) and (max-width:1365px) and (max-height:1100px){
         #lane .lane-head p,#lane .pick-help br{display:none}
-        #lane .lane-left{gap:6px}
+        #lane .lane-left{gap:5px}
         #lane .mu{padding:4px 18px}
         #lane .mu-ally{font-size:12.5px;line-height:1.45;margin:0}
         #lane .matchcol{gap:6px}
         #lane .vd-play{font-size:14px;line-height:1.45}
         #lane .vd-worst{font-size:13.5px;margin-top:4px}
-        #lane .chips{gap:4px 6px}
-        #lane .chip{padding:0 10px;font-size:13px;line-height:1.5}
-        #lane .chip .cx{font-size:15px;line-height:1.3}
+        #lane .chip{padding:0 4px;font-size:12.5px;line-height:1.2}
+        #lane .chip-sub{line-height:1.15;gap:0 3px}
+        #lane .chip .genre{font-size:9.5px;line-height:1.4}
+        #lane .chip .cost{font-size:14px}
+        #lane .chip .chip-sub .cvs{font-size:9.5px}
+        #lane .ct-head{gap:0 8px}
+        #lane .ct-head span{font-size:10.5px}
+        #lane .counter{padding:3px 10px}
+        #lane .lane-inner{padding:6px 0}
+        #lane .chips{gap:3px 5px}
+        #lane .chips{margin-top:2px}
+        #lane .chip .cx{font-size:14px;line-height:1.1}
         #lane .ct-head h3{font-size:15px}
         .duo-sum{gap:4px 14px}
         .duo-role{padding-left:14px;font-size:13px}
@@ -355,6 +381,10 @@
       .it-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px 16px;padding:18px 20px;align-content:center}
       .it-card img,.it-card .it-fb{width:76px;height:76px;border-radius:12px;object-fit:contain}
       .it-name{font-size:20px;font-weight:900;line-height:1.3}
+      .it-info{min-width:0}
+      .it-meta{display:flex;align-items:center;flex-wrap:wrap;gap:2px 10px;margin-top:3px}
+      .it-meta .cost{font-size:21px;line-height:1.2}
+      .it-meta .cost small{font-size:12px}
       .it-mult{font-size:34px;line-height:1;color:var(--accent-ink);white-space:nowrap}
       .it-mult small{font-size:17px}
       .it-note{grid-column:1/-1;margin:0;font-size:14.5px;font-weight:700;line-height:1.55;border-top:2px solid var(--line);padding-top:8px}
@@ -362,7 +392,7 @@
       @media (min-width:1021px){.it-note{min-height:calc(3.1em + 10px)}}
       @media (max-width:1020px){.screen-items .lane-note{order:1}.screen-items .it-target{order:3}.screen-items .hpanel{order:2}.screen-items .it-cards{order:4}}
       @media (max-width:760px){.it-cards{grid-template-columns:1fr}}
-      @media (min-width:1021px) and (max-height:820px){
+      @media (min-width:1021px) and (max-height:860px),(min-width:1021px) and (max-width:1365px) and (max-height:1100px){
         .screen-items .lane-inner{gap:9px;padding:10px 0 14px}
         .screen-items .lane-left{gap:9px}
         .screen-items .lane-note{font-size:10.5px;line-height:1.5}
@@ -375,6 +405,8 @@
         .it-card{padding:12px 16px}
         .it-card img,.it-card .it-fb{width:60px;height:60px}
         .it-name{font-size:17px}
+        .it-meta .genre{font-size:12px;padding:1px 8px}
+        .it-meta .cost{font-size:19px}
         .it-note{font-size:13px}
       }
 
@@ -540,7 +572,7 @@
           <div class="counter card">
             <div class="ct-head">
               <h3>対策アイテム候補</h3>
-              <span>購入率ベースの目安 ― その敵がいると買われやすくなる順（対策は1枠から）</span>
+              <span>購入率ベースの目安 ― その敵がいると買われやすくなる順（対策は1枠から）。数字は価格（ソウル）</span>
             </div>
             <div class="chips" id="ctChips"><span class="ct-empty">敵を選ぶと、その敵への対策アイテムがここに出ます。</span></div>
           </div>
@@ -884,6 +916,9 @@
       (function(){
         var MATCH = {"Abrams":{"Viscous":6.2,"Violet":3.6,"Lash":3.5,"Bebop":3.2,"Rat King":3.1,"Venator":-4.5,"Billy":-3.8,"Celeste":-3.6,"Graves":-3.4,"Pocket":-3.1,"Baba":-3.0},"Apollo":{"Vindicta":6.3,"Haze":5.2,"Infernus":4.7,"Lady Geist":4.7,"Seven":3.9,"Graves":-5.5,"Drifter":-3.2,"Grey Talon":-3.1,"Pocket":-3.1,"Venator":-3.0},"Baba":{"Drifter":6.9,"Infernus":4.6,"Lady Geist":4.4,"Abrams":3.0,"Vindicta":-10.1,"Paige":-7.5,"Ivy":-5.2,"Holliday":-4.5,"Venator":-4.2},"Bebop":{"Rem":6.3,"Victor":4.9,"McGinnis":4.4,"Graves":3.9,"Deadman Danny":3.0,"Solomon":-8.4,"Dynamo":-6.0,"Celeste":-5.3,"Sinclair":-4.6,"Ivy":-4.2,"Mo & Krill":-4.1,"The Doorman":-3.9,"Abrams":-3.7,"Violet":-3.3},"Billy":{"Holliday":6.1,"Lady Geist":4.8,"Calico":4.8,"Lash":4.6,"Warden":4.6,"Nurse Harrow":4.6,"Grey Talon":4.1,"Abrams":3.9,"Deadman Danny":3.3,"Paige":3.1,"Rat King":-8.2,"Vyper":-5.7,"Pocket":-4.7,"Celeste":-4.4,"Infernus":-4.2,"Seven":-3.6,"Wraith":-3.1,"Shiv":-3.1},"Calico":{"Grey Talon":7.7,"Paradox":6.6,"Victor":4.5,"Lash":3.8,"Pocket":3.3,"Silver":3.2,"Seven":-8.6,"Graves":-7.6,"Warden":-5.6,"Holliday":-4.8,"Billy":-4.7,"Ivy":-3.7},"Celeste":{"Kelvin":6.9,"Infernus":5.7,"Bebop":5.3,"Billy":4.8,"Abrams":4.1,"Paige":3.7,"Graves":3.4,"Venator":-3.6,"Grey Talon":-3.6,"Deadman Danny":-3.5,"Lady Geist":-3.4,"Seven":-3.4},"Deadman Danny":{"Paige":10.4,"Silver":8.2,"Venator":8.0,"Infernus":5.3,"Pocket":4.6,"Dynamo":4.2,"Celeste":4.0,"Vindicta":-8.7,"Lash":-6.3,"Grey Talon":-6.0,"Holliday":-5.4,"Seven":-4.6,"Ivy":-4.0,"Shiv":-3.9,"Bebop":-3.4,"Graves":-3.3,"Billy":-3.2},"The Doorman":{"Venator":8.1,"Paradox":5.3,"Bebop":3.4,"Drifter":-6.1,"Mina":-5.8,"Shiv":-3.6},"Drifter":{"Yamato":6.2,"The Doorman":6.0,"Solomon":5.5,"Holliday":5.3,"Mirage":4.8,"Paradox":4.3,"Graves":3.8,"Apollo":3.1,"Baba":-7.0,"Rat King":-5.0,"Warden":-4.9,"Dynamo":-4.7,"McGinnis":-4.5,"Kelvin":-4.4,"Venator":-3.5},"Dynamo":{"Graves":8.6,"Bebop":5.4,"Drifter":4.4,"Vindicta":-6.4,"Deadman Danny":-4.3,"Silver":-4.0,"Rem":-3.9,"Pocket":-3.3,"Seven":-3.0},"Graves":{"Silver":12.3,"Calico":7.8,"Apollo":5.6,"Rem":4.1,"Deadman Danny":3.7,"Abrams":3.6,"Victor":3.4,"Mo & Krill":-10.1,"Dynamo":-8.5,"McGinnis":-5.2,"Bebop":-4.2,"Paige":-3.9,"Drifter":-3.6},"Grey Talon":{"Yamato":7.6,"Mo & Krill":6.6,"Deadman Danny":6.3,"Warden":5.2,"Pocket":4.7,"Celeste":4.3,"Mina":3.3,"Apollo":3.3,"Silver":3.1,"Calico":-7.4,"Rem":-6.7,"Vyper":-4.4,"Billy":-3.9,"Seven":-3.1},"Haze":{"Rat King":10.8,"Seven":7.1,"Mo & Krill":4.7,"Viscous":3.9,"Kelvin":3.7,"Ivy":3.3,"Violet":-5.5,"Apollo":-5.0,"Paradox":-4.4,"Sinclair":-4.3,"Solomon":-4.2},"Holliday":{"Infernus":5.9,"Deadman Danny":5.9,"Mina":5.7,"Calico":5.2,"Baba":4.8,"Nurse Harrow":4.7,"Vindicta":3.9,"Haze":3.4,"Billy":-5.7,"Rat King":-5.4,"Drifter":-5.0,"Bebop":-3.0},"Seven":{"Calico":8.5,"Nurse Harrow":7.2,"Deadman Danny":4.6,"Victor":4.0,"Celeste":3.8,"Venator":3.7,"Lash":3.6,"Billy":3.6,"Grey Talon":3.3,"Haze":-6.9,"Infernus":-6.8,"Yamato":-6.8,"Silver":-5.7,"Paige":-4.3,"Mina":-4.3,"Apollo":-4.0},"Infernus":{"Seven":6.3,"Warden":5.0,"McGinnis":4.5,"Yamato":3.9,"Billy":3.8,"Rat King":3.8,"Holliday":-5.9,"Silver":-5.9,"Celeste":-5.7,"Deadman Danny":-5.7,"Rem":-5.4,"Apollo":-5.2,"Baba":-5.0,"Shiv":-3.2,"Paige":-3.2,"Vindicta":-3.2,"Ivy":-3.0},"Ivy":{"Violet":7.8,"Baba":5.3,"Deadman Danny":4.2,"Mirage":4.1,"Bebop":3.8,"Calico":3.8,"Vyper":3.8,"Graves":3.2,"Mina":-6.3,"Pocket":-4.5,"McGinnis":-3.7,"Rem":-3.6,"Paradox":-3.5},"Kelvin":{"Viscous":4.9,"Drifter":4.6,"Lash":4.3,"Mo & Krill":3.6,"Celeste":-6.2,"Silver":-4.7,"Haze":-3.2,"Wraith":-3.1},"Lady Geist":{"Silver":9.0,"Celeste":3.9,"Wraith":3.8,"Paradox":3.3,"Calico":3.0,"Vyper":-7.1,"Nurse Harrow":-6.6,"Billy":-4.8,"Apollo":-4.7,"Mo & Krill":-4.4,"Baba":-4.4,"Yamato":-3.8,"Vindicta":-3.3,"Mina":-3.0},"Lash":{"Deadman Danny":6.8,"Mirage":6.7,"Rem":5.0,"Pocket":4.6,"Violet":4.1,"Lady Geist":3.3,"Paradox":3.1,"Grey Talon":3.1,"Paige":3.0,"McGinnis":-7.1,"Billy":-4.1,"Kelvin":-3.6,"Calico":-3.4,"Seven":-3.2,"Abrams":-3.0},"McGinnis":{"Lash":7.0,"Shiv":5.5,"Graves":5.0,"Drifter":3.9,"Ivy":3.4,"Paige":-11.1,"Paradox":-7.2,"Bebop":-5.3,"Infernus":-5.3,"Mina":-5.3},"Mina":{"Ivy":6.6,"The Doorman":6.0,"McGinnis":5.0,"Seven":4.5,"Pocket":4.1,"Rem":3.4,"Lady Geist":3.2,"Violet":-6.8,"Holliday":-5.2,"Victor":-3.2},"Mirage":{"Wraith":3.5,"Lash":-6.3,"Drifter":-4.9,"Ivy":-4.0},"Mo & Krill":{"Graves":10.2,"Victor":9.0,"Lady Geist":4.4,"Bebop":3.5,"Vindicta":-8.9,"Grey Talon":-6.5,"Haze":-4.6,"Shiv":-4.6,"Kelvin":-3.4},"Nurse Harrow":{"Lady Geist":6.6,"Shiv":4.8,"Venator":3.7,"Paige":3.4,"Seven":-7.4,"Billy":-4.7,"Holliday":-4.4},"Paige":{"McGinnis":10.4,"Baba":7.2,"Silver":4.5,"Seven":4.0,"Graves":3.9,"Shiv":3.2,"Deadman Danny":-10.5,"Pocket":-7.3,"Nurse Harrow":-3.7,"Celeste":-3.4,"Billy":-3.3,"Viscous":-3.3},"Paradox":{"McGinnis":7.1,"Haze":5.0,"Ivy":4.0,"Pocket":3.7,"Baba":3.3,"Warden":3.2,"Viscous":3.2,"Sinclair":3.1,"Victor":-9.7,"Violet":-7.6,"Calico":-6.1,"The Doorman":-4.9,"Drifter":-4.0},"Pocket":{"Paige":6.9,"Viscous":4.9,"Billy":4.5,"Ivy":4.4,"Yamato":3.5,"Grey Talon":-4.7,"Deadman Danny":-4.7,"Lash":-4.4,"Mina":-4.1,"Victor":-3.9,"Vindicta":-3.7,"Paradox":-3.5,"Calico":-3.5,"Lady Geist":-3.0},"Rat King":{"Billy":8.4,"Holliday":5.9,"Drifter":5.1,"Wraith":4.1,"Haze":-10.3,"Vindicta":-7.5,"Infernus":-4.1,"Venator":-3.4},"Rem":{"Grey Talon":7.1,"Infernus":5.0,"Ivy":3.8,"Dynamo":3.8,"Bebop":-6.7,"Lash":-4.5,"Graves":-3.8,"Mina":-3.1},"Shiv":{"Mo & Krill":4.3,"Deadman Danny":3.7,"The Doorman":3.5,"Victor":-6.7,"McGinnis":-6.2,"Silver":-5.8,"Nurse Harrow":-5.1,"Paige":-3.6},"Silver":{"Wraith":5.5,"Seven":5.5,"Shiv":5.4,"Infernus":5.2,"Kelvin":4.8,"Dynamo":3.7,"Graves":-12.3,"Lady Geist":-9.1,"Deadman Danny":-8.4,"Warden":-8.0,"Paige":-5.0,"Calico":-3.3,"Yamato":-3.0,"Grey Talon":-3.0,"Nurse Harrow":-3.0},"Sinclair":{"Haze":4.5,"Bebop":4.1},"Solomon":{"Bebop":7.9,"Haze":4.5,"Drifter":-5.5},"Venator":{"Vyper":6.9,"Abrams":4.3,"Baba":4.0,"Celeste":3.9,"Drifter":3.3,"Rat King":3.3,"The Doorman":-8.3,"Deadman Danny":-8.1,"Seven":-4.0,"Nurse Harrow":-3.9,"Pocket":-3.2,"Lady Geist":-3.1,"Yamato":-3.0,"McGinnis":-3.0},"Victor":{"Paradox":10.2,"Shiv":6.6,"Vindicta":4.5,"Pocket":3.8,"Mina":3.5,"Mo & Krill":-9.0,"Yamato":-5.9,"Bebop":-5.3,"Warden":-4.6,"Calico":-4.4,"Seven":-4.0,"Graves":-3.1},"Vindicta":{"Baba":10.2,"Deadman Danny":8.9,"Mo & Krill":8.9,"Rat King":7.8,"Dynamo":6.3,"Pocket":3.6,"Lady Geist":3.5,"Yamato":3.3,"Apollo":-6.3,"Victor":-4.3,"Wraith":-4.2,"Viscous":-3.9,"Holliday":-3.4},"Violet":{"Paradox":7.9,"Mina":6.9,"Wraith":6.6,"Haze":5.6,"Ivy":-7.8,"Lash":-3.7,"Abrams":-3.7},"Viscous":{"Vindicta":3.9,"Abrams":-6.3,"Pocket":-5.2,"Kelvin":-4.7,"Haze":-3.7},"Vyper":{"Lady Geist":6.9,"Billy":5.5,"Grey Talon":4.5,"Venator":-7.3,"Ivy":-3.9,"Infernus":-3.5,"Yamato":-3.0},"Warden":{"Silver":8.0,"Calico":5.9,"Drifter":5.0,"Victor":4.8,"Graves":3.3,"Infernus":-5.2,"Grey Talon":-4.7,"Billy":-4.4},"Wraith":{"Vindicta":3.9,"Violet":-7.2,"Silver":-6.2,"Rat King":-4.4,"Lady Geist":-4.2,"Mirage":-4.0,"Shiv":-3.3},"Yamato":{"Seven":6.7,"Victor":6.0,"Lady Geist":3.8,"Grey Talon":-7.3,"Drifter":-6.3,"Infernus":-4.4,"Pocket":-3.8,"Vindicta":-3.3}};
         var COUNTER = {"Abrams":[["Rebuttal",1.5],["Reactive Barrier",1.2],["Unstoppable",1.2],["Bullet Resilience",1.1]],"Apollo":[["Rebuttal",1.4],["Slowing Hex",1.3],["Headshot Booster",1.1],["Shadow Weave",1.1]],"Baba":[["Rebuttal",2.5],["Spirit Shielding",1.1],["Spirit Resilience",1.1],["Toxic Bullets",1.1]],"Bebop":[["Reactive Barrier",1.2],["Mystic Shot",1.2],["Indomitable",1.2],["Recharging Rush",1.2]],"Billy":[["Rebuttal",1.9],["Phantom Strike",1.3],["Warp Stone",1.2],["Bullet Resilience",1.1]],"Calico":[["Rebuttal",1.5],["Headhunter",1.1],["Headshot Booster",1.1],["Slowing Hex",1.1]],"Celeste":[["Silencer",1.1],["Spirit Resilience",1.1],["Crippling Headshot",1.1],["Spirit Burn",1.1]],"Deadman Danny":[["Knockdown",1.6],["Phantom Strike",1.2],["Witchmail",1.1],["Radiant Regeneration",1.1]],"The Doorman":[["Indomitable",1.5],["Cursed Relic",1.2],["Diviner's Kevlar",1.1],["Transcendent Cooldown",1.1]],"Drifter":[["Bullet Resilience",1.2],["Radiant Regeneration",1.2],["Mystic Regeneration",1.2],["Dispel Magic",1.2]],"Dynamo":[["Unstoppable",1.5],["Debuff Reducer",1.2],["Mystic Slow",1.2],["Cursed Relic",1.1]],"Graves":[["Mystic Slow",1.2],["Crippling Headshot",1.2],["Transcendent Cooldown",1.1],["Witchmail",1.1]],"Grey Talon":[["Spellbreaker",1.9],["Knockdown",1.2],["Veil Walker",1.2],["Phantom Strike",1.2]],"Haze":[["Metal Skin",3.6],["Plated Armor",1.6],["Rusted Barrel",1.3],["Suppressor",1.3]],"Holliday":[["Indomitable",1.2],["Slowing Hex",1.2],["Arctic Blast",1.2],["Cold Front",1.1]],"Rem":[["Counterspell",1.2],["Arctic Blast",1.1],["Shadow Weave",1.1],["Long Range",1.1]],"Seven":[["Knockdown",2.1],["Witchmail",1.2],["Silencer",1.2],["Vampiric Burst",1.2]],"Shiv":[["Crushing Fists",1.3],["Melee Lifesteal",1.2],["Lifestrike",1.2],["Stalker",1.2]],"Silver":[["Disarming Hex",1.5],["Metal Skin",1.3],["Bullet Resilience",1.3],["Rusted Barrel",1.2]],"Sinclair":[["Spellbreaker",1.3],["Witchmail",1.2],["Headhunter",1.1],["Ethereal Shift",1.1]],"Solomon":[["Witchmail",1.2],["Silencer",1.2],["Spellbreaker",1.2],["Inhibitor",1.2]],"Venator":[["Bullet Resilience",1.5],["Weapon Shielding",1.3],["Surge of Power",1.3],["Active Reload",1.2]],"Victor":[["Inhibitor",1.6],["Decay",1.4],["Crippling Headshot",1.3],["Witchmail",1.2]],"Vindicta":[["Knockdown",2.6],["Phantom Strike",2.3],["Metal Skin",1.4],["Plated Armor",1.4]],"Violet":[["Witchmail",1.1],["Spirit Resilience",1.1],["Slowing Bullets",1.1],["Healing Rite",1.1]],"Viscous":[["Rebuttal",1.7],["Cursed Relic",1.1],["Mystic Slow",1.1],["Spellbreaker",1.1]],"Vyper":[["Metal Skin",2.2],["Return Fire",2.1],["Disarming Hex",2.0],["Rusted Barrel",1.6]],"Warden":[["Bullet Resilience",1.2],["Infuser",1.2],["Dispel Magic",1.2],["Active Reload",1.1]],"Wraith":[["Slowing Hex",1.3],["Active Reload",1.3],["Cursed Relic",1.2],["Fleetfoot",1.2]],"Yamato":[["Spellbreaker",1.1],["Ethereal Shift",1.1],["Kinetic Dash",1.1],["Shadow Weave",1.1]],"Infernus":[["Dispel Magic",1.4],["Plated Armor",1.4],["Witchmail",1.2],["Rusted Barrel",1.1]],"Ivy":[["Guardian Ward",1.2],["Bullet Resilience",1.2],["Divine Barrier",1.2],["Weapon Shielding",1.1]],"Kelvin":[["Knockdown",1.3],["Guardian Ward",1.1],["Spirit Resilience",1.1],["Witchmail",1.1]],"Lady Geist":[["Spellbreaker",1.9],["Silencer",1.3],["Spirit Resilience",1.2],["Counterspell",1.2]],"Lash":[["Counterspell",2.0],["Knockdown",1.3],["Phantom Strike",1.3],["Veil Walker",1.2]],"McGinnis":[["Knockdown",1.2],["Weapon Shielding",1.2],["Witchmail",1.1],["Capacitor",1.1]],"Mina":[["Slowing Hex",1.4],["Silencer",1.3],["Spellbreaker",1.2],["Spirit Resilience",1.2]],"Mirage":[["Dispel Magic",1.3],["Plated Armor",1.2],["Silencer",1.1],["Divine Barrier",1.1]],"Mo & Krill":[["Indomitable",1.2],["Knockdown",1.2],["Headhunter",1.2],["Crushing Fists",1.2]],"Nurse Harrow":[["Healbane",1.3],["Knockdown",1.2],["Inhibitor",1.2],["Express Shot",1.1]],"Paige":[["Healing Tempo",1.3],["Mystic Slow",1.1],["Healing Booster",1.1],["Active Reload",1.1]],"Paradox":[["Spellbreaker",2.4],["Debuff Reducer",1.3],["Recharging Rush",1.1],["Active Reload",1.1]],"Pocket":[["Divine Barrier",2.3],["Guardian Ward",1.6],["Spellbreaker",1.4],["Silencer",1.3]],"Rat King":[["Bullet Resilience",1.4],["Plated Armor",1.4],["Crushing Fists",1.2],["Metal Skin",1.2]]};
+        var ITEMS = {"Active Reload":{"slug":"active-reload","note":"リロードの隙を消して撃ち続けたい時に。継戦火力を保つ枠","slot":"武器","tier":2,"cost":1600},"Arctic Blast":{"slug":"arctic-blast","note":"集団をまとめて凍結・スロウしたい時に。近距離の集団戦で使う","slot":"スピリット","tier":4,"cost":6400},"Bullet Resilience":{"slug":"bullet-resilience","note":"銃ダメが痛い相手全般に。HPが減るほど硬くなる受けの基本枠（格闘ダメにも効く）","slot":"体力","tier":3,"cost":3200},"Capacitor":{"slug":"capacitor","note":"1人を強スロウ＋サイレンスで捕まえたい時に。移動アビリティ封じも兼ねる","slot":"武器","tier":4,"cost":6400},"Cold Front":{"slug":"cold-front","note":"周囲をまとめてスロウしたい時に。序盤の小規模戦で使う氷の波","slot":"スピリット","tier":2,"cost":1600},"Counterspell":{"slug":"counterspell","note":"大技・ウルトを1回無効化したい時に。パリィの構えに合わせて使う","slot":"体力","tier":3,"cost":3200},"Crippling Headshot":{"slug":"crippling-headshot","note":"回復する相手を銃で溶かしたい時に。回復阻害＋耐性低下の完成形","slot":"武器","tier":4,"cost":6400},"Crushing Fists":{"slug":"crushing-fists","note":"格闘で殴り合う相手に。銃耐性を剥がしながらスタンまで狙える","slot":"武器","tier":4,"cost":6400},"Cursed Relic":{"slug":"cursed-relic","note":"1人を確実に止めたい時に。詠唱中断・サイレンス・武装解除・アイテム封じを全部入りでかける","slot":"スピリット","tier":4,"cost":6400},"Debuff Reducer":{"slug":"debuff-reducer","note":"状態異常が長い相手に。Unstoppable／Spellbreaker の素材にもなる、まず入れる軽い対策","slot":"体力","tier":2,"cost":1600},"Decay":{"slug":"decay","note":"HPの高いタンクを削りたい時に。現在HP割合の継続ダメ＋回復阻害","slot":"スピリット","tier":3,"cost":3200},"Disarming Hex":{"slug":"disarming-hex","note":"銃キャリーを無力化したい時に。武装解除＋銃耐性低下で撃ち合いを止める","slot":"スピリット","tier":3,"cost":3200},"Dispel Magic":{"slug":"dispel-magic","note":"デバフをまとめて解除したい時に。ウルト以外なら全解除＋回復＋加速（火傷や毒の解除に）","slot":"体力","tier":3,"cost":3200},"Divine Barrier":{"slug":"divine-barrier","note":"味方か自分を守りたい時に。デバフ解除＋バリア＋加速。味方に使うとCD半分","slot":"体力","tier":4,"cost":6400},"Diviner's Kevlar":{"slug":"diviners-kevlar","note":"ウルトを使う起点で硬くなりたい時に。ウルト発動でバリアとスピリット火力を得る","slot":"体力","tier":4,"cost":6400},"Ethereal Shift":{"slug":"ethereal-shift","note":"死にそうな一瞬をやり過ごしたい時に。短時間無敵になる緊急回避","slot":"スピリット","tier":4,"cost":6400},"Express Shot":{"slug":"express-shot","note":"瞬間火力が欲しい時に。次の攻撃が2連射になるバースト枠","slot":"武器","tier":3,"cost":3200},"Fleetfoot":{"slug":"fleetfoot","note":"距離を詰める／離す判断が大事な相手に。移動速度で位置取りを変える","slot":"武器","tier":2,"cost":1600},"Guardian Ward":{"slug":"guardian-ward","note":"序盤の受けを厚くしたい時に。バリア＋移動速度を自分か味方に付与","slot":"体力","tier":2,"cost":1600},"Headhunter":{"slug":"headhunter","note":"ヘッドショットで確実に落としたい時に。回復と加速も付く追撃枠","slot":"武器","tier":3,"cost":3200},"Headshot Booster":{"slug":"headshot-booster","note":"序盤の銃火力を安く底上げしたい時に。ヘッドショットの一発を重くする","slot":"武器","tier":1,"cost":800},"Healbane":{"slug":"healbane","note":"回復持ちへの最初の回答。スピリットダメで回復阻害を付与する（購入目安14分ごろ）","slot":"体力","tier":2,"cost":1600},"Healing Booster":{"slug":"healing-booster","note":"自分の回復量を伸ばしたい時に。回復役や回復ビルドの増幅枠","slot":"体力","tier":2,"cost":1600},"Healing Rite":{"slug":"healing-rite","note":"レーンの立て直しに。安全な場所で回復＋スプリント（被弾で解除される）","slot":"体力","tier":1,"cost":800},"Healing Tempo":{"slug":"healing-tempo","note":"回復をかけた味方をそのまま強くしたい時に。回復に発射速度と移動速度が付く","slot":"体力","tier":4,"cost":6400},"Indomitable":{"slug":"indomitable","note":"捕まる前提の保険に。次のCCを自動解除＋バリア（ただし Dynamo のウルトは解除できない）","slot":"体力","tier":4,"cost":6400},"Infuser":{"slug":"infuser","note":"スピリット火力と吸血を一気に上げたい時に。短時間の決戦用アクティブ","slot":"体力","tier":4,"cost":6400},"Inhibitor":{"slug":"inhibitor","note":"終盤の汎用対策に。回復阻害＋相手の与ダメ低下を銃弾で蓄積付与","slot":"体力","tier":4,"cost":6400},"Kinetic Dash":{"slug":"kinetic-dash","note":"ダッシュジャンプ後に撃ち勝ちたい時に。発射速度と弾数が増える攻めの起点","slot":"武器","tier":2,"cost":1600},"Knockdown":{"slug":"knockdown","note":"詠唱型ウルト（Seven 等）を止めたい時に。発動まで2秒あるので事前に狙って使う","slot":"スピリット","tier":3,"cost":3200},"Lifestrike":{"slug":"lifestrike","note":"格闘で殴りながら回復したい時に。スロウも付くので逃がしにくい","slot":"体力","tier":3,"cost":3200},"Long Range":{"slug":"long-range","note":"遠距離から撃つ型の時に。距離があるほど銃ダメが伸びる","slot":"武器","tier":2,"cost":1600},"Melee Lifesteal":{"slug":"melee-lifesteal","note":"格闘の継戦を安く補いたい時に。殴るたび回復する序盤枠","slot":"体力","tier":1,"cost":800},"Metal Skin":{"slug":"metal-skin","note":"銃のバーストを真正面から受ける時に。発動中は銃弾無効（その間は移動が遅い）","slot":"体力","tier":3,"cost":3200},"Mystic Regeneration":{"slug":"mystic-regeneration","note":"スピリットダメを与え続ける型の継戦に。当てるほど再生が増える","slot":"スピリット","tier":1,"cost":800},"Mystic Shot":{"slug":"mystic-shot","note":"次の一発を重くしたい時に。銃弾にスピリットダメが乗り、バーストの起点になる","slot":"武器","tier":2,"cost":1600},"Mystic Slow":{"slug":"mystic-slow","note":"スピリットで当てるたび相手を鈍らせたい時に。逃げる相手への追撃にも","slot":"スピリット","tier":2,"cost":1600},"Phantom Strike":{"slug":"phantom-strike","note":"遠くの1人に一気に詰めたい時に。テレポート＋引きずり下ろし＋武装解除で捕まえる","slot":"体力","tier":4,"cost":6400},"Plated Armor":{"slug":"plated-armor","note":"終盤の銃キャリー対策に。確率で銃弾そのものか付随効果をはじく","slot":"体力","tier":4,"cost":6400},"Radiant Regeneration":{"slug":"radiant-regeneration","note":"アビリティを回しながら戦う型の継戦に。使うたび回復と加速が付く","slot":"スピリット","tier":3,"cost":3200},"Reactive Barrier":{"slug":"reactive-barrier","note":"スタン等のCCで先に捕まる場面が多い相手に。受けた瞬間に自動でバリア","slot":"体力","tier":2,"cost":1600},"Rebuttal":{"slug":"rebuttal","note":"格闘で殴ってくる相手に。パリィ成功で回復＋そのダメを反射し、殴り合いに強くなる","slot":"体力","tier":1,"cost":800},"Recharging Rush":{"slug":"recharging-rush","note":"チャージ系アビリティを早く回したい時に。大ダメを与えるほどチャージが戻る","slot":"武器","tier":2,"cost":1600},"Return Fire":{"slug":"return-fire","note":"撃たれる前提で反撃したい時に。攻撃してきた相手へ自動で撃ち返す","slot":"体力","tier":2,"cost":1600},"Rusted Barrel":{"slug":"rusted-barrel","note":"撃ち合いで負ける相手に先に買う軽い対策。発射速度と銃耐性を下げる","slot":"スピリット","tier":1,"cost":800},"Shadow Weave":{"slug":"shadow-weave","note":"裏取り・奇襲の起点に。ステルスで視界外から仕掛ける（被弾で一瞬見える）","slot":"武器","tier":3,"cost":3200},"Silencer":{"slug":"silencer","note":"アビリティ依存の相手に。銃弾を当て続けるとサイレンスを付与できる終盤の銃枠","slot":"武器","tier":4,"cost":6400},"Slowing Bullets":{"slug":"slowing-bullets","note":"銃で当てるたび相手を鈍らせたい時に。追撃と逃げ防止の両用","slot":"武器","tier":2,"cost":1600},"Slowing Hex":{"slug":"slowing-hex","note":"機動力の高い相手を捕まえたい時に。移動スロウ＋移動系アビリティ封じ","slot":"スピリット","tier":2,"cost":1600},"Spellbreaker":{"slug":"spellbreaker","note":"大きなスピリットの一発が怖い相手に。次の一撃だけ大幅に軽減する（素材は Debuff Reducer）","slot":"体力","tier":4,"cost":6400},"Spirit Burn":{"slug":"spirit-burn","note":"スピリット型の回復阻害の完成形。回復する相手を燃やして回復を大きく下げる","slot":"スピリット","tier":4,"cost":6400},"Spirit Resilience":{"slug":"spirit-resilience","note":"スピリットで溶かされる時の定番耐性。HPが減るほど硬くなる","slot":"体力","tier":3,"cost":3200},"Spirit Shielding":{"slug":"spirit-shielding","note":"スピリットの一瞬のバーストを受ける時に。受けた瞬間にバリアが張られる、つなぎの盾","slot":"体力","tier":2,"cost":1600},"Stalker":{"slug":"stalker","note":"近距離で張り付く型の時に。傷口を開くと相手が見え、銃耐性も下がる","slot":"武器","tier":2,"cost":1600},"Suppressor":{"slug":"suppressor","note":"相手の発射速度を落としたい時に。スピリットダメを与えるたび付与する","slot":"スピリット","tier":2,"cost":1600},"Surge of Power":{"slug":"surge-of-power","note":"主力アビリティを恒常強化したい時に。使うと加速も付くスピリット火力枠","slot":"スピリット","tier":3,"cost":3200},"Toxic Bullets":{"slug":"toxic-bullets","note":"回復する相手への銃側の回答。出血で最大HP割合ダメ＋回復阻害","slot":"武器","tier":3,"cost":3200},"Transcendent Cooldown":{"slug":"transcendent-cooldown","note":"アビリティとアイテムの回転を上げたい時に。全CD短縮の終盤枠","slot":"スピリット","tier":4,"cost":6400},"Unstoppable":{"slug":"unstoppable","note":"決定的なCCやウルトの前に使う最重要対策。短時間CC無効（スタン中は使えないので先読みで）","slot":"体力","tier":4,"cost":6400},"Vampiric Burst":{"slug":"vampiric-burst","note":"一気に殴り勝ちたい決戦時に。短時間だけ銃の吸血と発射速度が跳ね上がる","slot":"体力","tier":4,"cost":6400},"Veil Walker":{"slug":"veil-walker","note":"ベールを抜ける動線があるマップで。ステルス＋回復＋加速で位置を変える","slot":"体力","tier":3,"cost":3200},"Warp Stone":{"slug":"warp-stone","note":"距離を一瞬で詰める／離す時に。前方テレポート＋銃耐性で攻守両用","slot":"体力","tier":3,"cost":3200},"Weapon Shielding":{"slug":"weapon-shielding","note":"銃のバーストを受ける時に自動でバリア。ただし上位の素材にはならないので本命を直接目指す場面も","slot":"体力","tier":2,"cost":1600},"Witchmail":{"slug":"witchmail","note":"スピリットで殴られ続ける戦況で。受けるほど自分のアビリティが早く戻る終盤枠","slot":"体力","tier":4,"cost":6400}};
+        var GENRE_CLS = { "武器": "g-weapon", "体力": "g-vital", "スピリット": "g-spirit" };
+        function fmtCost(n){ return String(n).replace(/\B(?=(\d{3})+$)/g, ","); }
         // pick-screen order: alphabetical like the deadlock.wiki Heroes list ("The Doorman" under D)
         var ROSTER = [["Abrams","abrams"],["Apollo","apollo"],["Baba","baba"],["Bebop","bebop"],["Billy","billy"],["Calico","calico"],["Celeste","celeste"],["Deadman Danny","deadman-danny"],["The Doorman","the-doorman"],["Drifter","drifter"],["Dynamo","dynamo"],["Graves","graves"],["Grey Talon","grey-talon"],["Haze","haze"],["Holliday","holliday"],["Infernus","infernus"],["Ivy","ivy"],["Kelvin","kelvin"],["Lady Geist","lady-geist"],["Lash","lash"],["McGinnis","mcginnis"],["Mina","mina"],["Mirage","mirage"],["Mo & Krill","mo-and-krill"],["Nurse Harrow","nurse-harrow"],["Paige","paige"],["Paradox","paradox"],["Pocket","pocket"],["Rat King","rat-king"],["Rem","rem"],["Seven","seven"],["Shiv","shiv"],["Silver","silver"],["Sinclair","sinclair"],["Solomon","solomon"],["Venator","venator"],["Victor","victor"],["Vindicta","vindicta"],["Violet","violet"],["Viscous","viscous"],["Vyper","vyper"],["Warden","warden"],["Wraith","wraith"],["Yamato","yamato"]];
         var SLUG = {};
@@ -1108,14 +1143,15 @@
           list.sort(function(a, b){ return b.mult - a.mult || (a.name < b.name ? -1 : 1); });
           list = list.slice(0, 8);
           ctChips.innerHTML = list.map(function(it){
-            return '<span class="chip">' + it.name + '<span class="cx">×' + it.mult.toFixed(1) + '</span><span class="cvs">vs ' + it.vs + '</span></span>';
+            var d = ITEMS[it.name];
+            return '<span class="chip"><span class="chip-main">' + it.name + '<span class="cx">×' + it.mult.toFixed(1) + '</span></span>' +
+              '<span class="chip-sub"><span class="genre ' + GENRE_CLS[d.slot] + '">' + d.slot + '</span><span class="cost" title="価格（ソウル）">' + fmtCost(d.cost) + '</span><span class="cvs">vs ' + it.vs + '</span></span></span>';
           }).join("");
         }
         syncPicks();
 
         // ---- Screen 3: counter items for one enemy hero (own state, shares COUNTER/ROSTER read-only) ----
         (function(){
-          var ITEMS = {"Active Reload":{"slug":"active-reload","note":"リロードの隙を消して撃ち続けたい時に。継戦火力を保つ枠"},"Arctic Blast":{"slug":"arctic-blast","note":"集団をまとめて凍結・スロウしたい時に。近距離の集団戦で使う"},"Bullet Resilience":{"slug":"bullet-resilience","note":"銃ダメが痛い相手全般に。HPが減るほど硬くなる受けの基本枠（格闘ダメにも効く）"},"Capacitor":{"slug":"capacitor","note":"1人を強スロウ＋サイレンスで捕まえたい時に。移動アビリティ封じも兼ねる"},"Cold Front":{"slug":"cold-front","note":"周囲をまとめてスロウしたい時に。序盤の小規模戦で使う氷の波"},"Counterspell":{"slug":"counterspell","note":"大技・ウルトを1回無効化したい時に。パリィの構えに合わせて使う"},"Crippling Headshot":{"slug":"crippling-headshot","note":"回復する相手を銃で溶かしたい時に。回復阻害＋耐性低下の完成形"},"Crushing Fists":{"slug":"crushing-fists","note":"格闘で殴り合う相手に。銃耐性を剥がしながらスタンまで狙える"},"Cursed Relic":{"slug":"cursed-relic","note":"1人を確実に止めたい時に。詠唱中断・サイレンス・武装解除・アイテム封じを全部入りでかける"},"Debuff Reducer":{"slug":"debuff-reducer","note":"状態異常が長い相手に。Unstoppable／Spellbreaker の素材にもなる、まず入れる軽い対策"},"Decay":{"slug":"decay","note":"HPの高いタンクを削りたい時に。現在HP割合の継続ダメ＋回復阻害"},"Disarming Hex":{"slug":"disarming-hex","note":"銃キャリーを無力化したい時に。武装解除＋銃耐性低下で撃ち合いを止める"},"Dispel Magic":{"slug":"dispel-magic","note":"デバフをまとめて解除したい時に。ウルト以外なら全解除＋回復＋加速（火傷や毒の解除に）"},"Divine Barrier":{"slug":"divine-barrier","note":"味方か自分を守りたい時に。デバフ解除＋バリア＋加速。味方に使うとCD半分"},"Diviner's Kevlar":{"slug":"diviners-kevlar","note":"ウルトを使う起点で硬くなりたい時に。ウルト発動でバリアとスピリット火力を得る"},"Ethereal Shift":{"slug":"ethereal-shift","note":"死にそうな一瞬をやり過ごしたい時に。短時間無敵になる緊急回避"},"Express Shot":{"slug":"express-shot","note":"瞬間火力が欲しい時に。次の攻撃が2連射になるバースト枠"},"Fleetfoot":{"slug":"fleetfoot","note":"距離を詰める／離す判断が大事な相手に。移動速度で位置取りを変える"},"Guardian Ward":{"slug":"guardian-ward","note":"序盤の受けを厚くしたい時に。バリア＋移動速度を自分か味方に付与"},"Headhunter":{"slug":"headhunter","note":"ヘッドショットで確実に落としたい時に。回復と加速も付く追撃枠"},"Headshot Booster":{"slug":"headshot-booster","note":"序盤の銃火力を安く底上げしたい時に。ヘッドショットの一発を重くする"},"Healbane":{"slug":"healbane","note":"回復持ちへの最初の回答。スピリットダメで回復阻害を付与する（購入目安14分ごろ）"},"Healing Booster":{"slug":"healing-booster","note":"自分の回復量を伸ばしたい時に。回復役や回復ビルドの増幅枠"},"Healing Rite":{"slug":"healing-rite","note":"レーンの立て直しに。安全な場所で回復＋スプリント（被弾で解除される）"},"Healing Tempo":{"slug":"healing-tempo","note":"回復をかけた味方をそのまま強くしたい時に。回復に発射速度と移動速度が付く"},"Indomitable":{"slug":"indomitable","note":"捕まる前提の保険に。次のCCを自動解除＋バリア（ただし Dynamo のウルトは解除できない）"},"Infuser":{"slug":"infuser","note":"スピリット火力と吸血を一気に上げたい時に。短時間の決戦用アクティブ"},"Inhibitor":{"slug":"inhibitor","note":"終盤の汎用対策に。回復阻害＋相手の与ダメ低下を銃弾で蓄積付与"},"Kinetic Dash":{"slug":"kinetic-dash","note":"ダッシュジャンプ後に撃ち勝ちたい時に。発射速度と弾数が増える攻めの起点"},"Knockdown":{"slug":"knockdown","note":"詠唱型ウルト（Seven 等）を止めたい時に。発動まで2秒あるので事前に狙って使う"},"Lifestrike":{"slug":"lifestrike","note":"格闘で殴りながら回復したい時に。スロウも付くので逃がしにくい"},"Long Range":{"slug":"long-range","note":"遠距離から撃つ型の時に。距離があるほど銃ダメが伸びる"},"Melee Lifesteal":{"slug":"melee-lifesteal","note":"格闘の継戦を安く補いたい時に。殴るたび回復する序盤枠"},"Metal Skin":{"slug":"metal-skin","note":"銃のバーストを真正面から受ける時に。発動中は銃弾無効（その間は移動が遅い）"},"Mystic Regeneration":{"slug":"mystic-regeneration","note":"スピリットダメを与え続ける型の継戦に。当てるほど再生が増える"},"Mystic Shot":{"slug":"mystic-shot","note":"次の一発を重くしたい時に。銃弾にスピリットダメが乗り、バーストの起点になる"},"Mystic Slow":{"slug":"mystic-slow","note":"スピリットで当てるたび相手を鈍らせたい時に。逃げる相手への追撃にも"},"Phantom Strike":{"slug":"phantom-strike","note":"遠くの1人に一気に詰めたい時に。テレポート＋引きずり下ろし＋武装解除で捕まえる"},"Plated Armor":{"slug":"plated-armor","note":"終盤の銃キャリー対策に。確率で銃弾そのものか付随効果をはじく"},"Radiant Regeneration":{"slug":"radiant-regeneration","note":"アビリティを回しながら戦う型の継戦に。使うたび回復と加速が付く"},"Reactive Barrier":{"slug":"reactive-barrier","note":"スタン等のCCで先に捕まる場面が多い相手に。受けた瞬間に自動でバリア"},"Rebuttal":{"slug":"rebuttal","note":"格闘で殴ってくる相手に。パリィ成功で回復＋そのダメを反射し、殴り合いに強くなる"},"Recharging Rush":{"slug":"recharging-rush","note":"チャージ系アビリティを早く回したい時に。大ダメを与えるほどチャージが戻る"},"Return Fire":{"slug":"return-fire","note":"撃たれる前提で反撃したい時に。攻撃してきた相手へ自動で撃ち返す"},"Rusted Barrel":{"slug":"rusted-barrel","note":"撃ち合いで負ける相手に先に買う軽い対策。発射速度と銃耐性を下げる"},"Shadow Weave":{"slug":"shadow-weave","note":"裏取り・奇襲の起点に。ステルスで視界外から仕掛ける（被弾で一瞬見える）"},"Silencer":{"slug":"silencer","note":"アビリティ依存の相手に。銃弾を当て続けるとサイレンスを付与できる終盤の銃枠"},"Slowing Bullets":{"slug":"slowing-bullets","note":"銃で当てるたび相手を鈍らせたい時に。追撃と逃げ防止の両用"},"Slowing Hex":{"slug":"slowing-hex","note":"機動力の高い相手を捕まえたい時に。移動スロウ＋移動系アビリティ封じ"},"Spellbreaker":{"slug":"spellbreaker","note":"大きなスピリットの一発が怖い相手に。次の一撃だけ大幅に軽減する（素材は Debuff Reducer）"},"Spirit Burn":{"slug":"spirit-burn","note":"スピリット型の回復阻害の完成形。回復する相手を燃やして回復を大きく下げる"},"Spirit Resilience":{"slug":"spirit-resilience","note":"スピリットで溶かされる時の定番耐性。HPが減るほど硬くなる"},"Spirit Shielding":{"slug":"spirit-shielding","note":"スピリットの一瞬のバーストを受ける時に。受けた瞬間にバリアが張られる、つなぎの盾"},"Stalker":{"slug":"stalker","note":"近距離で張り付く型の時に。傷口を開くと相手が見え、銃耐性も下がる"},"Suppressor":{"slug":"suppressor","note":"相手の発射速度を落としたい時に。スピリットダメを与えるたび付与する"},"Surge of Power":{"slug":"surge-of-power","note":"主力アビリティを恒常強化したい時に。使うと加速も付くスピリット火力枠"},"Toxic Bullets":{"slug":"toxic-bullets","note":"回復する相手への銃側の回答。出血で最大HP割合ダメ＋回復阻害"},"Transcendent Cooldown":{"slug":"transcendent-cooldown","note":"アビリティとアイテムの回転を上げたい時に。全CD短縮の終盤枠"},"Unstoppable":{"slug":"unstoppable","note":"決定的なCCやウルトの前に使う最重要対策。短時間CC無効（スタン中は使えないので先読みで）"},"Vampiric Burst":{"slug":"vampiric-burst","note":"一気に殴り勝ちたい決戦時に。短時間だけ銃の吸血と発射速度が跳ね上がる"},"Veil Walker":{"slug":"veil-walker","note":"ベールを抜ける動線があるマップで。ステルス＋回復＋加速で位置を変える"},"Warp Stone":{"slug":"warp-stone","note":"距離を一瞬で詰める／離す時に。前方テレポート＋銃耐性で攻守両用"},"Weapon Shielding":{"slug":"weapon-shielding","note":"銃のバーストを受ける時に自動でバリア。ただし上位の素材にはならないので本命を直接目指す場面も"},"Witchmail":{"slug":"witchmail","note":"スピリットで殴られ続ける戦況で。受けるほど自分のアビリティが早く戻る終盤枠"}};
           var itGrid = document.getElementById("itGrid");
           var itTarget = document.getElementById("itTarget");
           var itCards = document.getElementById("itCards");
@@ -1173,11 +1209,20 @@
             COUNTER[enemy].slice(0, 4).forEach(function(pair){
               var card = el("div", "it-card card");
               card.appendChild(itemIcon(pair[0]));
-              card.appendChild(el("div", "it-name", pair[0]));
+              var d = ITEMS[pair[0]];
+              var info = el("div", "it-info");
+              info.appendChild(el("div", "it-name", pair[0]));
+              var meta = el("div", "it-meta");
+              meta.appendChild(el("span", "genre " + GENRE_CLS[d.slot], d.slot));
+              var cost = el("span", "cost", fmtCost(d.cost));
+              cost.appendChild(el("small", "", "ソウル"));
+              meta.appendChild(cost);
+              info.appendChild(meta);
+              card.appendChild(info);
               var mult = el("div", "it-mult num", pair[1].toFixed(1));
               mult.appendChild(el("small", "", "倍"));
               card.appendChild(mult);
-              card.appendChild(el("p", "it-note", ITEMS[pair[0]].note));
+              card.appendChild(el("p", "it-note", d.note));
               itCards.appendChild(card);
             });
           }
